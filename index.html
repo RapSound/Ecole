@@ -46,15 +46,17 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 ::-webkit-scrollbar-thumb:hover{background:var(--muted-2);background-clip:content-box;border:2px solid transparent}
 .app{display:flex;height:100vh;height:100dvh;width:100vw;overflow:hidden;
   background:radial-gradient(ellipse at top left,var(--bg-a),transparent 60%),radial-gradient(ellipse at bottom right,var(--bg-b),transparent 60%),var(--bg);}
-
-/* SIDEBAR */
 .sidebar{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:16px 12px 12px;gap:14px;transition:transform .28s cubic-bezier(.4,0,.2,1);z-index:101;overflow:hidden}
 .sidebar-head{display:flex;align-items:center;gap:11px;padding:4px 6px 14px;border-bottom:1px solid var(--line)}
 .sidebar-head .logo{width:42px;height:42px;flex:0 0 42px;border-radius:11px;background:linear-gradient(135deg,var(--primary),var(--primary-3));display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:0 4px 12px rgba(30,64,175,.35);position:relative;overflow:hidden}
 .sidebar-head .logo::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-100%);animation:shine 6s ease-in-out infinite}
 @keyframes shine{0%,75%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .sidebar-head .info h1{font-size:14.5px;font-weight:800;letter-spacing:-.2px}
-.sidebar-head .info p{font-size:11px;color:var(--muted);margin-top:1px}
+.sidebar-head .info p{font-size:11px;color:var(--muted);margin-top:1px;display:flex;align-items:center;gap:5px}
+.sidebar-head .info p .sync-dot{width:6px;height:6px;border-radius:50%;background:var(--muted-2);flex:0 0 6px}
+.sidebar-head .info p .sync-dot.on{background:var(--success);box-shadow:0 0 0 2px var(--success-soft)}
+.sidebar-head .info p .sync-dot.sync{background:var(--accent);animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .nav-section{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:0 8px;display:flex;justify-content:space-between;align-items:center}
 .nav-section button{font-size:15px;color:var(--primary-2);width:24px;height:24px;border-radius:6px;display:grid;place-items:center;transition:.18s}
 .nav-section button:hover{background:var(--primary-soft)}
@@ -76,10 +78,10 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .storage .bar{height:5px;background:var(--line);border-radius:5px;overflow:hidden}
 .storage .bar div{height:100%;background:linear-gradient(90deg,var(--primary-2),var(--primary-3));border-radius:5px;transition:width .4s}
 .sidebar-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.tool-btn{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;background:var(--panel-2);font-size:15px;color:var(--muted);transition:.18s}
+.tool-btn{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;background:var(--panel-2);font-size:15px;color:var(--muted);transition:.18s;position:relative}
 .tool-btn:hover{background:var(--primary-soft);color:var(--primary-2)}
-
-/* MAIN */
+.tool-btn.on{color:var(--success);background:var(--success-soft)}
+.tool-btn .badge-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--panel)}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .topbar{height:var(--topbar-h);flex:0 0 var(--topbar-h);display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line);z-index:20}
 .menu-btn{display:none;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;font-size:18px;color:var(--text-2);flex:0 0 40px;transition:.15s}
@@ -89,8 +91,10 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .search input:focus{border-color:var(--primary-2);background:var(--panel);box-shadow:0 0 0 3px var(--primary-soft)}
 .search .mag{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.5;pointer-events:none}
 .spacer{flex:1;min-width:0}
-.icon-btn{width:40px;height:40px;flex:0 0 40px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-2);transition:.15s}
+.icon-btn{width:40px;height:40px;flex:0 0 40px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-2);transition:.15s;position:relative}
 .icon-btn:hover{background:var(--panel-2)}
+.icon-btn.on{background:var(--primary-soft);color:var(--primary-2)}
+.icon-btn .badge-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--panel)}
 .btn{height:40px;padding:0 16px;border-radius:11px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;transition:.18s;white-space:nowrap;border:1px solid transparent}
 .btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.28)}
 .btn-primary:hover{background:var(--primary-2)}
@@ -98,9 +102,12 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .btn-accent:hover{background:var(--accent-2)}
 .btn-ghost{background:var(--panel-2);color:var(--text-2)}
 .btn-ghost:hover{background:var(--line)}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{filter:brightness(1.1)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{filter:brightness(1.1)}
 .btn:active{transform:translateY(1px)}
-
-/* CONTENT */
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .content{flex:1;overflow-y:auto;overflow-x:hidden;padding:22px 22px 60px;overscroll-behavior:contain}
 .breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
 .breadcrumb button{padding:3px 8px;border-radius:7px;font-weight:600;transition:.15s;color:var(--primary-2)}
@@ -121,7 +128,6 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .dropzone .txt{text-align:left}
 .dropzone .t1{font-size:13.5px;font-weight:700;margin-bottom:2px}
 .dropzone .t2{font-size:12px;color:var(--muted)}
-
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;animation:pop .26s cubic-bezier(.2,.9,.3,1.2) backwards}
 @keyframes pop{from{opacity:0;transform:scale(.95) translateY(6px)}}
@@ -133,6 +139,7 @@ html.dark .card .thumb{background:linear-gradient(135deg,var(--panel-2),rgba(255
 .card.folder .thumb{background:linear-gradient(135deg,var(--accent-soft),var(--accent-2))}
 .card .thumb img{width:100%;height:100%;object-fit:cover}
 .card .thumb .badge{position:absolute;bottom:6px;right:6px;font-size:9px;font-weight:800;letter-spacing:.5px;background:rgba(15,23,42,.85);color:#fff;padding:2px 7px;border-radius:5px;text-transform:uppercase}
+.card .sync-badge{position:absolute;top:6px;left:6px;font-size:10px;background:var(--panel);padding:2px 6px;border-radius:6px;box-shadow:var(--shadow);border:1px solid var(--line)}
 .card .nm{font-size:13px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word;color:var(--text)}
 .card .meta{font-size:10.5px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:auto}
 .card .meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.4}
@@ -148,12 +155,8 @@ html.dark .card .thumb{background:linear-gradient(135deg,var(--panel-2),rgba(255
 .empty .em{font-size:52px;display:block;margin-bottom:14px;opacity:.55}
 .empty .t1{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
 .empty .t2{font-size:13px;max-width:340px}
-
-/* Backdrop */
 .backdrop{position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:100}
 body.drawer-open .backdrop{opacity:1;pointer-events:auto}
-
-/* AI PANEL */
 .ai-panel{width:var(--ai-w);flex:0 0 var(--ai-w);background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;z-index:102;transition:width .3s,flex-basis .3s,border .3s;border-left-color:transparent}
 .ai-panel.open{width:var(--ai-w);flex:0 0 var(--ai-w);border-left-color:var(--line)}
 .ai-head{height:var(--topbar-h);flex:0 0 var(--topbar-h);padding:0 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
@@ -167,7 +170,6 @@ body.drawer-open .backdrop{opacity:1;pointer-events:auto}
 .orch-btn{height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);font-size:11px;font-weight:700;color:var(--muted);display:inline-flex;align-items:center;gap:5px;transition:.18s;flex-shrink:0}
 .orch-btn:hover{background:var(--primary-soft);color:var(--primary-2)}
 .orch-btn.on{background:var(--primary-soft);color:var(--primary-2);border-color:var(--primary-2)}
-
 .chat{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}
 .msg{display:flex;gap:9px;max-width:100%;animation:pop .25s backwards}
 .msg.me{flex-direction:row-reverse}
@@ -178,7 +180,6 @@ body.drawer-open .backdrop{opacity:1;pointer-events:auto}
 .msg.ai .bub{background:var(--panel-2);border-top-left-radius:3px;color:var(--text)}
 .msg.me .bub{background:var(--primary);color:#fff;border-top-right-radius:3px}
 .msg .msg-img{max-width:180px;border-radius:8px;margin:4px 4px 4px 0;display:block;border:1px solid var(--line)}
-
 .plan-details{margin-bottom:8px}
 .plan-summary{font-size:10px;font-weight:800;color:var(--primary-2);text-transform:uppercase;letter-spacing:.8px;cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:6px}
 .plan-summary::-webkit-details-marker{display:none}
@@ -189,7 +190,6 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .pipeline-step.done{border-color:rgba(5,150,105,.4);color:var(--success);background:var(--success-soft)}
 .pipeline-step.error{border-color:rgba(220,38,38,.4);color:var(--danger);background:var(--danger-soft)}
 .pipeline-step .step-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
 .typing{display:flex;gap:4px;padding:4px 2px}
 .typing span{width:6px;height:6px;border-radius:50%;background:var(--muted-2);animation:bounce 1.3s infinite}
 .typing span:nth-child(2){animation-delay:.18s}
@@ -197,8 +197,6 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
 @keyframes blink{50%{opacity:0}}
 .cursor-blink{display:inline-block;width:7px;height:14px;background:var(--primary-2);border-radius:2px;vertical-align:text-bottom;animation:blink .9s infinite;margin-left:2px}
-
-/* Markdown */
 .msg-md{font-size:13px}
 .msg-md p{margin:0 0 10px}
 .msg-md p:last-child{margin:0}
@@ -207,8 +205,7 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .msg-md h1{font-size:1.15rem;font-weight:800;margin:14px 0 8px}
 .msg-md h2{font-size:1.05rem;font-weight:800;margin:13px 0 7px}
 .msg-md h3{font-size:.95rem;font-weight:700;margin:11px 0 6px}
-.msg-md h4{font-size:.9rem;font-weight:700;margin:10px 0 5px}
-.msg-md a{color:var(--primary-2);text-decoration:underline;text-underline-offset:3px;word-break:break-all}
+.msg-md a{color:var(--primary-2);text-decoration:underline;word-break:break-all}
 .msg-md blockquote{border-left:3px solid var(--primary-2);padding:4px 0 4px 12px;margin:9px 0;color:var(--text-2);font-style:italic;background:var(--primary-soft);border-radius:0 6px 6px 0}
 .msg-md strong{font-weight:700}
 .msg-md em{font-style:italic}
@@ -218,7 +215,6 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .msg-md th{background:var(--primary-soft);font-weight:700}
 .msg-md :not(pre) > code{background:var(--primary-soft);padding:2px 6px;border-radius:5px;color:var(--primary);font-size:12px;font-family:'Consolas','Monaco',monospace;font-weight:600}
 .msg.me .bub :not(pre) > code{background:rgba(255,255,255,.22);color:#fff}
-
 .code-block{margin:10px 0;border-radius:9px;border:1px solid #1e293b;background:#0f172a;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.2)}
 .code-header{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(15,23,42,.95);border-bottom:1px solid #1e293b;font-size:10.5px;gap:8px;flex-wrap:wrap}
 .code-lang{display:inline-flex;align-items:center;gap:5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#67e8f9}
@@ -231,18 +227,15 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .code-actions button.save:hover{color:#a5f3fc;background:rgba(34,211,238,.15)}
 .code-block pre{margin:0;padding:12px 14px;overflow-x:auto;background:transparent!important}
 .code-block pre code{background:transparent!important;padding:0!important;font-size:12px;line-height:1.6;font-family:'Consolas','Monaco',monospace}
-
 .msg-actions{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
 .msg-actions button{padding:4px 9px;border-radius:6px;font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);transition:.15s;display:inline-flex;align-items:center;gap:4px}
 .msg-actions button:hover{background:var(--primary-soft);color:var(--primary-2);border-color:var(--primary-2)}
 .msg-actions button.save-all{background:var(--success-soft);color:var(--success);border-color:transparent}
 .msg-actions button.save-all:hover{background:var(--success);color:#fff}
-
 .ai-suggest{padding:0 14px 10px;display:flex;gap:6px;flex-wrap:wrap;overflow-x:auto;scrollbar-width:none}
 .ai-suggest::-webkit-scrollbar{display:none}
 .chip{font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:20px;background:var(--panel-2);color:var(--muted);transition:.15s;border:1px solid transparent;white-space:nowrap}
 .chip:hover{background:var(--primary-soft);color:var(--primary-2);border-color:var(--primary-2)}
-
 .ai-input{padding:10px 14px 14px;border-top:1px solid var(--line)}
 .ai-tools{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
 .tool-toggle{font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;background:var(--panel-2);color:var(--muted);display:flex;align-items:center;gap:5px;transition:.15s;border:1px solid transparent}
@@ -255,18 +248,17 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .ai-input .send:hover{background:var(--primary-2)}
 .ai-input .send:disabled{opacity:.4}
 .attach-preview{margin-bottom:8px;display:flex;flex-wrap:wrap;gap:6px}
-.attach-chip{display:flex;align-items:center;gap:6px;background:var(--primary-soft);color:var(--primary-2);padding:4px 8px;border-radius:8px;font-size:11px;font-weight:600;max-width:100%;position:relative}
+.attach-chip{display:flex;align-items:center;gap:6px;background:var(--primary-soft);color:var(--primary-2);padding:4px 8px;border-radius:8px;font-size:11px;font-weight:600;max-width:100%}
 .attach-chip .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px}
 .attach-chip .img-th{width:26px;height:26px;border-radius:5px;object-fit:cover;flex-shrink:0}
 .attach-chip button{color:var(--primary);opacity:.7;padding:0 2px}
 .attach-chip button:hover{opacity:1}
-
-/* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;padding:16px;overscroll-behavior:contain}
 .overlay.show{display:flex}
 .modal{background:var(--panel);border-radius:18px;width:100%;max-width:520px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:rise .26s cubic-bezier(.2,.9,.3,1.1)}
 @keyframes rise{from{opacity:0;transform:translateY(20px) scale(.97)}}
 .modal.wide{max-width:min(1100px,96vw);height:min(88vh,800px)}
+.modal.lg{max-width:640px}
 .modal-head{padding:16px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);flex:0 0 auto}
 .modal-head h2{font-size:15px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .modal-head .x{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:15px;color:var(--muted);transition:.15s;flex:0 0 auto}
@@ -295,14 +287,34 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .viewer-body pre{width:100%;height:100%;margin:0;padding:20px;overflow:auto;background:#0f172a;color:#e2e8f0;font-size:13px;line-height:1.6;font-family:'Consolas','Monaco',monospace;white-space:pre-wrap;word-break:break-word}
 .viewer-body .fallback{text-align:center;padding:40px;color:var(--muted)}
 .viewer-body .fallback .em{font-size:52px;display:block;margin-bottom:12px}
-.fb-status{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:11px;background:var(--panel-2);margin-bottom:14px;font-size:12.5px;color:var(--muted)}
-.fb-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted-2);flex:0 0 8px}
-.fb-status.on .dot{background:var(--success);box-shadow:0 0 0 3px var(--success-soft)}
+
+/* FIREBASE UI */
+.fb-status{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--panel-2);margin-bottom:14px;font-size:12.5px;color:var(--muted)}
+.fb-status .dot{width:10px;height:10px;border-radius:50%;background:var(--muted-2);flex:0 0 10px;transition:.2s}
+.fb-status.on .dot{background:var(--success);box-shadow:0 0 0 4px var(--success-soft)}
+.fb-status.syncing .dot{background:var(--accent);animation:pulse 1s infinite}
+.fb-status.err .dot{background:var(--danger);box-shadow:0 0 0 4px var(--danger-soft)}
 .fb-status.on{color:var(--success);background:var(--success-soft)}
+.fb-status.syncing{color:var(--accent);background:var(--accent-soft)}
+.fb-status.err{color:var(--danger);background:var(--danger-soft)}
+.fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.fb-step{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px;font-size:12px;line-height:1.7}
+.fb-step .num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:800;margin-right:6px}
+.fb-step strong{color:var(--text);display:inline}
+.fb-step code{background:rgba(30,64,175,.1);padding:1px 6px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11px;color:var(--primary);font-weight:700}
+.fb-progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
+.fb-progress div{height:100%;background:linear-gradient(90deg,var(--primary-2),var(--accent-2));border-radius:6px;transition:width .3s;width:0}
+.fb-progress-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.fb-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:var(--panel-2);border-radius:10px;margin-bottom:10px;border:1px solid var(--line)}
+.fb-toggle-row .lbl{font-size:12.5px;font-weight:600;color:var(--text-2)}
+.fb-toggle-row .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.switch{position:relative;width:42px;height:24px;border-radius:12px;background:var(--line-2);cursor:pointer;transition:.2s;flex-shrink:0}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
+.switch.on{background:var(--primary-2)}
+.switch.on::after{left:21px}
 .info-box{font-size:12px;color:var(--muted);line-height:1.7;background:var(--panel-2);padding:12px 14px;border-radius:11px;border:1px solid var(--line)}
 .info-box strong{color:var(--text-2)}
 .info-box code{background:rgba(30,64,175,.1);padding:1px 5px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11.5px}
-
 .toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:400;align-items:center;pointer-events:none;padding:0 16px;max-width:100%}
 .toast{background:var(--panel);color:var(--text);padding:11px 16px;border-radius:11px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:toastIn .25s cubic-bezier(.2,.9,.3,1.2);display:flex;align-items:center;gap:9px;max-width:100%}
 .toast.ok{background:var(--success);color:#fff;border-color:transparent}
@@ -314,7 +326,6 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .spinner{width:44px;height:44px;border-radius:50%;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;animation:spin .85s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner.small{width:22px;height:22px;border-width:3px;border-color:var(--line);border-top-color:var(--primary-2)}
-
 @media (max-width:1024px){
   .sidebar{position:fixed;top:0;left:0;bottom:0;width:280px;flex:none;transform:translateX(-100%);border-radius:0}
   .sidebar.open{transform:translateX(0);box-shadow:0 20px 60px rgba(15,23,42,.3)}
@@ -347,6 +358,7 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
   .modal-foot{padding:12px 14px;justify-content:stretch}
   .modal-foot .btn{flex:1}
   .ai-panel{width:100%}
+  .fb-grid{grid-template-columns:1fr}
 }
 @media (max-width:400px){.grid{grid-template-columns:repeat(2,1fr);gap:9px}.content{padding:14px 11px 40px}}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--primary-2);outline-offset:2px}
@@ -358,7 +370,10 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-head">
       <div class="logo">KS</div>
-      <div class="info"><h1>Keryan Drive</h1><p>Espace de travail</p></div>
+      <div class="info">
+        <h1>Keryan Drive</h1>
+        <p><span class="sync-dot" id="syncDot"></span><span id="syncLabel">Local uniquement</span></p>
+      </div>
     </div>
     <div class="nav-section"><span>Matières</span><button id="addSubjectBtn" title="Nouvelle matière">＋</button></div>
     <nav class="subjects" id="subjectsNav"></nav>
@@ -371,7 +386,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <button class="tool-btn" id="themeBtn" title="Thème">🌙</button>
         <button class="tool-btn" id="importZipBtn" title="Importer ZIP">📦</button>
         <button class="tool-btn" id="exportZipBtn" title="Exporter ZIP">💾</button>
-        <button class="tool-btn" id="firebaseBtn" title="Firebase">☁️</button>
+        <button class="tool-btn" id="firebaseBtn" title="Cloud (Firebase)">☁️</button>
       </div>
     </div>
   </aside>
@@ -384,7 +399,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <button class="icon-btn hide-phone" id="themeBtn2" title="Thème">🌙</button>
       <button class="icon-btn hide-phone" id="importZipBtn2" title="Importer ZIP">📦</button>
       <button class="icon-btn hide-phone" id="exportZipBtn2" title="Exporter ZIP">💾</button>
-      <button class="icon-btn hide-phone" id="firebaseBtn2" title="Firebase">☁️</button>
+      <button class="icon-btn hide-phone" id="firebaseBtn2" title="Cloud (Firebase)">☁️</button>
       <button class="btn btn-primary" id="aiToggle"><span>🤖</span><span class="lbl">Assistant</span></button>
       <button class="btn btn-accent" id="uploadBtn"><span>＋</span><span class="lbl">Déposer</span></button>
     </header>
@@ -427,10 +442,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <aside class="ai-panel" id="aiPanel">
     <div class="ai-head">
       <div class="av">🤖</div>
-      <div class="tt">
-        <h3>Assistant</h3>
-        <p><span class="dot"></span><span id="aiStatus">Prêt</span></p>
-      </div>
+      <div class="tt"><h3>Assistant</h3><p><span class="dot"></span><span id="aiStatus">Prêt</span></p></div>
       <button class="orch-btn" id="orchBtn" title="Orchestrateur">🧠 Auto</button>
       <select class="model-sel" id="modelSel"></select>
       <button class="icon-btn" id="aiClose" style="width:32px;height:32px;flex:0 0 32px;font-size:14px">✕</button>
@@ -463,10 +475,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <div class="field"><label>Icône</label><div class="picker" id="iconPicker"></div></div>
       <div class="field"><label>Couleur</label><div class="picker colors" id="colorPicker"></div></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" data-close>Annuler</button>
-      <button class="btn btn-primary" id="subjCreate">Créer</button>
-    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" data-close>Annuler</button><button class="btn btn-primary" id="subjCreate">Créer</button></div>
   </div>
 </div>
 
@@ -474,13 +483,10 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <div class="modal">
     <div class="modal-head"><h2>Nouveau dossier</h2><button class="x" data-close>✕</button></div>
     <div class="modal-body">
-      <div class="field"><label>Nom du dossier</label><input type="text" id="folderName" placeholder="Chapitre 1, DM, Exercices…" maxlength="50"></div>
+      <div class="field"><label>Nom</label><input type="text" id="folderName" placeholder="Chapitre 1…" maxlength="50"></div>
       <div class="field"><label>Icône</label><div class="picker" id="folderIconPicker"></div></div>
     </div>
-    <div class="modal-foot">
-      <button class="btn btn-ghost" data-close>Annuler</button>
-      <button class="btn btn-primary" id="folderCreate">Créer</button>
-    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" data-close>Annuler</button><button class="btn btn-primary" id="folderCreate">Créer</button></div>
   </div>
 </div>
 
@@ -514,35 +520,112 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <div class="field"><label>Tâches max (<span id="tasksVal">4</span>)</label><input type="range" id="setMaxTasks" min="1" max="6" step="1" value="4"></div>
       <div class="field"><label>Température (<span id="tempVal">0.7</span>)</label><input type="range" id="setTemp" min="0" max="1.5" step="0.1" value="0.7"></div>
       <div class="field"><label>Prompt système</label><textarea id="setSystem" rows="6"></textarea></div>
-      <div class="info-box">
-        <strong>Pollinations.ai</strong> — modèles gratuits, sans clé. L'orchestrateur découpe les demandes complexes en sous-tâches parallèles puis synthétise. La <b>vision</b> fonctionne avec les modèles GPT-4o / Gemini quand vous joignez une image.
+    </div>
+    <div class="modal-foot"><button class="btn btn-ghost" data-close>Fermer</button><button class="btn btn-primary" id="aiSetSave">Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- ========== MODAL FIREBASE (refait) ========== -->
+<div class="overlay" id="fbOverlay">
+  <div class="modal lg">
+    <div class="modal-head">
+      <h2>☁️ Synchronisation Firebase</h2>
+      <button class="x" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fb-status" id="fbStatus">
+        <span class="dot"></span>
+        <span id="fbStatusTxt">Non connecté — vos données restent locales</span>
+      </div>
+
+      <div id="fbProgressWrap" hidden>
+        <div class="fb-progress-label"><span id="fbProgressLbl">Préparation…</span><span id="fbProgressPct">0%</span></div>
+        <div class="fb-progress"><div id="fbProgressBar"></div></div>
+      </div>
+
+      <!-- Connecté : panneau de contrôle -->
+      <div id="fbConnectedPanel" hidden>
+        <div class="fb-toggle-row">
+          <div>
+            <div class="lbl">Synchronisation automatique</div>
+            <div class="sub">Envoie les changements au cloud en arrière-plan</div>
+          </div>
+          <div class="switch" id="fbAutoSync"></div>
+        </div>
+
+        <div class="fb-toggle-row">
+          <div>
+            <div class="lbl">Écoute temps réel</div>
+            <div class="sub">Reçoit les modifications des autres appareils en direct</div>
+          </div>
+          <div class="switch on" id="fbRealtime"></div>
+        </div>
+
+        <div class="info-box" style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+            <span><strong>Sync :</strong> <code id="fbSyncIdDisplay">—</code></span>
+            <span><strong>Dernière :</strong> <span id="fbLastSync">jamais</span></span>
+          </div>
+          <div style="margin-top:6px"><strong>Projet :</strong> <span id="fbProjectDisplay">—</span></div>
+        </div>
+
+        <div class="fb-grid">
+          <button class="btn btn-success" id="fbPush" style="justify-content:center">⬆ Envoyer</button>
+          <button class="btn btn-primary" id="fbPull" style="justify-content:center">⬇ Recevoir</button>
+          <button class="btn btn-ghost" id="fbMerge" style="justify-content:center;grid-column:1/-1">🔀 Fusion intelligente</button>
+          <button class="btn btn-danger" id="fbDisconnect" style="justify-content:center;grid-column:1/-1">🚪 Déconnecter</button>
+        </div>
+      </div>
+
+      <!-- Non connecté : assistant de configuration -->
+      <div id="fbSetupPanel">
+        <div class="fb-step">
+          <span class="num">1</span>
+          <strong>Créez un projet Firebase</strong> sur
+          <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:var(--primary-2);font-weight:700">console.firebase.google.com</a>
+        </div>
+
+        <div class="fb-step">
+          <span class="num">2</span>
+          <strong>Activez Firestore</strong> et <strong>Storage</strong> dans le menu de gauche.<br>
+          <span style="color:var(--muted);font-size:11.5px">Storage permet d'envoyer des fichiers volumineux (sans la limite 1 Mo de Firestore).</span>
+        </div>
+
+        <div class="fb-step">
+          <span class="num">3</span>
+          <strong>Règles de test</strong> (à affiner plus tard) :<br>
+          <code>allow read, write: if true;</code> — à coller dans Firestore → Règles <b>et</b> Storage → Règles.
+        </div>
+
+        <div class="fb-step">
+          <span class="num">4</span>
+          <strong>Ajoutez une app Web</strong> (icône <code>&lt;/&gt;</code>) dans les paramètres du projet, puis copiez le bloc <code>firebaseConfig</code> ci-dessous.
+        </div>
+
+        <div class="field">
+          <label>Configuration Firebase (collez le bloc JS)</label>
+          <textarea id="fbConfig" rows="7" placeholder='const firebaseConfig = {
+  apiKey: "AIzaSy…",
+  authDomain: "mon-projet.firebaseapp.com",
+  projectId: "mon-projet",
+  storageBucket: "mon-projet.appspot.com",
+  messagingSenderId: "1234567890",
+  appId: "1:1234:web:abcd"
+};'></textarea>
+        </div>
+
+        <div class="field">
+          <label>Code de synchronisation (inventez un code perso)</label>
+          <input type="text" id="fbSyncId" placeholder="keryan-2026" maxlength="40">
+          <div style="font-size:11px;color:var(--muted);margin-top:5px">Même code = mêmes données sur tous vos appareils. Choisissez quelque chose d'unique.</div>
+        </div>
+
+        <button class="btn btn-primary" id="fbConnect" style="width:100%;justify-content:center;height:46px;font-size:14px">🔌 Se connecter au cloud</button>
       </div>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" data-close>Fermer</button>
-      <button class="btn btn-primary" id="aiSetSave">Enregistrer</button>
     </div>
-  </div>
-</div>
-
-<div class="overlay" id="fbOverlay">
-  <div class="modal">
-    <div class="modal-head"><h2>Firebase</h2><button class="x" data-close>✕</button></div>
-    <div class="modal-body">
-      <div class="fb-status" id="fbStatus"><span class="dot"></span><span id="fbStatusTxt">Non connecté</span></div>
-      <div class="field"><label>Configuration</label><textarea id="fbConfig" rows="7" placeholder='{"apiKey":"…"}'></textarea></div>
-      <div class="field"><label>Code de sync</label><input type="text" id="fbSyncId" placeholder="keryan-perso"></div>
-      <div class="info-box" style="margin-bottom:14px">
-        <strong>Confidentialité :</strong> Créez un projet sur console.firebase.google.com, activez Firestore. Même code de sync = mêmes données sur tous vos appareils.
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <button class="btn btn-primary" id="fbConnect" style="justify-content:center">🔌 Connecter</button>
-        <button class="btn btn-ghost" id="fbPush" disabled style="justify-content:center">⬆ Envoyer</button>
-        <button class="btn btn-ghost" id="fbPull" disabled style="justify-content:center">⬇ Recevoir</button>
-        <button class="btn btn-ghost" id="fbDisconnect" disabled style="justify-content:center">🚪 Déco</button>
-      </div>
-    </div>
-    <div class="modal-foot"><button class="btn btn-ghost" data-close>Fermer</button></div>
   </div>
 </div>
 
@@ -554,6 +637,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 
 <script>
 'use strict';
+/* ============================================================
+   KERYAN DRIVE — v6 (Firebase robuste)
+   ============================================================ */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
@@ -572,6 +658,14 @@ function fmtDate(ts){
   if(d < 86400000) return Math.floor(d/3600000) + ' h';
   if(d < 604800000) return Math.floor(d/86400000) + ' j';
   return new Date(ts).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'});
+}
+function fmtTime(ts){
+  if(!ts) return 'jamais';
+  const d = new Date(ts);
+  const diff = Date.now() - ts;
+  if(diff < 60000) return "à l'instant";
+  if(diff < 3600000) return `il y a ${Math.floor(diff/60000)} min`;
+  return d.toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
 }
 function ext(n){ const i = n.lastIndexOf('.'); return i >= 0 ? n.slice(i+1).toLowerCase() : ''; }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -596,7 +690,6 @@ function badgeFor(name, type){
   if(type) return (type.split('/')[1]||'FILE').toUpperCase().slice(0,5);
   return 'FILE';
 }
-
 function toast(msg, kind=''){
   const el = document.createElement('div');
   el.className = 'toast ' + kind;
@@ -605,12 +698,12 @@ function toast(msg, kind=''){
   setTimeout(() => {
     el.style.transition = '.3s'; el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
     setTimeout(() => el.remove(), 300);
-  }, 2600);
+  }, 3000);
 }
 function busy(on){ $('#busy').classList.toggle('show', on); }
 
 /* ========== DB ========== */
-const DB_NAME = 'KeryanDriveV5', DB_VER = 1;
+const DB_NAME = 'KeryanDriveV6', DB_VER = 1;
 let db = null;
 function openDB(){
   return new Promise((res, rej) => {
@@ -656,22 +749,20 @@ const state = {
 RÈGLES DE RÉPONSE :
 1. Réponds en français, de façon claire, structurée et pédagogique.
 2. Utilise du markdown (titres, listes, tableaux, code).
-3. Sois concis mais complet — pas de blabla inutile.
+3. Sois concis mais complet.
 
 GÉNÉRATION DE FICHIERS (comme Claude Artifacts) :
-- Quand tu produis du code, un document ou tout fichier, place-le dans un bloc de code avec le langage précis.
-- Commence chaque bloc par un commentaire indiquant le nom : \`# filename: mon_fichier.py\` (ou \`// filename:\` en JS/C, \`<!-- filename:\` en HTML…).
-- Chaque fichier dans son propre bloc.
-- Le code doit être complet, autonome et fonctionnel.
+- Quand tu produis du code, place-le dans un bloc avec le langage précis.
+- Commence chaque bloc par un commentaire indiquant le nom : \`# filename: mon_fichier.py\` (ou \`// filename:\`, \`<!-- filename:\`…).
+- Chaque fichier dans son propre bloc. Code complet et autonome.
 
 ANALYSE DE FICHIERS / IMAGES :
-- Si l'utilisateur joint une image, décris-la en détail et réponds à sa question.
-- Si des extraits de cours sont fournis, cite-les précisément et base ta réponse dessus.
+- Si une image est jointe, décris-la en détail puis réponds.
+- Si des extraits de cours sont fournis, base ta réponse dessus.
 
 EXPLICATIONS :
-- Pour une notion : définition → exemple simple → exemple plus complexe → piège classique.
-- Pour un exercice : méthode → application → résultat.
-- Pour du code : explique ce que fait le code, puis montre-le.`,
+- Notion : définition → exemple simple → exemple complexe → piège classique.
+- Exercice : méthode → application → résultat.`,
   attachments:[]
 };
 
@@ -704,39 +795,24 @@ async function loadAll(){
 }
 
 /* ========== NAV ========== */
-function getCurrentSubject(){
-  if(state.current === 'all' || state.current === 'fav') return null;
-  return state.subjects.find(s => s.id === state.current);
-}
-function getCurrentFolder(){
-  if(!state.currentFolder) return null;
-  return state.folders.find(f => f.id === state.currentFolder);
-}
+function getCurrentSubject(){ return state.current === 'all' || state.current === 'fav' ? null : state.subjects.find(s => s.id === state.current); }
+function getCurrentFolder(){ return state.currentFolder ? state.folders.find(f => f.id === state.currentFolder) : null; }
 function getVisibleItems(){
-  if(state.current === 'all'){
-    return { folders:[], files: state.files };
-  }
-  if(state.current === 'fav'){
-    return { folders:[], files: state.files.filter(f => f.fav) };
-  }
+  if(state.current === 'all') return { folders:[], files: state.files };
+  if(state.current === 'fav') return { folders:[], files: state.files.filter(f => f.fav) };
   const folderId = state.currentFolder || null;
   const folders = state.folders.filter(f => f.subjectId === state.current && (f.parentId||null) === folderId);
   let files = state.files.filter(f => f.subjectId === state.current && (f.folderId||null) === folderId);
-  // Si on est dans une matière (pas dans un dossier), on inclut aussi les fichiers sans dossier explicite
-  if(!folderId) files = state.files.filter(f => f.subjectId === state.current && !f.folderId);
   return { folders, files };
 }
 function countFilesInFolder(folderId){
   const direct = state.files.filter(f => f.folderId === folderId).length;
-  const subFolders = state.folders.filter(f => f.parentId === folderId);
+  const subs = state.folders.filter(f => f.parentId === folderId);
   let total = direct;
-  subFolders.forEach(sf => total += countFilesInFolder(sf.id));
+  subs.forEach(sf => total += countFilesInFolder(sf.id));
   return total;
 }
-function countFilesInSubject(subjectId){
-  const direct = state.files.filter(f => f.subjectId === subjectId).length;
-  return direct;
-}
+function countFilesInSubject(sid){ return state.files.filter(f => f.subjectId === sid).length; }
 
 /* ========== RENDER SIDEBAR ========== */
 function renderSubjects(){
@@ -765,6 +841,7 @@ function renderSubjects(){
         await DB.del('subjects', id);
         if(state.current === id){ state.current = 'all'; state.currentFolder = null; }
         await loadAll(); renderAll(); updateStorage();
+        FB.onLocalChange('delete-subject', id);
         toast('Matière supprimée', 'ok');
       });
     }
@@ -775,31 +852,26 @@ function renderSubjects(){
   const sep = document.createElement('div');
   sep.style.cssText = 'height:1px;background:var(--line);margin:6px 10px';
   nav.appendChild(sep);
-  state.subjects.forEach(s => {
-    mk(s.id, s.icon, s.name, countFilesInSubject(s.id), s.color, true);
-  });
+  state.subjects.forEach(s => mk(s.id, s.icon, s.name, countFilesInSubject(s.id), s.color, true));
 }
 
-/* ========== RENDER BREADCRUMB ========== */
 function renderBreadcrumb(){
   const bc = $('#breadcrumb'); bc.innerHTML = '';
   const add = (label, onclick, isCurrent) => {
     const b = document.createElement('button');
     b.textContent = label;
     if(isCurrent){ b.className = 'cur'; b.disabled = true; }
-    else b.addEventListener('click', onclick);
+    else b.onclick = onclick;
     bc.appendChild(b);
   };
   const sep = () => { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; bc.appendChild(s); };
 
   add('🏠 Racine', () => { state.current = 'all'; state.currentFolder = null; renderAll(); }, state.current === 'all' && !state.currentFolder);
-  if(state.current === 'fav'){
-    sep(); add('⭐ Favoris', null, true);
-  } else if(state.current !== 'all'){
+  if(state.current === 'fav'){ sep(); add('⭐ Favoris', null, true); }
+  else if(state.current !== 'all'){
     const subj = getCurrentSubject();
     if(subj){
       sep(); add(`${subj.icon} ${subj.name}`, () => { state.currentFolder = null; renderAll(); }, !state.currentFolder);
-      // Chemin de dossiers
       if(state.currentFolder){
         const chain = [];
         let f = getCurrentFolder();
@@ -814,21 +886,15 @@ function renderBreadcrumb(){
   }
 }
 
-/* ========== RENDER FILES ========== */
 function renderFiles(){
   const grid = $('#fileGrid'), empty = $('#emptyState');
   const { folders, files: rawFiles } = getVisibleItems();
-
-  // Filtre recherche
   const q = state.search.trim().toLowerCase();
-  let files = rawFiles;
-  let foldersFiltered = folders;
+  let files = rawFiles, foldersFiltered = folders;
   if(q){
     files = files.filter(f => f.name.toLowerCase().includes(q));
     foldersFiltered = folders.filter(f => f.name.toLowerCase().includes(q));
   }
-
-  // Tri
   const s = state.sort;
   const sorter = (a,b) => {
     if(s === 'name') return a.name.localeCompare(b.name);
@@ -837,11 +903,9 @@ function renderFiles(){
   };
   files = [...files].sort(sorter);
   foldersFiltered = [...foldersFiltered].sort((a,b) => a.name.localeCompare(b.name));
-
   const total = foldersFiltered.length + files.length;
   $('#crumbCount').textContent = total + ' élément' + (total!==1?'s':'');
 
-  // Titre
   let title = '📚 Tous mes fichiers';
   const folder = getCurrentFolder();
   if(state.current === 'fav') title = '⭐ Favoris';
@@ -852,7 +916,6 @@ function renderFiles(){
   }
   $('#crumbTitle').innerHTML = title;
 
-  // Bouton dossier (visible dans une matière)
   const canCreateFolder = state.current !== 'all' && state.current !== 'fav';
   $('#newFolderBtn').hidden = !canCreateFolder;
 
@@ -866,7 +929,6 @@ function renderFiles(){
   grid.style.display = 'grid'; empty.style.display = 'none';
   grid.innerHTML = '';
 
-  // Dossiers d'abord
   foldersFiltered.forEach((f, i) => {
     const card = document.createElement('div');
     card.className = 'card folder';
@@ -886,16 +948,16 @@ function renderFiles(){
     });
     card.querySelector('.rm').addEventListener('click', async e => {
       e.stopPropagation();
-      if(!confirm(`Supprimer le dossier « ${f.name} » et tout son contenu ?`)) return;
+      if(!confirm(`Supprimer « ${f.name} » et tout son contenu ?`)) return;
       await deleteFolderRecursive(f.id);
       await loadAll(); renderAll(); updateStorage();
+      FB.onLocalChange('delete-folder', f.id);
       toast('Dossier supprimé', 'ok');
     });
     card.querySelector('.mv').addEventListener('click', e => { e.stopPropagation(); openMoveFolder(f.id); });
     grid.appendChild(card);
   });
 
-  // Fichiers
   files.forEach((f, i) => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -929,6 +991,7 @@ function renderFiles(){
       e.stopPropagation();
       const nf = await DB.get('files', f.id); nf.fav = !nf.fav;
       await DB.put('files', nf); await loadAll(); renderAll();
+      FB.onLocalChange('update-file', nf);
     });
     card.querySelector('.dl').addEventListener('click', e => { e.stopPropagation(); downloadFile(f.id); });
     card.querySelector('.sh').addEventListener('click', e => { e.stopPropagation(); shareFile(f.id); });
@@ -952,17 +1015,13 @@ function renderFiles(){
     }
   });
 }
-
 async function deleteFolderRecursive(folderId){
-  // Supprime les sous-dossiers
   const subs = state.folders.filter(f => f.parentId === folderId);
   for(const s of subs) await deleteFolderRecursive(s.id);
-  // Supprime les fichiers du dossier
   const files = state.files.filter(f => f.folderId === folderId);
   for(const f of files){ await DB.del('files', f.id); await DB.del('blobs', f.id); }
   await DB.del('folders', folderId);
 }
-
 function renderAll(){ renderSubjects(); renderBreadcrumb(); renderFiles(); }
 
 async function updateStorage(){
@@ -978,13 +1037,11 @@ async function updateStorage(){
   }
 }
 
-/* ========== IMPORT FILES ========== */
+/* ========== IMPORT / FILES ========== */
 async function importFiles(fileList){
   const files = [...fileList]; if(!files.length) return;
   busy(true); let n = 0;
-
-  let subjectId = state.current;
-  let folderId = state.currentFolder;
+  let subjectId = state.current, folderId = state.currentFolder;
   if(subjectId === 'all' || subjectId === 'fav'){
     if(!state.subjects.length){
       const s = {id: uid(), name:'Non classé', icon:'📁', color:'#475569', order: 999};
@@ -993,24 +1050,20 @@ async function importFiles(fileList){
     } else subjectId = state.subjects[0].id;
     folderId = null;
   }
-
   for(const file of files){
     try{
       const id = uid();
       await DB.put('blobs', {id, blob: file});
-      await DB.put('files', {
-        id, name:file.name, type:file.type||'', size:file.size,
-        date:Date.now(), subjectId, folderId, fav:false
-      });
+      const meta = { id, name:file.name, type:file.type||'', size:file.size, date:Date.now(), subjectId, folderId, fav:false, updatedAt:Date.now() };
+      await DB.put('files', meta);
       n++;
+      FB.onLocalChange('add-file', meta);
     }catch(err){ console.error(err); toast('Erreur : '+file.name, 'err'); }
   }
   await loadAll(); renderAll(); updateStorage();
   busy(false);
   if(n) toast(`${n} fichier${n>1?'s':''} ajouté${n>1?'s':''}`, 'ok');
 }
-
-/* Ajoute un fichier depuis un blob (généré par l'IA ou copié) */
 async function addFileToDrive(name, blobOrText, mime){
   const subjectId = (state.current === 'all' || state.current === 'fav') ? (state.subjects[0]?.id || null) : state.current;
   const folderId = state.currentFolder;
@@ -1018,18 +1071,17 @@ async function addFileToDrive(name, blobOrText, mime){
   const blob = blobOrText instanceof Blob ? blobOrText : new Blob([blobOrText], {type: mime || 'text/plain'});
   const id = uid();
   await DB.put('blobs', {id, blob});
-  await DB.put('files', {
-    id, name, type: mime || blob.type || 'application/octet-stream',
-    size: blob.size, date: Date.now(), subjectId, folderId, fav:false
-  });
+  const meta = { id, name, type: mime||blob.type||'application/octet-stream', size: blob.size, date: Date.now(), subjectId, folderId, fav:false, updatedAt:Date.now() };
+  await DB.put('files', meta);
   await loadAll(); renderAll(); updateStorage();
+  FB.onLocalChange('add-file', meta);
   toast(`💾 ${name} enregistré`, 'ok');
 }
-
-/* ========== DELETE / DOWNLOAD / SHARE ========== */
 async function deleteFile(id){
+  const f = state.files.find(x => x.id === id);
   await DB.del('files', id); await DB.del('blobs', id);
   await loadAll(); renderAll(); updateStorage();
+  FB.onLocalChange('delete-file', id, f);
   toast('Fichier supprimé', 'ok');
 }
 async function downloadFile(id){
@@ -1037,8 +1089,7 @@ async function downloadFile(id){
   const rec = await DB.get('blobs', id);
   if(!f || !rec) return toast('Fichier introuvable', 'err');
   const url = URL.createObjectURL(rec.blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = f.name;
+  const a = document.createElement('a'); a.href = url; a.download = f.name;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 4000);
   toast('Téléchargement lancé', 'ok');
@@ -1064,7 +1115,7 @@ async function exportZip(){
   try{
     const zip = new JSZip();
     const meta = {
-      app:'Keryan Drive', version:5, exportedAt:Date.now(),
+      app:'Keryan Drive', version:6, exportedAt:Date.now(),
       subjects: state.subjects, folders: state.folders,
       files: state.files.map(f => ({
         id:f.id, name:f.name, type:f.type, size:f.size,
@@ -1105,10 +1156,7 @@ async function importZip(file){
       await DB.put('subjects', {id:nid, name:s.name, icon:s.icon, color:s.color, order:s.order ?? 999});
       nameToId[key] = nid;
     }
-
-    // Folders d'abord
     for(const f of (meta.folders||[])) await DB.put('folders', f);
-
     let count = 0;
     for(const fm of (meta.files||[])){
       const zf = zip.file('files/' + fm.id + '.bin');
@@ -1122,7 +1170,7 @@ async function importZip(file){
       await DB.put('files', {
         id: fm.id, name: fm.name, type: fm.type || '',
         size: fm.size || typedBlob.size, date: fm.date || Date.now(),
-        subjectId, folderId: fm.folderId || null, fav: !!fm.fav
+        subjectId, folderId: fm.folderId || null, fav: !!fm.fav, updatedAt: fm.updatedAt || Date.now()
       });
       count++;
     }
@@ -1149,38 +1197,27 @@ async function openViewer(id){
   const url = URL.createObjectURL(blob);
   try{
     if((f.type||'').startsWith('image/')){
-      body.innerHTML = '';
-      const img = document.createElement('img'); img.src = url; img.alt = f.name;
-      body.appendChild(img);
+      body.innerHTML = ''; const img = document.createElement('img'); img.src = url; body.appendChild(img);
     } else if((f.type||'').startsWith('video/')){
-      body.innerHTML = '';
-      const v = document.createElement('video'); v.src = url; v.controls = true;
-      body.appendChild(v);
+      body.innerHTML = ''; const v = document.createElement('video'); v.src = url; v.controls = true; body.appendChild(v);
     } else if((f.type||'').startsWith('audio/')){
       body.innerHTML = '<div style="text-align:center;padding:36px 20px"><div style="font-size:60px;margin-bottom:16px">🎵</div></div>';
       const a = document.createElement('audio'); a.src = url; a.controls = true; a.style.width = 'min(420px,90%)';
       body.querySelector('div').appendChild(a);
     } else if(e === 'pdf'){
-      body.innerHTML = '';
-      const ifr = document.createElement('iframe'); ifr.src = url;
-      body.appendChild(ifr);
+      body.innerHTML = ''; const ifr = document.createElement('iframe'); ifr.src = url; body.appendChild(ifr);
     } else if(e === 'html' || e === 'htm'){
-      const text = await blob.text();
-      body.innerHTML = '';
+      const text = await blob.text(); body.innerHTML = '';
       const ifr = document.createElement('iframe');
       ifr.setAttribute('sandbox', 'allow-scripts allow-modals allow-forms allow-popups');
-      ifr.srcdoc = text;
-      body.appendChild(ifr);
+      ifr.srcdoc = text; body.appendChild(ifr);
     } else if(TEXT_EXT.has(e) || (f.type||'').startsWith('text/')){
       if(blob.size > 3_000_000){
         body.innerHTML = `<div class="fallback"><span class="em">📄</span><div>Fichier trop gros</div>
           <button class="btn btn-primary" style="margin-top:14px" onclick="downloadFile('${f.id}')">⬇ Télécharger</button></div>`;
       } else {
-        const text = await blob.text();
-        body.innerHTML = '';
-        const pre = document.createElement('pre');
-        pre.textContent = text;
-        body.appendChild(pre);
+        const text = await blob.text(); body.innerHTML = '';
+        const pre = document.createElement('pre'); pre.textContent = text; body.appendChild(pre);
       }
     } else {
       body.innerHTML = `<div class="fallback"><span class="em">${fileIcon(f.name, f.type)}</span>
@@ -1195,32 +1232,27 @@ async function openViewer(id){
 }
 
 /* ========== MOVE ========== */
-let moveTargetFileId = null;
-let moveTargetFolderId = null;
-
+let moveTargetFileId = null, moveTargetFolderId = null;
 function openMove(fileId){
-  moveTargetFileId = fileId;
-  moveTargetFolderId = null;
+  moveTargetFileId = fileId; moveTargetFolderId = null;
   const list = $('#moveList'); list.innerHTML = '';
-  // Racine de chaque matière
   state.subjects.forEach(s => {
-    const row = mkMoveRow(`${s.icon} ${s.name} (racine)`, async () => {
+    list.appendChild(mkMoveRow(`${s.icon} ${s.name} (racine)`, async () => {
       const f = await DB.get('files', moveTargetFileId);
-      f.subjectId = s.id; f.folderId = null;
+      f.subjectId = s.id; f.folderId = null; f.updatedAt = Date.now();
       await DB.put('files', f);
       await loadAll(); renderAll();
+      FB.onLocalChange('update-file', f);
       $('#moveOverlay').classList.remove('show');
       toast('Déplacé vers '+s.name, 'ok');
-    });
-    list.appendChild(row);
-    // Sous-dossiers
+    }));
     state.folders.filter(f => f.subjectId === s.id).forEach(folder => {
-      const path = buildFolderPath(folder.id);
-      list.appendChild(mkMoveRow(`   📁 ${path}`, async () => {
+      list.appendChild(mkMoveRow(`   📁 ${buildFolderPath(folder.id)}`, async () => {
         const f = await DB.get('files', moveTargetFileId);
-        f.subjectId = folder.subjectId; f.folderId = folder.id;
+        f.subjectId = folder.subjectId; f.folderId = folder.id; f.updatedAt = Date.now();
         await DB.put('files', f);
         await loadAll(); renderAll();
+        FB.onLocalChange('update-file', f);
         $('#moveOverlay').classList.remove('show');
         toast('Déplacé vers '+folder.name, 'ok');
       }));
@@ -1230,9 +1262,9 @@ function openMove(fileId){
 }
 function mkMoveRow(label, onclick){
   const b = document.createElement('button');
-  b.className = 'subject'; b.style.width = '100%'; b.style.paddingLeft = '8px';
+  b.className = 'subject'; b.style.width = '100%';
   b.innerHTML = `<div class="txt"><div class="nm" style="font-family:'Consolas',monospace;font-size:12.5px">${escapeHtml(label)}</div></div>`;
-  b.addEventListener('click', onclick);
+  b.onclick = onclick;
   return b;
 }
 function buildFolderPath(folderId){
@@ -1241,32 +1273,30 @@ function buildFolderPath(folderId){
   while(f){ parts.unshift(f.name); f = f.parentId ? state.folders.find(x => x.id === f.parentId) : null; }
   return parts.join(' / ');
 }
-
 function openMoveFolder(folderId){
   moveTargetFolderId = folderId;
   const list = $('#moveList'); list.innerHTML = '';
   const folder = state.folders.find(f => f.id === folderId);
   if(!folder) return;
-  list.innerHTML = `<div style="font-size:12.5px;color:var(--muted);padding:6px 10px">Déplacer le dossier « ${escapeHtml(folder.name)} » vers…</div>`;
-  // Racine
-  const rootBtn = mkMoveRow('🏠 Racine de la matière', async () => {
+  list.innerHTML = `<div style="font-size:12.5px;color:var(--muted);padding:6px 10px">Déplacer « ${escapeHtml(folder.name)} » vers…</div>`;
+  list.appendChild(mkMoveRow('🏠 Racine de la matière', async () => {
     const f = await DB.get('folders', folderId);
-    f.parentId = null;
+    f.parentId = null; f.updatedAt = Date.now();
     await DB.put('folders', f);
     await loadAll(); renderAll();
+    FB.onLocalChange('update-folder', f);
     $('#moveOverlay').classList.remove('show');
     toast('Déplacé', 'ok');
-  });
-  list.appendChild(rootBtn);
-  // Autres dossiers de la même matière (sauf lui-même et ses descendants)
+  }));
   const descendants = getDescendantIds(folderId);
   state.folders.filter(f => f.subjectId === folder.subjectId && f.id !== folderId && !descendants.has(f.id))
     .forEach(f => {
       list.appendChild(mkMoveRow(`📁 ${buildFolderPath(f.id)}`, async () => {
         const fd = await DB.get('folders', folderId);
-        fd.parentId = f.id;
+        fd.parentId = f.id; fd.updatedAt = Date.now();
         await DB.put('folders', fd);
         await loadAll(); renderAll();
+        FB.onLocalChange('update-folder', fd);
         $('#moveOverlay').classList.remove('show');
         toast('Déplacé', 'ok');
       }));
@@ -1274,8 +1304,7 @@ function openMoveFolder(folderId){
   $('#moveOverlay').classList.add('show');
 }
 function getDescendantIds(folderId){
-  const out = new Set();
-  const stack = [folderId];
+  const out = new Set(); const stack = [folderId];
   while(stack.length){
     const cur = stack.pop();
     state.folders.filter(f => f.parentId === cur).forEach(f => { out.add(f.id); stack.push(f.id); });
@@ -1283,29 +1312,21 @@ function getDescendantIds(folderId){
   return out;
 }
 
-/* ========== CREATE SUBJECT / FOLDER ========== */
-let pickedIcon = '📚', pickedColor = '#2563eb';
+/* ========== SUBJECT / FOLDER CREATE ========== */
+let pickedIcon = '📚', pickedColor = '#2563eb', pickedFolderIcon = '📁';
 function initSubjectModal(){
   const ip = $('#iconPicker'), cp = $('#colorPicker');
   ip.innerHTML = ''; cp.innerHTML = '';
   ICON_CHOICES.forEach(i => {
     const b = document.createElement('button'); b.type='button'; b.textContent = i;
     if(i===pickedIcon) b.classList.add('sel');
-    b.addEventListener('click', () => {
-      pickedIcon = i;
-      ip.querySelectorAll('button').forEach(x => x.classList.remove('sel'));
-      b.classList.add('sel');
-    });
+    b.onclick = () => { pickedIcon = i; ip.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); };
     ip.appendChild(b);
   });
   COLOR_CHOICES.forEach(c => {
     const b = document.createElement('button'); b.type='button'; b.style.background = c;
     if(c===pickedColor) b.classList.add('sel');
-    b.addEventListener('click', () => {
-      pickedColor = c;
-      cp.querySelectorAll('button').forEach(x => x.classList.remove('sel'));
-      b.classList.add('sel');
-    });
+    b.onclick = () => { pickedColor = c; cp.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); };
     cp.appendChild(b);
   });
 }
@@ -1313,28 +1334,22 @@ async function createSubject(){
   const name = $('#subjName').value.trim();
   if(!name) return toast('Donnez un nom', 'err');
   if(state.subjects.some(s => s.name.toLowerCase() === name.toLowerCase())) return toast('Existe déjà', 'err');
-  await DB.put('subjects', {id: uid(), name, icon: pickedIcon, color: pickedColor, order: state.subjects.length});
+  const subj = {id: uid(), name, icon: pickedIcon, color: pickedColor, order: state.subjects.length, updatedAt: Date.now()};
+  await DB.put('subjects', subj);
   await loadAll();
-  state.current = state.subjects[state.subjects.length-1].id;
-  state.currentFolder = null;
+  state.current = subj.id; state.currentFolder = null;
   renderAll();
+  FB.onLocalChange('add-subject', subj);
   $('#subjectOverlay').classList.remove('show');
   $('#subjName').value = '';
   toast('Matière créée', 'ok');
 }
-
-let pickedFolderIcon = '📁';
 function initFolderModal(){
-  const ip = $('#folderIconPicker');
-  ip.innerHTML = '';
+  const ip = $('#folderIconPicker'); ip.innerHTML = '';
   FOLDER_ICONS.forEach(i => {
     const b = document.createElement('button'); b.type='button'; b.textContent = i;
     if(i===pickedFolderIcon) b.classList.add('sel');
-    b.addEventListener('click', () => {
-      pickedFolderIcon = i;
-      ip.querySelectorAll('button').forEach(x => x.classList.remove('sel'));
-      b.classList.add('sel');
-    });
+    b.onclick = () => { pickedFolderIcon = i; ip.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); };
     ip.appendChild(b);
   });
 }
@@ -1344,13 +1359,15 @@ async function createFolder(){
   if(state.current === 'all' || state.current === 'fav') return toast('Ouvrez une matière d\'abord', 'err');
   const siblings = state.folders.filter(f => f.subjectId === state.current && (f.parentId||null) === state.currentFolder);
   if(siblings.some(s => s.name.toLowerCase() === name.toLowerCase())) return toast('Dossier déjà existant', 'err');
-  await DB.put('folders', {
+  const folder = {
     id: uid(), name, icon: pickedFolderIcon,
     subjectId: state.current,
     parentId: state.currentFolder || null,
-    createdAt: Date.now()
-  });
+    createdAt: Date.now(), updatedAt: Date.now()
+  };
+  await DB.put('folders', folder);
   await loadAll(); renderAll();
+  FB.onLocalChange('add-folder', folder);
   $('#folderOverlay').classList.remove('show');
   $('#folderName').value = '';
   toast('Dossier créé', 'ok');
@@ -1362,7 +1379,6 @@ function renderMarkdown(text){
   const raw = marked.parse(text || '');
   return DOMPurify.sanitize(raw, { ADD_ATTR:['target','rel','class','data-lang'] });
 }
-
 const LANG_EXT = {python:'py',py:'py',javascript:'js',js:'js',typescript:'ts',ts:'ts',jsx:'jsx',tsx:'tsx',html:'html',htm:'html',css:'css',scss:'scss',json:'json',yaml:'yml',yml:'yml',xml:'xml',svg:'svg',sql:'sql',bash:'sh',sh:'sh',shell:'sh',java:'java',kotlin:'kt',c:'c',h:'h',cpp:'cpp','c++':'cpp',csharp:'cs',cs:'cs',go:'go',rust:'rs',rs:'rs',ruby:'rb',php:'php',swift:'swift',dart:'dart',r:'r',lua:'lua',vue:'vue',svelte:'svelte',markdown:'md',md:'md',text:'txt',txt:'txt',diff:'diff',log:'log',ini:'ini',toml:'toml'};
 function extractFilename(code, lang){
   const lines = code.split('\n').slice(0, 5);
@@ -1386,8 +1402,7 @@ function downloadCodeBlock(code, lang){
 async function saveCodeBlockToDrive(code, lang){
   if(state.current === 'all' || state.current === 'fav'){
     if(!state.subjects.length) return toast('Créez une matière d\'abord', 'err');
-    state.current = state.subjects[0].id;
-    state.currentFolder = null;
+    state.current = state.subjects[0].id; state.currentFolder = null;
     renderAll();
   }
   const filename = extractFilename(code, lang);
@@ -1398,7 +1413,6 @@ function guessMimeFromExt(e){
   const m = {txt:'text/plain',md:'text/markdown',html:'text/html',htm:'text/html',css:'text/css',js:'text/javascript',mjs:'text/javascript',ts:'text/typescript',json:'application/json',xml:'application/xml',yml:'text/yaml',yaml:'text/yaml',py:'text/x-python',java:'text/x-java',c:'text/x-c',cpp:'text/x-c++',h:'text/x-c',sh:'text/x-sh',sql:'text/x-sql',php:'text/x-php',rb:'text/x-ruby',go:'text/x-go',rs:'text/x-rust',swift:'text/x-swift',csv:'text/csv',svg:'image/svg+xml'};
   return m[e] || 'text/plain';
 }
-
 function enhanceCodeBlocks(container){
   container.querySelectorAll('pre > code').forEach(codeEl => {
     const pre = codeEl.parentElement;
@@ -1414,7 +1428,6 @@ function enhanceCodeBlocks(container){
       }
     }catch(_){}
     codeEl.classList.add('hljs');
-
     const wrapper = document.createElement('div');
     wrapper.className = 'code-block';
     wrapper.dataset.lang = lang;
@@ -1430,21 +1443,19 @@ function enhanceCodeBlocks(container){
     pre.parentNode.insertBefore(wrapper, pre);
     wrapper.appendChild(header);
     wrapper.appendChild(pre);
-
     const codeText = codeEl.textContent;
-    header.querySelector('.save').addEventListener('click', () => saveCodeBlockToDrive(codeText, lang));
-    header.querySelector('.copy-code').addEventListener('click', e => {
+    header.querySelector('.save').onclick = () => saveCodeBlockToDrive(codeText, lang);
+    header.querySelector('.copy-code').onclick = (e) => {
       navigator.clipboard.writeText(codeText).then(() => {
         const btn = e.currentTarget; const old = btn.innerHTML;
         btn.innerHTML = '✅'; btn.classList.add('copied');
         setTimeout(() => { btn.innerHTML = old; btn.classList.remove('copied'); }, 1400);
       }).catch(() => toast('Copie impossible', 'err'));
-    });
-    header.querySelector('.download-code').addEventListener('click', () => downloadCodeBlock(codeText, lang));
+    };
+    header.querySelector('.download-code').onclick = () => downloadCodeBlock(codeText, lang);
   });
   container.querySelectorAll('a').forEach(a => {
-    a.setAttribute('target', '_blank');
-    a.setAttribute('rel', 'noopener noreferrer');
+    a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener noreferrer');
   });
 }
 
@@ -1464,7 +1475,6 @@ const TEXT_MODELS = [
   { id:'nova-fast',    name:'Nova Fast',         tag:'fast',      icon:'💫', vision:false },
 ];
 const TAG_LABELS = { general:'🌐 Généralistes', fast:'⚡ Rapides', reasoning:'🧠 Raisonnement', code:'💻 Code' };
-
 function buildModelSelect(el, currentValue){
   el.innerHTML = '';
   const groups = {};
@@ -1483,7 +1493,7 @@ function buildModelSelect(el, currentValue){
 }
 function getModelName(id){ return TEXT_MODELS.find(m => m.id === id)?.name || id; }
 
-/* ========== AI STREAMING ========== */
+/* ========== AI ========== */
 async function* streamChat(messages, model, opts = {}){
   const body = {
     model, messages, stream:true, private:true, referrer:'keryan-drive',
@@ -1491,24 +1501,18 @@ async function* streamChat(messages, model, opts = {}){
     max_tokens: opts.maxTokens ?? state.maxTokens,
   };
   const res = await fetch('https://text.pollinations.ai/openai', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
+    method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify(body),
   });
-  if(!res.ok){
-    const txt = await res.text().catch(() => '');
-    throw new Error(`HTTP ${res.status}${txt?' — '+txt.slice(0,120):''}`);
-  }
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
   if(!res.body) throw new Error('Stream indisponible');
-  const reader = res.body.getReader();
-  const dec = new TextDecoder();
+  const reader = res.body.getReader(); const dec = new TextDecoder();
   let buf = '';
   while(true){
     const { done, value } = await reader.read();
     if(done) break;
     buf += dec.decode(value, {stream:true});
-    const lines = buf.split('\n');
-    buf = lines.pop();
+    const lines = buf.split('\n'); buf = lines.pop();
     for(const line of lines){
       const t = line.trim();
       if(!t.startsWith('data:')) continue;
@@ -1528,27 +1532,20 @@ async function askText(messages, model, opts = {}){
     for await(const chunk of streamChat(messages, model, opts)) full += chunk;
     if(full.trim()) return full;
   }catch(e){ console.warn('stream failed', e); }
-  // Fallback GET (texte simple seulement)
   const last = [...messages].reverse().find(m => m.role === 'user');
-  const txt = typeof last?.content === 'string' ? last.content : (Array.isArray(last?.content) ? last.content.find(c => c.type === 'text')?.text : '');
-  const url = `https://text.pollinations.ai/${encodeURIComponent(txt || '')}?model=${model}`;
+  const txt = typeof last?.content === 'string' ? last.content : '';
+  const url = `https://text.pollinations.ai/${encodeURIComponent(txt)}?model=${model}`;
   const res = await fetch(url);
   if(!res.ok) throw new Error(`HTTP ${res.status}`);
   return await res.text();
 }
-
-/* ========== ORCHESTRATOR ========== */
 const PLANNER_PROMPT = `Tu es un PLANIFICATEUR. Analyse la demande et produis un plan JSON.
-
 Types : "text", "code", "reason", "write", "translate", "summarize".
-
-Règles : max {{MAX}} tâches. Simple → 1 tâche. Complexe → plusieurs.
+Max {{MAX}} tâches. Simple → 1 tâche. Complexe → plusieurs.
 Modèles : code→qwen-coder/deepseek ; reason→deepseek-r1/phi/openai-large ; write→openai/mistral ; translate→openai/gemini ; text→openai/gemini.
 "synthesis": true si plusieurs tâches.
-
 Réponds UNIQUEMENT en JSON :
 {"reasoning":"...","tasks":[{"type":"text","model":"openai","prompt":"..."}],"synthesis":false}`;
-
 function extractJSON(text){
   let t = String(text).trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/i,'');
   const s = t.indexOf('{'), e = t.lastIndexOf('}');
@@ -1578,11 +1575,10 @@ async function planTasks(userPrompt){
 async function executeTask(task, onStatus){
   onStatus?.('running');
   try{
-    const messages = [
+    const text = await askText([
       { role:'system', content: state.systemPrompt },
       { role:'user', content: task.prompt },
-    ];
-    const text = await askText(messages, task.model, { temperature: state.temperature });
+    ], task.model, { temperature: state.temperature });
     onStatus?.('done');
     return { type:task.type, model:task.model, content:text, prompt:task.prompt };
   }catch(e){
@@ -1601,8 +1597,6 @@ async function synthesize(userPrompt, results){
     { role:'user', content: `Question : "${userPrompt}"\n\nRésultats :\n\n${ctx}\n\nRéponse finale unifiée.` }
   ], state.synthModel);
 }
-
-/* ========== CHAT UI ========== */
 function addMsg(role, content){
   const chat = $('#chat');
   const el = document.createElement('div');
@@ -1610,11 +1604,9 @@ function addMsg(role, content){
   el.innerHTML = `<div class="av">${role==='me'?'👤':'🤖'}</div><div class="bub msg-md"></div>`;
   const bub = el.querySelector('.bub');
   if(typeof content === 'string'){
-    bub.innerHTML = renderMarkdown(content);
-    enhanceCodeBlocks(bub);
+    bub.innerHTML = renderMarkdown(content); enhanceCodeBlocks(bub);
   }
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
+  chat.appendChild(el); chat.scrollTop = chat.scrollHeight;
   return { el, bub };
 }
 function addUserMsg(text, images){
@@ -1623,21 +1615,8 @@ function addUserMsg(text, images){
   el.className = 'msg me';
   const imgsHtml = (images||[]).map(img => `<img class="msg-img" src="${img.dataUrl}" alt="">`).join('');
   el.innerHTML = `<div class="av">👤</div><div class="bub"><div>${imgsHtml}</div>${text?`<div style="white-space:pre-wrap;margin-top:6px">${escapeHtml(text)}</div>`:''}</div>`;
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
-  return el;
+  chat.appendChild(el); chat.scrollTop = chat.scrollHeight;
 }
-function addTyping(){
-  const chat = $('#chat');
-  const el = document.createElement('div');
-  el.className = 'msg ai';
-  el.innerHTML = `<div class="av">🤖</div><div class="bub"><div class="typing"><span></span><span></span><span></span></div></div>`;
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
-  return el;
-}
-
-/* ========== AI CONTEXT (fichiers) ========== */
 async function collectContext(){
   if(!state.useFiles) return [];
   const { files } = getVisibleItems();
@@ -1656,33 +1635,23 @@ async function collectContext(){
   }
   return out;
 }
-
-/* ========== AI SEND ========== */
 async function sendMessage(){
   const input = $('#aiInput');
   const q = input.value.trim();
   const hasImages = state.attachments.length > 0;
   if((!q && !hasImages) || $('#aiSend').disabled) return;
-
   input.value = ''; input.style.height = 'auto';
   $('#aiSend').disabled = true;
-
-  // Ajoute le message utilisateur (avec images)
   addUserMsg(q || '(image)', state.attachments);
-
-  // Contexte fichiers
   const context = await collectContext();
   const contextPrefix = context.length
     ? `Voici des extraits de mes cours actuels :\n\n` +
       context.map(c => `--- ${c.name} ---\n${c.text.slice(0,3000)}`).join('\n\n') + '\n\n'
     : '';
   const fullText = contextPrefix + (q || 'Analyse cette image.');
-
-  // Préparer le message pour l'API (avec images si présentes)
   const images = state.attachments.map(a => a.dataUrl);
   state.attachments = [];
   renderAttachPreview();
-
   try{
     if(state.orchestrator && !images.length){
       await runOrchestrator(fullText, q);
@@ -1696,35 +1665,26 @@ async function sendMessage(){
   $('#aiSend').disabled = false;
   input.focus();
 }
-
 function buildUserContent(text, images){
   if(!images.length) return text;
   const arr = [{ type:'text', text }];
   images.forEach(url => arr.push({ type:'image_url', image_url: { url } }));
   return arr;
 }
-
 async function runDirectChat(fullText, displayText, images = []){
   const chat = $('#chat');
   const { el, bub } = addMsg('ai', '');
   bub.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
-
-  // Choix du modèle : si images et modèle actuel sans vision, basculer sur openai
   let model = state.model;
   if(images.length){
     const m = TEXT_MODELS.find(x => x.id === model);
-    if(!m || !m.vision){
-      model = 'openai';
-      toast('Bascule sur GPT-4o mini pour la vision 👁', 'info');
-    }
+    if(!m || !m.vision){ model = 'openai'; toast('Bascule sur GPT-4o mini pour la vision 👁', 'info'); }
   }
   const modelName = getModelName(model);
-
   const messages = [
     { role:'system', content: state.systemPrompt },
     { role:'user', content: buildUserContent(fullText, images) },
   ];
-
   let full = '', first = true, lastRender = 0, pending = false;
   const schedule = () => {
     if(pending) return; pending = true;
@@ -1736,7 +1696,6 @@ async function runDirectChat(fullText, displayText, images = []){
       if(nearBottom) chat.scrollTop = chat.scrollHeight;
     }, Math.max(0, 60 - (now - lastRender)));
   };
-
   try{
     for await(const chunk of streamChat(messages, model)){
       if(first){ bub.innerHTML = ''; first = false; }
@@ -1744,28 +1703,18 @@ async function runDirectChat(fullText, displayText, images = []){
     }
   }catch(err){
     console.warn('stream failed', err);
-    // Fallback sans images pour l'API GET
-    const messagesNoImg = [
-      { role:'system', content: state.systemPrompt },
-      { role:'user', content: fullText },
-    ];
-    full = await askText(messagesNoImg, model);
+    full = await askText([{ role:'system', content: state.systemPrompt }, { role:'user', content: fullText }], model);
   }
-
   if(!full.trim()) full = '*(réponse vide)*';
-  bub.innerHTML = renderMarkdown(full);
-  enhanceCodeBlocks(bub);
-
+  bub.innerHTML = renderMarkdown(full); enhanceCodeBlocks(bub);
   const meta = document.createElement('div');
   meta.style.cssText = 'font-size:10px;color:var(--muted);margin-top:8px';
   meta.textContent = `— ${modelName}`;
   bub.appendChild(meta);
-
   attachAssistantActions(el, bub, full);
   state.chat.push({ role:'user', content: displayText });
   state.chat.push({ role:'assistant', content: full });
 }
-
 async function runOrchestrator(fullText, displayText){
   const chat = $('#chat');
   const planBubble = document.createElement('div');
@@ -1773,7 +1722,6 @@ async function runOrchestrator(fullText, displayText){
   planBubble.innerHTML = `<div class="av">🤖</div><div class="bub"><div style="display:flex;align-items:center;gap:8px;font-size:12px">
     <div class="spinner small"></div><span>Analyse de la demande…</span></div></div>`;
   chat.appendChild(planBubble); chat.scrollTop = chat.scrollHeight;
-
   let plan;
   try{ plan = await planTasks(fullText); planBubble.remove(); }
   catch(e){
@@ -1782,7 +1730,6 @@ async function runOrchestrator(fullText, displayText){
     toast('Planificateur indisponible → chat direct', 'warn');
     return runDirectChat(fullText, displayText);
   }
-
   const wrap = document.createElement('div');
   wrap.className = 'msg ai';
   const icons = { text:'💬', code:'💻', reason:'🧠', write:'✍️', translate:'🌍', summarize:'📋' };
@@ -1800,7 +1747,6 @@ async function runOrchestrator(fullText, displayText){
     <div class="content msg-md"><div class="typing"><span></span><span></span><span></span></div></div>
   </div>`;
   chat.appendChild(wrap); chat.scrollTop = chat.scrollHeight;
-
   const contentEl = wrap.querySelector('.content');
   const updateStep = (i, status, err) => {
     const step = wrap.querySelector(`.pipeline-step[data-step="${i}"]`);
@@ -1811,11 +1757,9 @@ async function runOrchestrator(fullText, displayText){
     else if(status === 'done'){ step.classList.add('done'); s.textContent = '✅'; }
     else if(status === 'error'){ step.classList.add('error'); s.textContent = '⚠️'; if(err) step.title = err; }
   };
-
   const results = await Promise.all(plan.tasks.map((task, i) =>
     executeTask(task, (s, err) => updateStep(i, s, err))
   ));
-
   const successes = results.filter(r => r.type !== 'error');
   let finalText;
   if(successes.length === 1 && results.length === 1){
@@ -1827,69 +1771,49 @@ async function runOrchestrator(fullText, displayText){
   } else {
     finalText = successes.map(r => r.content).join('\n\n---\n\n') || '✨ Terminé.';
   }
-
   const errors = results.filter(r => r.type === 'error');
   if(errors.length) finalText += `\n\n> ⚠️ ${errors.length} tâche(s) échouée(s).`;
-
-  contentEl.innerHTML = renderMarkdown(finalText);
-  enhanceCodeBlocks(contentEl);
-
+  contentEl.innerHTML = renderMarkdown(finalText); enhanceCodeBlocks(contentEl);
   const meta = document.createElement('div');
   meta.style.cssText = 'font-size:10px;color:var(--muted);margin-top:8px';
   meta.textContent = `— orchestrateur (${plan.tasks.length})`;
   wrap.querySelector('.bub').appendChild(meta);
-
   attachAssistantActions(wrap, wrap.querySelector('.bub'), finalText);
   state.chat.push({ role:'user', content: displayText });
   state.chat.push({ role:'assistant', content: finalText });
   toast('✅ Réponse orchestrée', 'ok');
 }
-
 function attachAssistantActions(wrapEl, bubEl, fullText){
   if(bubEl.querySelector('.msg-actions')) return;
   const box = document.createElement('div');
   box.className = 'msg-actions';
-
   const copyBtn = document.createElement('button');
   copyBtn.innerHTML = '📋 Copier';
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(fullText); toast('Copié', 'ok');
-  });
+  copyBtn.onclick = () => { navigator.clipboard.writeText(fullText); toast('Copié', 'ok'); };
   box.appendChild(copyBtn);
-
   const blocks = [];
   const regex = /```(\w*)\n([\s\S]*?)```/g;
   let m;
   while((m = regex.exec(fullText)) !== null) blocks.push({ lang:m[1]||'text', code:m[2] });
-
   if(blocks.length){
     const saveAll = document.createElement('button');
     saveAll.className = 'save-all';
     saveAll.innerHTML = `💾 Tout enregistrer (${blocks.length})`;
-    saveAll.addEventListener('click', async () => {
-      for(const b of blocks) await saveCodeBlockToDrive(b.code, b.lang);
-    });
+    saveAll.onclick = async () => { for(const b of blocks) await saveCodeBlockToDrive(b.code, b.lang); };
     box.appendChild(saveAll);
-
     const dlAll = document.createElement('button');
     dlAll.innerHTML = `📦 Télécharger (${blocks.length})`;
-    dlAll.addEventListener('click', () => blocks.forEach(b => downloadCodeBlock(b.code, b.lang)));
+    dlAll.onclick = () => blocks.forEach(b => downloadCodeBlock(b.code, b.lang));
     box.appendChild(dlAll);
   }
-
   const clearBtn = document.createElement('button');
   clearBtn.innerHTML = '🧹 Vider';
-  clearBtn.addEventListener('click', () => {
-    if(confirm('Vider la conversation ?')){
-      $('#chat').innerHTML = ''; state.chat = [];
-    }
-  });
+  clearBtn.onclick = () => {
+    if(confirm('Vider la conversation ?')){ $('#chat').innerHTML = ''; state.chat = []; }
+  };
   box.appendChild(clearBtn);
-
   bubEl.appendChild(box);
 }
-
-/* ========== ATTACHMENTS (image + fichier) ========== */
 function renderAttachPreview(){
   const box = $('#attachPreview');
   if(!state.attachments.length){ box.innerHTML = ''; return; }
@@ -1899,10 +1823,10 @@ function renderAttachPreview(){
       <span class="nm">${escapeHtml(a.name)}</span>
       <button data-rm="${i}" title="Retirer">✕</button>
     </div>`).join('');
-  box.querySelectorAll('[data-rm]').forEach(b => b.addEventListener('click', () => {
+  box.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => {
     state.attachments.splice(+b.dataset.rm, 1);
     renderAttachPreview();
-  }));
+  });
 }
 async function attachImage(file){
   if(!file.type.startsWith('image/')) return toast('Image requise', 'err');
@@ -1915,8 +1839,6 @@ async function attachImage(file){
   state.attachments.push({ name:file.name, dataUrl, isImage:true, size:file.size });
   renderAttachPreview();
 }
-
-/* ========== AI PANEL CONTROLS ========== */
 function updateOrchUI(){
   $('#orchBtn').classList.toggle('on', state.orchestrator);
   $('#modelSel').disabled = state.orchestrator;
@@ -1943,140 +1865,523 @@ function closeSidebar(){
   $('#sidebar').classList.remove('open');
   if(!$('#aiPanel').classList.contains('open')) document.body.classList.remove('drawer-open');
 }
-
-/* ========== SUGGESTIONS ========== */
-const SUGGESTIONS = [
-  '💡 Explique les dérivées',
-  '🖼️ Analyse cette image',
-  '💻 Génère un script Python',
-  '📝 Plan de dissertation',
-  '📚 Résume mes fichiers'
-];
+const SUGGESTIONS = ['💡 Explique les dérivées','🖼️ Analyse cette image','💻 Génère un script Python','📝 Plan de dissertation','📚 Résume mes fichiers'];
 function renderSuggestions(){
   const box = $('#aiSuggest'); box.innerHTML = '';
   SUGGESTIONS.forEach(s => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'chip'; b.textContent = s;
-    b.addEventListener('click', () => {
+    b.onclick = () => {
       if(s.includes('image')){ $('#imageInput').click(); return; }
       $('#aiInput').value = s.replace(/^[^\w]*\s*/, '');
       sendMessage();
-    });
+    };
     box.appendChild(b);
   });
 }
 
-/* ========== FIREBASE ========== */
+/* ============================================================
+   FIREBASE — v6 (Firestore + Storage + temps réel + auto-sync)
+   ============================================================ */
 const FB = {
-  app:null, db:null, fs:null, connected:false, config:null, syncId:null,
+  app: null, db: null, storage: null, fs: null, st: null,
+  connected: false, config: null, syncId: null,
+  autoSync: false, realtime: true,
+  unsubscribes: [],
+  pendingOps: [],
+  syncTimer: null,
+  lastSyncAt: 0,
+
+  // ---------- init depuis localStorage ----------
   loadFromStorage(){
     try{
-      const c = localStorage.getItem('kd_fb_config');
-      const s = localStorage.getItem('kd_fb_sync');
-      if(c) this.config = JSON.parse(c);
-      if(s) this.syncId = s;
-      if(this.config && this.syncId) setTimeout(() => this.connect(this.config, this.syncId, true), 900);
-    }catch(e){}
+      const cfgRaw = localStorage.getItem('kd_fb_config');
+      const sid = localStorage.getItem('kd_fb_sync');
+      const auto = localStorage.getItem('kd_fb_auto') === '1';
+      const rt = localStorage.getItem('kd_fb_rt') !== '0';
+      this.autoSync = auto;
+      this.realtime = rt;
+      if(cfgRaw && sid){
+        this.config = JSON.parse(cfgRaw);
+        this.syncId = sid;
+        setTimeout(() => this.connect(this.config, sid, true), 500);
+      }
+    }catch(e){ console.warn('FB load', e); }
   },
-  async connect(config, syncId, silent){
-    const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
-    const fs = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-    this.app = initializeApp(config, 'kd-'+Date.now());
-    this.db = fs.getFirestore(this.app);
-    this.fs = fs;
-    this.config = config; this.syncId = syncId; this.connected = true;
-    localStorage.setItem('kd_fb_config', JSON.stringify(config));
-    localStorage.setItem('kd_fb_sync', syncId);
-    updateFbStatus();
-    if(!silent) toast('Connecté à Firebase', 'ok');
-  },
-  async disconnect(){
-    this.connected = false; this.app = null; this.db = null;
-    localStorage.removeItem('kd_fb_config'); localStorage.removeItem('kd_fb_sync');
-    this.config = null; this.syncId = null;
-    updateFbStatus(); toast('Déconnecté', 'info');
-  },
-  async push(){
-    if(!this.connected) throw new Error('Non connecté');
-    const { collection, doc, getDocs, writeBatch } = this.fs;
-    const subCol = collection(this.db, 'keryan_drive', this.syncId, 'subjects');
-    const folCol = collection(this.db, 'keryan_drive', this.syncId, 'folders');
-    const fileCol = collection(this.db, 'keryan_drive', this.syncId, 'files');
-    const [sD, fD, flD] = await Promise.all([getDocs(subCol), getDocs(folCol), getDocs(fileCol)]);
-    const delB = writeBatch(this.db);
-    sD.forEach(d => delB.delete(d.ref));
-    fD.forEach(d => delB.delete(d.ref));
-    flD.forEach(d => delB.delete(d.ref));
-    await delB.commit();
 
-    let b = writeBatch(this.db), ops = 0;
-    const flush = async () => { if(ops){ await b.commit(); b = writeBatch(this.db); ops = 0; } };
-    for(const s of state.subjects){ b.set(doc(subCol, s.id), s); ops++; if(ops>=400) await flush(); }
-    for(const f of state.folders){ b.set(doc(folCol, f.id), f); ops++; if(ops>=400) await flush(); }
-    await flush();
+  // ---------- connexion ----------
+  async connect(config, syncId, silent = false){
+    // Nettoyage éventuel
+    await this.disconnect(true);
+    setFbStatus('syncing', 'Connexion à Firebase…');
+    try{
+      const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+      const fs = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+      const st = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js');
+      this.app = initializeApp(config, 'kd-'+Date.now());
+      this.db = fs.getFirestore(this.app);
+      this.storage = st.getStorage(this.app);
+      this.fs = fs; this.st = st;
+      this.config = config; this.syncId = syncId;
+      this.connected = true;
 
-    const blobToB64 = blob => new Promise((res, rej) => {
-      const r = new FileReader();
-      r.onload = () => res(r.result.split(',')[1]);
-      r.onerror = rej;
-      r.readAsDataURL(blob);
-    });
-    for(const f of state.files){
-      const rec = await DB.get('blobs', f.id);
-      if(!rec || !rec.blob) continue;
-      if(rec.blob.size > 700_000){ console.warn('Trop gros:', f.name); continue; }
-      const b64 = await blobToB64(rec.blob);
-      b.set(doc(fileCol, f.id), {...f, data:b64}); ops++;
-      if(ops>=400) await flush();
+      localStorage.setItem('kd_fb_config', JSON.stringify(config));
+      localStorage.setItem('kd_fb_sync', syncId);
+
+      // Vérification accès Firestore
+      const testCol = fs.collection(this.db, 'keryan_drive', syncId, 'meta');
+      await fs.getDocs(testCol).catch(err => {
+        if(err.code === 'permission-denied') throw new Error('Permission refusée — vérifiez les règles Firestore (allow read, write: if true)');
+        // On tolère les autres erreurs (collection vide = OK)
+      });
+
+      setFbStatus('on', `Connecté — sync « ${syncId} »`);
+      updateFbUI();
+      if(this.realtime) this.startRealtime();
+
+      if(!silent) toast('☁️ Connecté à Firebase', 'ok');
+    }catch(e){
+      console.error('FB connect', e);
+      this.connected = false;
+      setFbStatus('err', e.message || 'Erreur de connexion');
+      throw e;
     }
-    await flush();
   },
-  async pull(){
+
+  // ---------- déconnexion ----------
+  async disconnect(silent = false){
+    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
+    this.unsubscribes = [];
+    if(this.syncTimer){ clearTimeout(this.syncTimer); this.syncTimer = null; }
+    this.connected = false;
+    this.app = null; this.db = null; this.storage = null; this.fs = null; this.st = null;
+    if(!silent){
+      localStorage.removeItem('kd_fb_config');
+      localStorage.removeItem('kd_fb_sync');
+      this.config = null; this.syncId = null;
+      setFbStatus('', 'Non connecté — vos données restent locales');
+      updateFbUI();
+      toast('Déconnecté', 'info');
+    }
+  },
+
+  // ---------- helpers Firestore ----------
+  _ref(collectionName){ return this.fs.collection(this.db, 'keryan_drive', this.syncId, collectionName); },
+  _doc(collectionName, id){ return this.fs.doc(this.db, 'keryan_drive', this.syncId, collectionName, id); },
+  _storageRef(fileId){ return this.st.ref(this.storage, `keryan_drive/${this.syncId}/files/${fileId}`); },
+
+  // ---------- push complet ----------
+  async push(progressCb){
     if(!this.connected) throw new Error('Non connecté');
-    const { collection, getDocs } = this.fs;
-    const subCol = collection(this.db, 'keryan_drive', this.syncId, 'subjects');
-    const folCol = collection(this.db, 'keryan_drive', this.syncId, 'folders');
-    const fileCol = collection(this.db, 'keryan_drive', this.syncId, 'files');
-    const [sD, fD, flD] = await Promise.all([getDocs(subCol), getDocs(folCol), getDocs(fileCol)]);
-    await DB.clear('subjects'); await DB.clear('folders'); await DB.clear('files'); await DB.clear('blobs');
-    for(const d of sD.docs) await DB.put('subjects', d.data());
-    for(const d of fD.docs) await DB.put('folders', d.data());
-    const b64ToBlob = (b64, type) => {
-      const bin = atob(b64);
-      const arr = new Uint8Array(bin.length);
-      for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-      return new Blob([arr], {type: type||'application/octet-stream'});
+    setFbStatus('syncing', 'Envoi vers le cloud…');
+    showFbProgress(true);
+    try{
+      const { doc, setDoc, getDocs, writeBatch, deleteDoc } = this.fs;
+
+      // 1. Nettoyer les anciennes données Firestore
+      setFbProgress(5, 'Nettoyage du cloud…');
+      for(const col of ['subjects','folders','files']){
+        const snap = await getDocs(this._ref(col));
+        const batch = writeBatch(this.db);
+        snap.forEach(d => batch.delete(d.ref));
+        await batch.commit();
+      }
+      // Supprimer les anciens blobs Storage (via listing)
+      try{
+        const listRef = this.st.ref(this.storage, `keryan_drive/${this.syncId}/files`);
+        const res = await this.st.listAll(listRef);
+        for(const item of res.items){ await this.st.deleteObject(item); }
+      }catch(e){ console.warn('storage cleanup', e); }
+
+      // 2. Envoyer sujets + dossiers + metadata fichiers (Firestore)
+      const totalItems = state.subjects.length + state.folders.length + state.files.length;
+      let done = 0;
+      const updateProgress = (msg) => {
+        done++;
+        const pct = 10 + Math.round((done/totalItems) * 50);
+        setFbProgress(pct, msg);
+      };
+
+      setFbProgress(10, 'Envoi des métadonnées…');
+      let batch = writeBatch(this.db); let ops = 0;
+      const flush = async () => { if(ops){ await batch.commit(); batch = writeBatch(this.db); ops = 0; } };
+
+      for(const s of state.subjects){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; if(ops>=400) await flush(); updateProgress('Matières…'); }
+      for(const f of state.folders){ batch.set(doc(this._ref('folders'), f.id), f); ops++; if(ops>=400) await flush(); updateProgress('Dossiers…'); }
+      for(const f of state.files){
+        // On stocke la metadata sans les données binaires
+        const meta = { ...f };
+        delete meta.data;
+        batch.set(doc(this._ref('files'), f.id), meta);
+        ops++; if(ops>=400) await flush();
+        updateProgress('Fichiers…');
+      }
+      await flush();
+
+      // 3. Envoyer les blobs dans Storage
+      const totalFiles = state.files.length;
+      let uploaded = 0;
+      for(const f of state.files){
+        try{
+          const rec = await DB.get('blobs', f.id);
+          if(!rec || !rec.blob){ uploaded++; continue; }
+          const ref = this._storageRef(f.id);
+          await this.st.uploadBytes(ref, rec.blob, { contentType: f.type || 'application/octet-stream' });
+        }catch(e){
+          console.warn('upload fail', f.name, e);
+        }
+        uploaded++;
+        const pct = 60 + Math.round((uploaded/Math.max(totalFiles,1)) * 40);
+        setFbProgress(pct, `Upload ${uploaded}/${totalFiles}…`);
+      }
+
+      // 4. Marquer la date de sync
+      await setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now(), by: 'push' });
+
+      this.lastSyncAt = Date.now();
+      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      setFbProgress(100, 'Terminé !');
+      setFbStatus('on', `Dernière synchro : à l'instant`);
+      toast('☁️ Envoyé au cloud', 'ok');
+      updateFbUI();
+      setTimeout(() => showFbProgress(false), 900);
+    }catch(e){
+      console.error('push', e);
+      setFbStatus('err', 'Erreur d\'envoi : ' + e.message);
+      showFbProgress(false);
+      throw e;
+    }
+  },
+
+  // ---------- pull complet ----------
+  async pull(progressCb){
+    if(!this.connected) throw new Error('Non connecté');
+    setFbStatus('syncing', 'Réception depuis le cloud…');
+    showFbProgress(true);
+    try{
+      setFbProgress(5, 'Lecture des métadonnées…');
+      const [sSnap, foSnap, fiSnap] = await Promise.all([
+        this.fs.getDocs(this._ref('subjects')),
+        this.fs.getDocs(this._ref('folders')),
+        this.fs.getDocs(this._ref('files'))
+      ]);
+
+      // Effacer local
+      setFbProgress(15, 'Nettoyage local…');
+      await DB.clear('subjects'); await DB.clear('folders'); await DB.clear('files'); await DB.clear('blobs');
+
+      // Réinsérer
+      setFbProgress(30, 'Import des métadonnées…');
+      for(const d of sSnap.docs) await DB.put('subjects', d.data());
+      for(const d of foSnap.docs) await DB.put('folders', d.data());
+      for(const d of fiSnap.docs) await DB.put('files', d.data());
+
+      // Télécharger les blobs
+      const total = fiSnap.size;
+      let dl = 0;
+      setFbProgress(50, `Téléchargement 0/${total}…`);
+      for(const d of fiSnap.docs){
+        const meta = d.data();
+        try{
+          const ref = this._storageRef(meta.id);
+          const url = await this.st.getDownloadURL(ref);
+          const res = await fetch(url);
+          if(res.ok){
+            const blob = await res.blob();
+            await DB.put('blobs', { id: meta.id, blob });
+          }
+        }catch(e){
+          console.warn('download fail', meta.name, e);
+        }
+        dl++;
+        const pct = 50 + Math.round((dl/Math.max(total,1)) * 45);
+        setFbProgress(pct, `Téléchargement ${dl}/${total}…`);
+      }
+
+      await loadAll(); renderAll(); updateStorage();
+      this.lastSyncAt = Date.now();
+      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      setFbProgress(100, 'Terminé !');
+      setFbStatus('on', `Dernière synchro : à l'instant`);
+      toast('☁️ Reçu du cloud', 'ok');
+      updateFbUI();
+      setTimeout(() => showFbProgress(false), 900);
+    }catch(e){
+      console.error('pull', e);
+      setFbStatus('err', 'Erreur de réception : ' + e.message);
+      showFbProgress(false);
+      throw e;
+    }
+  },
+
+  // ---------- merge intelligent ----------
+  async merge(){
+    if(!this.connected) throw new Error('Non connecté');
+    setFbStatus('syncing', 'Fusion en cours…');
+    showFbProgress(true);
+    try{
+      setFbProgress(10, 'Analyse des données cloud…');
+      const [sSnap, foSnap, fiSnap] = await Promise.all([
+        this.fs.getDocs(this._ref('subjects')),
+        this.fs.getDocs(this._ref('folders')),
+        this.fs.getDocs(this._ref('files'))
+      ]);
+      const cloudSubs = sSnap.docs.map(d => d.data());
+      const cloudFols = foSnap.docs.map(d => d.data());
+      const cloudFiles = fiSnap.docs.map(d => d.data());
+
+      const localSubIds = new Set(state.subjects.map(s => s.id));
+      const localFolIds = new Set(state.folders.map(f => f.id));
+      const localFileIds = new Set(state.files.map(f => f.id));
+      const localFileMap = Object.fromEntries(state.files.map(f => [f.id, f]));
+
+      let addedSub = 0, addedFol = 0, addedFile = 0, updatedFile = 0;
+
+      // Sujets : ajouter ceux manquants localement
+      for(const s of cloudSubs){
+        if(!localSubIds.has(s.id)){ await DB.put('subjects', s); addedSub++; }
+      }
+      // Dossiers
+      for(const f of cloudFols){
+        if(!localFolIds.has(f.id)){ await DB.put('folders', f); addedFol++; }
+      }
+      // Fichiers : comparer par updatedAt
+      for(const cf of cloudFiles){
+        if(!localFileIds.has(cf.id)){
+          await DB.put('files', cf);
+          addedFile++;
+        } else {
+          const lf = localFileMap[cf.id];
+          if((cf.updatedAt||0) > (lf.updatedAt||0)){
+            await DB.put('files', cf);
+            updatedFile++;
+          }
+        }
+      }
+
+      // Télécharger les blobs manquants
+      setFbProgress(40, 'Téléchargement des blobs manquants…');
+      const cloudFileIds = cloudFiles.map(f => f.id);
+      let dl = 0;
+      for(const cf of cloudFiles){
+        const local = await DB.get('blobs', cf.id);
+        if(local) { dl++; continue; }
+        try{
+          const ref = this._storageRef(cf.id);
+          const url = await this.st.getDownloadURL(ref);
+          const res = await fetch(url);
+          if(res.ok) await DB.put('blobs', { id: cf.id, blob: await res.blob() });
+        }catch(e){ console.warn('merge dl', cf.name, e); }
+        dl++;
+        const pct = 40 + Math.round((dl/Math.max(cloudFileIds.length,1)) * 55);
+        setFbProgress(pct, `Téléchargement ${dl}/${cloudFileIds.length}…`);
+      }
+
+      await loadAll(); renderAll(); updateStorage();
+      this.lastSyncAt = Date.now();
+      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      setFbProgress(100, 'Terminé !');
+      setFbStatus('on', `Fusion OK — +${addedSub} mat., +${addedFol} dos., +${addedFile} fich., ${updatedFile} mis à jour`);
+      toast(`🔀 Fusion : +${addedFile} fichier(s)`, 'ok');
+      updateFbUI();
+      setTimeout(() => showFbProgress(false), 1200);
+    }catch(e){
+      console.error('merge', e);
+      setFbStatus('err', 'Erreur fusion : ' + e.message);
+      showFbProgress(false);
+      throw e;
+    }
+  },
+
+  // ---------- temps réel ----------
+  startRealtime(){
+    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
+    this.unsubscribes = [];
+    if(!this.realtime) return;
+
+    const onSnap = (snap, collectionName) => {
+      let changed = false;
+      snap.docChanges().forEach(async change => {
+        if(change.type === 'removed') return; // on ignore les suppressions distantes pour éviter les pertes
+        const data = change.doc.data();
+        try{
+          if(collectionName === 'files'){
+            const local = await DB.get('files', data.id);
+            if(!local || (data.updatedAt||0) > (local.updatedAt||0)){
+              await DB.put('files', data);
+              changed = true;
+            }
+          } else if(collectionName === 'folders'){
+            const local = await DB.get('folders', data.id);
+            if(!local || (data.updatedAt||0) > (local.updatedAt||0)){
+              await DB.put('folders', data);
+              changed = true;
+            }
+          } else if(collectionName === 'subjects'){
+            const local = await DB.get('subjects', data.id);
+            if(!local){ await DB.put('subjects', data); changed = true; }
+          }
+        }catch(e){ console.warn('rt', e); }
+      });
+      if(changed){
+        loadAll().then(() => { renderAll(); updateStorage(); });
+      }
     };
-    for(const d of flD.docs){
-      const v = d.data();
-      const data = v.data; delete v.data;
-      await DB.put('files', v);
-      if(data) await DB.put('blobs', {id:v.id, blob:b64ToBlob(data, v.type)});
+
+    try{
+      this.unsubscribes.push(this.fs.onSnapshot(this._ref('subjects'), s => onSnap(s, 'subjects')));
+      this.unsubscribes.push(this.fs.onSnapshot(this._ref('folders'), s => onSnap(s, 'folders')));
+      this.unsubscribes.push(this.fs.onSnapshot(this._ref('files'), s => onSnap(s, 'files')));
+    }catch(e){ console.warn('rt setup', e); }
+  },
+  stopRealtime(){
+    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
+    this.unsubscribes = [];
+  },
+
+  // ---------- auto-sync : appelé sur chaque modif locale ----------
+  onLocalChange(type, idOrObj, extra){
+    if(!this.connected) return;
+    if(this.autoSync){
+      this.pendingOps.push({ type, idOrObj, extra, ts: Date.now() });
+      if(this.syncTimer) clearTimeout(this.syncTimer);
+      // Debounce 3 secondes
+      this.syncTimer = setTimeout(() => this.flushPending(), 3000);
     }
+  },
+
+  async flushPending(){
+    if(!this.pendingOps.length) return;
+    const ops = [...this.pendingOps];
+    this.pendingOps = [];
+    this.syncTimer = null;
+    setFbStatus('syncing', `Auto-sync (${ops.length} op)…`);
+    try{
+      const { doc, setDoc, deleteDoc } = this.fs;
+      for(const op of ops){
+        try{
+          if(op.type === 'add-subject' || op.type === 'update-subject'){
+            await setDoc(doc(this._ref('subjects'), op.idOrObj.id), op.idOrObj);
+          } else if(op.type === 'delete-subject'){
+            await deleteDoc(doc(this._ref('subjects'), op.idOrObj));
+          } else if(op.type === 'add-folder' || op.type === 'update-folder'){
+            await setDoc(doc(this._ref('folders'), op.idOrObj.id), op.idOrObj);
+          } else if(op.type === 'delete-folder'){
+            await deleteDoc(doc(this._ref('folders'), op.idOrObj));
+          } else if(op.type === 'add-file' || op.type === 'update-file'){
+            const meta = { ...op.idOrObj };
+            delete meta.data;
+            await setDoc(doc(this._ref('files'), meta.id), meta);
+            const rec = await DB.get('blobs', meta.id);
+            if(rec && rec.blob){
+              const ref = this._storageRef(meta.id);
+              await this.st.uploadBytes(ref, rec.blob, { contentType: meta.type || 'application/octet-stream' });
+            }
+          } else if(op.type === 'delete-file'){
+            await deleteDoc(doc(this._ref('files'), op.idOrObj));
+            try{ await this.st.deleteObject(this._storageRef(op.idOrObj)); }catch(e){}
+          }
+        }catch(e){ console.warn('flush op', op.type, e); }
+      }
+      this.lastSyncAt = Date.now();
+      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      setFbStatus('on', `Synchronisé (${fmtTime(this.lastSyncAt)})`);
+      updateFbUI();
+    }catch(e){
+      setFbStatus('err', 'Erreur auto-sync : ' + e.message);
+    }
+  },
+
+  // ---------- helpers UI ----------
+  setAutoSync(on){
+    this.autoSync = on;
+    localStorage.setItem('kd_fb_auto', on ? '1' : '0');
+    updateFbUI();
+    if(!on && this.syncTimer){ clearTimeout(this.syncTimer); this.syncTimer = null; this.pendingOps = []; }
+    if(on && this.pendingOps.length) this.flushPending();
+  },
+  setRealtime(on){
+    this.realtime = on;
+    localStorage.setItem('kd_fb_rt', on ? '1' : '0');
+    if(on && this.connected) this.startRealtime();
+    else this.stopRealtime();
+    updateFbUI();
   }
 };
-function updateFbStatus(){
-  const box = $('#fbStatus'), txt = $('#fbStatusTxt');
-  box.classList.toggle('on', FB.connected);
-  txt.textContent = FB.connected ? `Connecté — sync « ${FB.syncId} »` : 'Non connecté';
-  $('#fbPush').disabled = !FB.connected;
-  $('#fbPull').disabled = !FB.connected;
-  $('#fbDisconnect').disabled = !FB.connected;
+
+/* ---------- UI helpers Firebase ---------- */
+function setFbStatus(kind, text){
+  const box = $('#fbStatus');
+  const txt = $('#fbStatusTxt');
+  if(!box) return;
+  box.classList.remove('on', 'syncing', 'err');
+  if(kind) box.classList.add(kind);
+  txt.textContent = text;
+  // Sidebar sync indicator
+  const dot = $('#syncDot'), label = $('#syncLabel');
+  dot.classList.remove('on', 'sync');
+  if(kind === 'on'){ dot.classList.add('on'); label.textContent = 'Cloud connecté'; }
+  else if(kind === 'syncing'){ dot.classList.add('sync'); label.textContent = 'Synchronisation…'; }
+  else if(kind === 'err'){ dot.style.background = 'var(--danger)'; label.textContent = 'Erreur cloud'; }
+  else { dot.style.background = ''; label.textContent = 'Local uniquement'; }
+}
+function showFbProgress(show){
+  const w = $('#fbProgressWrap');
+  if(!w) return;
+  w.hidden = !show;
+  if(!show) setFbProgress(0, 'Préparation…');
+}
+function setFbProgress(pct, label){
+  const bar = $('#fbProgressBar'), lbl = $('#fbProgressLbl'), pctEl = $('#fbProgressPct');
+  if(!bar) return;
+  bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+  if(lbl) lbl.textContent = label || '';
+  if(pctEl) pctEl.textContent = Math.round(pct) + '%';
+}
+function updateFbUI(){
+  const connected = FB.connected;
+  $('#fbConnectedPanel').hidden = !connected;
+  $('#fbSetupPanel').hidden = connected;
+  $('#fbAutoSync').classList.toggle('on', FB.autoSync);
+  $('#fbRealtime').classList.toggle('on', FB.realtime);
+  $('#fbSyncIdDisplay').textContent = FB.syncId || '—';
+  $('#fbProjectDisplay').textContent = FB.config?.projectId || '—';
+  const last = parseInt(localStorage.getItem('kd_fb_lastSync') || '0', 10);
+  $('#fbLastSync').textContent = last ? fmtTime(last) : 'jamais';
 }
 function parseFirebaseConfig(text){
-  const s = text.indexOf('{'), e = text.lastIndexOf('}');
-  if(s < 0 || e < 0) throw new Error('Config invalide');
-  return Function('"use strict";return ('+text.slice(s, e+1)+')')();
+  // Accepte :
+  // 1. Un objet JS : const firebaseConfig = { apiKey: "...", ... };
+  // 2. Un JSON pur
+  // 3. Un copier-coller de la console
+  const cleaned = text.trim();
+  // Essaie JSON d'abord
+  try{ const j = JSON.parse(cleaned); if(j.apiKey) return j; }catch(e){}
+  // Sinon, extrait l'objet entre la première { et la dernière }
+  const s = cleaned.indexOf('{'), e = cleaned.lastIndexOf('}');
+  if(s < 0 || e < 0) throw new Error('Config invalide — collez le bloc firebaseConfig entier');
+  const obj = cleaned.slice(s, e + 1);
+  try{
+    // eslint-disable-next-line no-new-func
+    const parsed = Function('"use strict";return (' + obj + ')')();
+    if(!parsed.apiKey) throw new Error('apiKey manquant');
+    if(!parsed.projectId) throw new Error('projectId manquant');
+    return parsed;
+  }catch(e){
+    throw new Error('Impossible de lire la configuration : ' + e.message);
+  }
 }
 
-/* ========== EVENTS ========== */
+/* ============================================================
+   ÉVÉNEMENTS
+   ============================================================ */
 function bindEvents(){
-  $('#menuBtn').addEventListener('click', openSidebar);
-  $('#backdrop').addEventListener('click', () => { closeSidebar(); closeAIPanel(); });
+  $('#menuBtn').onclick = openSidebar;
+  $('#backdrop').onclick = () => { closeSidebar(); closeAIPanel(); };
 
-  $('#uploadBtn').addEventListener('click', () => $('#fileInput').click());
-  $('#fileInput').addEventListener('change', e => { importFiles(e.target.files); e.target.value=''; });
-  $('#dropzone').addEventListener('click', () => $('#fileInput').click());
+  $('#uploadBtn').onclick = () => $('#fileInput').click();
+  $('#fileInput').onchange = e => { importFiles(e.target.files); e.target.value=''; };
+  $('#dropzone').onclick = () => $('#fileInput').click();
 
   let dragDepth = 0;
   const dz = $('#dropzone');
@@ -2090,10 +2395,9 @@ function bindEvents(){
     if(e.dataTransfer && e.dataTransfer.files.length) importFiles(e.dataTransfer.files);
   });
 
-  $('#searchInput').addEventListener('input', e => { state.search = e.target.value; renderFiles(); });
-  $('#sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderFiles(); });
+  $('#searchInput').oninput = e => { state.search = e.target.value; renderFiles(); };
+  $('#sortSelect').onchange = e => { state.sort = e.target.value; renderFiles(); };
 
-  // Thème
   const applyTheme = dark => {
     document.documentElement.classList.toggle('dark', dark);
     const icon = dark ? '☀️' : '🌙';
@@ -2103,47 +2407,43 @@ function bindEvents(){
   };
   applyTheme(localStorage.getItem('kd_theme') === 'dark');
   const toggleTheme = () => applyTheme(!document.documentElement.classList.contains('dark'));
-  $('#themeBtn').addEventListener('click', toggleTheme);
-  $('#themeBtn2').addEventListener('click', toggleTheme);
+  $('#themeBtn').onclick = toggleTheme;
+  $('#themeBtn2').onclick = toggleTheme;
 
-  // IA
-  $('#aiToggle').addEventListener('click', () => { state.aiOpen ? closeAIPanel() : openAIPanel(); });
-  $('#aiClose').addEventListener('click', closeAIPanel);
-  $('#orchBtn').addEventListener('click', () => {
+  $('#aiToggle').onclick = () => { state.aiOpen ? closeAIPanel() : openAIPanel(); };
+  $('#aiClose').onclick = closeAIPanel;
+  $('#orchBtn').onclick = () => {
     state.orchestrator = !state.orchestrator;
     updateOrchUI();
     toast(state.orchestrator ? '🧠 Orchestrateur activé' : '💬 Chat direct');
-  });
-  $('#modelSel').addEventListener('change', e => {
+  };
+  $('#modelSel').onchange = e => {
     state.model = e.target.value;
     localStorage.setItem('kd_model', state.model);
     updateOrchUI();
-  });
-
-  $('#aiSend').addEventListener('click', sendMessage);
-  $('#aiInput').addEventListener('keydown', e => {
+  };
+  $('#aiSend').onclick = sendMessage;
+  $('#aiInput').onkeydown = e => {
     if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
-  });
-  $('#aiInput').addEventListener('input', e => {
+  };
+  $('#aiInput').oninput = e => {
     e.target.style.height = 'auto';
     e.target.style.height = Math.min(e.target.scrollHeight, 110) + 'px';
-  });
-
-  $('#fileToggle').addEventListener('click', e => {
+  };
+  $('#fileToggle').onclick = e => {
     state.useFiles = !state.useFiles;
     e.currentTarget.classList.toggle('on', state.useFiles);
     toast(state.useFiles ? 'Contexte fichiers ON' : 'Contexte fichiers OFF');
-  });
+  };
   $('#fileToggle').classList.toggle('on', state.useFiles);
-
-  $('#imageToggle').addEventListener('click', () => $('#imageInput').click());
-  $('#imageInput').addEventListener('change', e => {
+  $('#imageToggle').onclick = () => $('#imageInput').click();
+  $('#imageInput').onchange = e => {
     [...e.target.files].forEach(f => attachImage(f));
     e.target.value = '';
-  });
+  };
 
   // Réglages IA
-  $('#aiSettingsBtn').addEventListener('click', () => {
+  $('#aiSettingsBtn').onclick = () => {
     buildModelSelect($('#setModelSel'), state.model);
     buildModelSelect($('#setOrchModel'), state.orchModel);
     buildModelSelect($('#setSynthModel'), state.synthModel);
@@ -2153,10 +2453,10 @@ function bindEvents(){
     $('#tempVal').textContent = state.temperature.toFixed(1);
     $('#setSystem').value = state.systemPrompt;
     $('#aiSetOverlay').classList.add('show');
-  });
-  $('#setMaxTasks').addEventListener('input', e => { $('#tasksVal').textContent = e.target.value; });
-  $('#setTemp').addEventListener('input', e => { $('#tempVal').textContent = (+e.target.value).toFixed(1); });
-  $('#aiSetSave').addEventListener('click', () => {
+  };
+  $('#setMaxTasks').oninput = e => { $('#tasksVal').textContent = e.target.value; };
+  $('#setTemp').oninput = e => { $('#tempVal').textContent = (+e.target.value).toFixed(1); };
+  $('#aiSetSave').onclick = () => {
     state.model = $('#setModelSel').value;
     state.orchModel = $('#setOrchModel').value;
     state.synthModel = $('#setSynthModel').value;
@@ -2171,78 +2471,93 @@ function bindEvents(){
     updateOrchUI();
     $('#aiSetOverlay').classList.remove('show');
     toast('Réglages enregistrés', 'ok');
-  });
+  };
 
   // Matières + dossiers
-  $('#addSubjectBtn').addEventListener('click', () => {
+  $('#addSubjectBtn').onclick = () => {
     $('#subjectOverlay').classList.add('show');
     setTimeout(() => $('#subjName').focus(), 200);
-  });
-  $('#subjCreate').addEventListener('click', createSubject);
-  $('#subjName').addEventListener('keydown', e => { if(e.key === 'Enter') createSubject(); });
-  $('#newFolderBtn').addEventListener('click', () => {
+  };
+  $('#subjCreate').onclick = createSubject;
+  $('#subjName').onkeydown = e => { if(e.key === 'Enter') createSubject(); };
+  $('#newFolderBtn').onclick = () => {
     $('#folderOverlay').classList.add('show');
     setTimeout(() => $('#folderName').focus(), 200);
-  });
-  $('#folderCreate').addEventListener('click', createFolder);
-  $('#folderName').addEventListener('keydown', e => { if(e.key === 'Enter') createFolder(); });
+  };
+  $('#folderCreate').onclick = createFolder;
+  $('#folderName').onkeydown = e => { if(e.key === 'Enter') createFolder(); };
 
-  // Close modals
-  $$('[data-close]').forEach(b => b.addEventListener('click', e => {
-    e.target.closest('.overlay').classList.remove('show');
-  }));
-  $$('.overlay').forEach(o => o.addEventListener('click', e => { if(e.target === o) o.classList.remove('show'); }));
+  $$('[data-close]').forEach(b => b.onclick = e => e.target.closest('.overlay').classList.remove('show'));
+  $$('.overlay').forEach(o => o.onclick = e => { if(e.target === o) o.classList.remove('show'); });
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape') $$('.overlay.show').forEach(o => o.classList.remove('show'));
     if((e.ctrlKey || e.metaKey) && e.key === 'k'){ e.preventDefault(); $('#searchInput').focus(); }
   });
 
-  // Viewer
-  $('#viewerDl').addEventListener('click', () => currentViewerId && downloadFile(currentViewerId));
-  $('#viewerSh').addEventListener('click', () => currentViewerId && shareFile(currentViewerId));
+  $('#viewerDl').onclick = () => currentViewerId && downloadFile(currentViewerId);
+  $('#viewerSh').onclick = () => currentViewerId && shareFile(currentViewerId);
 
   // ZIP
   const doExport = () => exportZip();
   const doImport = () => $('#zipInput').click();
-  $('#exportZipBtn').addEventListener('click', doExport);
-  $('#exportZipBtn2').addEventListener('click', doExport);
-  $('#importZipBtn').addEventListener('click', doImport);
-  $('#importZipBtn2').addEventListener('click', doImport);
-  $('#zipInput').addEventListener('change', e => {
-    const f = e.target.files[0]; if(f) importZip(f); e.target.value = '';
-  });
+  $('#exportZipBtn').onclick = doExport;
+  $('#exportZipBtn2').onclick = doExport;
+  $('#importZipBtn').onclick = doImport;
+  $('#importZipBtn2').onclick = doImport;
+  $('#zipInput').onchange = e => { const f = e.target.files[0]; if(f) importZip(f); e.target.value = ''; };
 
   // Firebase
   const openFB = () => {
     if(FB.config) $('#fbConfig').value = JSON.stringify(FB.config, null, 2);
     if(FB.syncId) $('#fbSyncId').value = FB.syncId;
-    updateFbStatus();
+    updateFbUI();
     $('#fbOverlay').classList.add('show');
   };
-  $('#firebaseBtn').addEventListener('click', openFB);
-  $('#firebaseBtn2').addEventListener('click', openFB);
-  $('#fbConnect').addEventListener('click', async () => {
+  $('#firebaseBtn').onclick = openFB;
+  $('#firebaseBtn2').onclick = openFB;
+
+  $('#fbConnect').onclick = async () => {
     try{
       const cfg = parseFirebaseConfig($('#fbConfig').value);
       const sid = $('#fbSyncId').value.trim();
-      if(!sid) return toast('Donnez un code de sync', 'err');
-      busy(true); await FB.connect(cfg, sid); busy(false);
-    }catch(e){ busy(false); toast('Erreur : '+e.message, 'err'); }
-  });
-  $('#fbPush').addEventListener('click', async () => {
+      if(!sid) return toast('Donnez un code de synchronisation', 'err');
+      if(sid.length < 4) return toast('Le code de sync doit faire au moins 4 caractères', 'err');
+      busy(true);
+      await FB.connect(cfg, sid);
+      busy(false);
+      updateFbUI();
+    }catch(e){
+      busy(false);
+      console.error(e);
+      toast('Erreur : ' + e.message, 'err');
+    }
+  };
+  $('#fbPush').onclick = async () => {
+    if(!confirm('Envoyer toutes vos données locales vers le cloud ?\nLes données du cloud pour ce code seront remplacées.')) return;
     busy(true);
-    try{ await FB.push(); toast('Envoyé au cloud', 'ok'); }
-    catch(e){ toast('Erreur : '+e.message, 'err'); }
+    try{ await FB.push(); }
+    catch(e){ console.error(e); }
     busy(false);
-  });
-  $('#fbPull').addEventListener('click', async () => {
-    if(!confirm('Remplacer les données locales ?')) return;
+  };
+  $('#fbPull').onclick = async () => {
+    if(!confirm('Remplacer vos données locales par celles du cloud ?')) return;
     busy(true);
-    try{ await FB.pull(); await loadAll(); renderAll(); updateStorage(); toast('Reçu du cloud', 'ok'); }
-    catch(e){ toast('Erreur : '+e.message, 'err'); }
+    try{ await FB.pull(); }
+    catch(e){ console.error(e); }
     busy(false);
-  });
-  $('#fbDisconnect').addEventListener('click', () => FB.disconnect());
+  };
+  $('#fbMerge').onclick = async () => {
+    busy(true);
+    try{ await FB.merge(); }
+    catch(e){ console.error(e); }
+    busy(false);
+  };
+  $('#fbDisconnect').onclick = () => {
+    if(!confirm('Déconnecter du cloud ?\nVos données locales seront conservées.')) return;
+    FB.disconnect();
+  };
+  $('#fbAutoSync').onclick = () => FB.setAutoSync(!FB.autoSync);
+  $('#fbRealtime').onclick = () => FB.setRealtime(!FB.realtime);
 
   // Resize
   let lastW = window.innerWidth;
@@ -2253,6 +2568,14 @@ function bindEvents(){
       if(!state.aiOpen) document.body.classList.remove('drawer-open');
     }
     lastW = w;
+  });
+
+  // Sauvegarde de la dernière sync pour éviter les fermetures de page pendant l'upload
+  window.addEventListener('beforeunload', e => {
+    if(FB.connected && FB.autoSync && FB.pendingOps.length){
+      e.preventDefault();
+      e.returnValue = '';
+    }
   });
 }
 
@@ -2273,13 +2596,12 @@ function welcomeMessage(){
       <p>Assistant propulsé par <strong>Pollinations.ai</strong> — gratuit, sans clé.</p>
       <p>Je peux :</p>
       <ul>
-        <li>🖼️ <strong>Analyser une image</strong> (bouton 🖼️ Image en bas)</li>
-        <li>💻 <strong>Générer des fichiers</strong> — clique sur 💾 Drive sur chaque bloc de code</li>
-        <li>📎 <strong>Résumer tes cours</strong> (contexte auto depuis la matière ouverte)</li>
+        <li>🖼️ <strong>Analyser une image</strong> (bouton 🖼️ Image)</li>
+        <li>💻 <strong>Générer des fichiers</strong> — clique sur 💾 Drive</li>
+        <li>📎 <strong>Résumer tes cours</strong> (contexte auto)</li>
         <li>🧠 <strong>Orchestrateur</strong> pour les demandes complexes</li>
-        <li>📝 <strong>Expliquer, rédiger, calculer</strong></li>
       </ul>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">Organise tes fichiers en <strong>dossiers</strong> dans chaque matière (bouton 📁 Dossier).</p>`;
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">☁️ Bouton <strong>Cloud</strong> en haut (ou dans la barre latérale) pour synchroniser entre appareils.</p>`;
   }, 500);
 }
 
@@ -2290,7 +2612,6 @@ function welcomeMessage(){
     await seedSubjects();
     await loadAll();
 
-    // Préférences IA
     state.model = localStorage.getItem('kd_model') || 'openai';
     state.orchModel = localStorage.getItem('kd_orch') || 'openai-fast';
     state.synthModel = localStorage.getItem('kd_synth') || 'openai';
@@ -2308,12 +2629,15 @@ function welcomeMessage(){
     updateStorage();
     setGreeting();
     welcomeMessage();
+    updateFbUI();
 
-    console.log('%c🚀 Keryan Drive v5', 'color:#2563eb;font-weight:bold');
+    // Charger la config Firebase existante
+    FB.loadFromStorage();
+
+    console.log('%c🚀 Keryan Drive v6 + Firebase', 'color:#2563eb;font-weight:bold');
   }catch(e){
     console.error(e);
-    document.body.innerHTML = `<div style="padding:40px;font-family:sans-serif">
-      <h2>Erreur</h2><p>${e.message}</p></div>`;
+    document.body.innerHTML = `<div style="padding:40px;font-family:sans-serif"><h2>Erreur</h2><p>${e.message}</p></div>`;
   }
 })();
 
