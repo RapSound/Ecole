@@ -80,7 +80,6 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .sidebar-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .tool-btn{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;background:var(--panel-2);font-size:15px;color:var(--muted);transition:.18s;position:relative}
 .tool-btn:hover{background:var(--primary-soft);color:var(--primary-2)}
-.tool-btn.on{color:var(--success);background:var(--success-soft)}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .topbar{height:var(--topbar-h);flex:0 0 var(--topbar-h);display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line);z-index:20}
 .menu-btn{display:none;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;font-size:18px;color:var(--text-2);flex:0 0 40px;transition:.15s}
@@ -131,6 +130,10 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--primary-3)}
 .card.folder{background:linear-gradient(135deg,var(--accent-soft),var(--panel))}
 html.dark .card.folder{background:linear-gradient(135deg,rgba(245,158,11,.08),var(--panel))}
+.card.selectable .checkbox{position:absolute;top:8px;left:8px;width:22px;height:22px;border-radius:6px;background:var(--panel);border:2px solid var(--line-2);display:grid;place-items:center;z-index:3;transition:.15s;cursor:pointer}
+.card.selectable .checkbox.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.card.selectable .checkbox.on::after{content:'✓';font-weight:800;font-size:13px}
+.card.selectable.selected{border-color:var(--primary-2);box-shadow:0 0 0 2px var(--primary-soft)}
 .card .thumb{height:88px;border-radius:11px;display:grid;place-items:center;font-size:38px;background:linear-gradient(135deg,var(--panel-2),var(--line));overflow:hidden;position:relative}
 html.dark .card .thumb{background:linear-gradient(135deg,var(--panel-2),rgba(255,255,255,.03))}
 .card.folder .thumb{background:linear-gradient(135deg,var(--accent-soft),var(--accent-2))}
@@ -254,7 +257,8 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .modal{background:var(--panel);border-radius:18px;width:100%;max-width:520px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:rise .26s cubic-bezier(.2,.9,.3,1.1)}
 @keyframes rise{from{opacity:0;transform:translateY(20px) scale(.97)}}
 .modal.wide{max-width:min(1100px,96vw);height:min(88vh,800px)}
-.modal.lg{max-width:600px}
+.modal.lg{max-width:640px}
+.modal.xl{max-width:min(760px,96vw);height:min(90vh,860px)}
 .modal-head{padding:16px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);flex:0 0 auto}
 .modal-head h2{font-size:15px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .modal-head .x{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:15px;color:var(--muted);transition:.15s;flex:0 0 auto}
@@ -291,13 +295,55 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .fb-status.on{color:var(--success);background:var(--success-soft)}
 .fb-status.syncing{color:var(--accent);background:var(--accent-soft)}
 .fb-status.err{color:var(--danger);background:var(--danger-soft)}
-.fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.fb-progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
-.fb-progress div{height:100%;background:linear-gradient(90deg,var(--primary-2),var(--accent-2));border-radius:6px;transition:width .3s;width:0}
-.fb-progress-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.fb-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}
 .fb-info{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:12px;font-size:12px;line-height:1.7;color:var(--muted)}
 .fb-info strong{color:var(--text-2)}
 .fb-info code{background:rgba(30,64,175,.1);padding:1px 6px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11px;color:var(--primary);font-weight:700}
+
+/* Progress UI (nouveau) */
+.progress-wrap{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;font-weight:700}
+.progress-head .stat{color:var(--muted);font-size:11px;font-weight:600}
+.progress-bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:6px;position:relative}
+.progress-bar > div{height:100%;background:linear-gradient(90deg,var(--primary-2),var(--primary-3));border-radius:8px;transition:width .2s;width:0}
+.progress-bar.fast > div{background:linear-gradient(90deg,#10b981,#06b6d4)}
+.progress-label{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+.progress-label .eta{font-weight:700;color:var(--primary-2)}
+.file-list{max-height:180px;overflow-y:auto;margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+.file-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:11px}
+.file-row .fi{font-size:14px;flex-shrink:0}
+.file-row .fn{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-2)}
+.file-row .fs{color:var(--muted);font-size:10px;flex-shrink:0}
+.file-row .st{font-size:12px;flex-shrink:0}
+.file-row .st.done{color:var(--success)}
+.file-row .st.up{color:var(--primary-2);animation:pulse 1s infinite}
+.file-row .st.err{color:var(--danger)}
+.file-row .st.wait{color:var(--muted-2)}
+
+/* Selection tree */
+.tree{display:flex;flex-direction:column;gap:1px}
+.tree-node{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:9px;cursor:pointer;transition:.15s;user-select:none;font-size:12.5px}
+.tree-node:hover{background:var(--panel-2)}
+.tree-node.lvl-0{font-weight:700;margin-top:6px}
+.tree-node.lvl-1{padding-left:26px}
+.tree-node.lvl-2{padding-left:46px}
+.tree-node .chk{width:18px;height:18px;border-radius:5px;background:var(--panel);border:2px solid var(--line-2);display:grid;place-items:center;transition:.15s;flex-shrink:0;font-size:11px;font-weight:800;color:#fff}
+.tree-node .chk.on{background:var(--primary);border-color:var(--primary)}
+.tree-node .chk.on::after{content:'✓'}
+.tree-node .chk.mid{background:var(--primary-2);border-color:var(--primary-2)}
+.tree-node .chk.mid::after{content:'–'}
+.tree-node .ic{font-size:14px;flex-shrink:0}
+.tree-node .lb{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tree-node .sz{font-size:10.5px;color:var(--muted);flex-shrink:0}
+.tree-node.expandable{cursor:pointer}
+.tree-node .arrow{font-size:10px;color:var(--muted);transition:.2s;flex-shrink:0;width:12px}
+.tree-node .arrow.open{transform:rotate(90deg)}
+
+.sel-summary{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--primary-soft);padding:10px 14px;border-radius:11px;margin-bottom:12px;font-size:12.5px;font-weight:600;color:var(--primary-2);flex-wrap:wrap}
+.sel-actions{display:flex;gap:6px}
+.sel-actions button{padding:5px 10px;font-size:11px;font-weight:700;border-radius:7px;background:var(--panel);color:var(--text-2);border:1px solid var(--line);transition:.15s}
+.sel-actions button:hover{background:var(--primary-soft);color:var(--primary-2);border-color:var(--primary-2)}
+
 .info-box{font-size:12px;color:var(--muted);line-height:1.7;background:var(--panel-2);padding:12px 14px;border-radius:11px;border:1px solid var(--line)}
 .toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:400;align-items:center;pointer-events:none;padding:0 16px;max-width:100%}
 .toast{background:var(--panel);color:var(--text);padding:11px 16px;border-radius:11px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:toastIn .25s cubic-bezier(.2,.9,.3,1.2);display:flex;align-items:center;gap:9px;max-width:100%}
@@ -337,12 +383,11 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
   .dropzone{padding:18px 14px;gap:11px;flex-direction:column;text-align:center}
   .dropzone .txt{text-align:center}
   .modal{max-height:calc(100dvh - 16px);border-radius:14px}
-  .modal.wide{height:100dvh;max-height:100dvh;max-width:100vw;border-radius:0}
+  .modal.wide,.modal.xl{height:100dvh;max-height:100dvh;max-width:100vw;border-radius:0}
   .overlay{padding:8px}
   .modal-foot{padding:12px 14px;justify-content:stretch}
   .modal-foot .btn{flex:1}
   .ai-panel{width:100%}
-  .fb-grid{grid-template-columns:1fr}
 }
 @media (max-width:400px){.grid{grid-template-columns:repeat(2,1fr);gap:9px}.content{padding:14px 11px 40px}}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--primary-2);outline-offset:2px}
@@ -451,6 +496,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 </div>
 
 <!-- MODALS -->
+
+<!-- Subject -->
 <div class="overlay" id="subjectOverlay">
   <div class="modal">
     <div class="modal-head"><h2>Nouvelle matière</h2><button class="x" data-close>✕</button></div>
@@ -463,6 +510,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
+<!-- Folder -->
 <div class="overlay" id="folderOverlay">
   <div class="modal">
     <div class="modal-head"><h2>Nouveau dossier</h2><button class="x" data-close>✕</button></div>
@@ -474,6 +522,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
+<!-- Viewer -->
 <div class="overlay" id="viewerOverlay">
   <div class="modal wide">
     <div class="modal-head">
@@ -487,6 +536,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
+<!-- Move -->
 <div class="overlay" id="moveOverlay">
   <div class="modal">
     <div class="modal-head"><h2>Déplacer…</h2><button class="x" data-close>✕</button></div>
@@ -494,6 +544,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
+<!-- AI Settings -->
 <div class="overlay" id="aiSetOverlay">
   <div class="modal">
     <div class="modal-head"><h2>Réglages IA</h2><button class="x" data-close>✕</button></div>
@@ -509,7 +560,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
-<!-- ========== MODAL FIREBASE (sync manuelle) ========== -->
+<!-- FIREBASE -->
 <div class="overlay" id="fbOverlay">
   <div class="modal lg">
     <div class="modal-head">
@@ -522,12 +573,21 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <span id="fbStatusTxt">Non connecté</span>
       </div>
 
-      <div id="fbProgressWrap" hidden>
-        <div class="fb-progress-label"><span id="fbProgressLbl">Préparation…</span><span id="fbProgressPct">0%</span></div>
-        <div class="fb-progress"><div id="fbProgressBar"></div></div>
+      <!-- Progression -->
+      <div class="progress-wrap" id="fbProgressWrap" hidden>
+        <div class="progress-head">
+          <span id="fbProgTitle">En cours…</span>
+          <span class="stat" id="fbProgStat">0 / 0</span>
+        </div>
+        <div class="progress-bar" id="fbProgBarWrap"><div id="fbProgBar"></div></div>
+        <div class="progress-label">
+          <span id="fbProgLbl">Préparation…</span>
+          <span class="eta" id="fbProgEta">—</span>
+        </div>
+        <div class="file-list" id="fbProgList"></div>
       </div>
 
-      <!-- Connecté : 3 boutons manuels -->
+      <!-- Connecté -->
       <div id="fbConnectedPanel" hidden>
         <div class="fb-info">
           <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
@@ -535,50 +595,68 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
             <span><strong>Dernière :</strong> <span id="fbLastSync">jamais</span></span>
           </div>
           <div style="margin-top:6px"><strong>Projet :</strong> <span id="fbProjectDisplay">—</span></div>
-          <div style="margin-top:6px;color:var(--muted);font-size:11px">⚙️ Synchronisation <strong>manuelle</strong> : cliquez sur un des boutons ci-dessous pour agir.</div>
+          <div style="margin-top:6px;font-size:11px">⚡ Synchronisation manuelle · Upload parallèle <strong id="fbConcurrencyInfo">×5</strong></div>
         </div>
 
-        <div class="fb-grid" style="grid-template-columns:1fr">
-          <button class="btn btn-success" id="fbPush" style="justify-content:center;height:46px;font-size:13.5px">⬆️ Envoyer tout vers le cloud</button>
-          <button class="btn btn-primary" id="fbPull" style="justify-content:center;height:46px;font-size:13.5px">⬇️ Recevoir tout depuis le cloud</button>
-          <button class="btn btn-ghost" id="fbMerge" style="justify-content:center;height:46px;font-size:13.5px">🔀 Fusion intelligente (local + cloud)</button>
+        <div class="fb-grid">
+          <button class="btn btn-success" id="fbPush" style="justify-content:center;height:44px;font-size:13.5px">⚡ Envoyer tout (rapide)</button>
+          <button class="btn btn-primary" id="fbPushSelect" style="justify-content:center;height:44px;font-size:13.5px">🎯 Choisir et envoyer…</button>
+          <button class="btn btn-primary" id="fbPull" style="justify-content:center;height:44px;font-size:13.5px">⬇️ Recevoir tout</button>
+          <button class="btn btn-ghost" id="fbMerge" style="justify-content:center;height:44px;font-size:13.5px">🔀 Fusion intelligente</button>
         </div>
 
         <div class="fb-info" style="margin-top:12px">
-          <strong>⬆ Envoyer</strong> remplace les données du cloud par vos données locales.<br>
-          <strong>⬇ Recevoir</strong> remplace vos données locales par celles du cloud.<br>
-          <strong>🔀 Fusion</strong> garde le meilleur des deux (la version la plus récente de chaque fichier), sans rien perdre.
+          <strong>⚡ Envoyer tout</strong> : upload parallèle (5 fichiers simultanés), ignore les fichiers déjà à jour sur le cloud.<br>
+          <strong>🎯 Choisir</strong> : sélectionnez précisément quels fichiers envoyer.
         </div>
 
         <button class="btn btn-danger" id="fbDisconnect" style="width:100%;justify-content:center;margin-top:12px">🚪 Se déconnecter</button>
       </div>
 
-      <!-- Non connecté : juste le code de sync -->
+      <!-- Non connecté -->
       <div id="fbSetupPanel">
         <div class="fb-info">
           <strong>📦 Projet :</strong> <code>imprimante-9382b</code><br>
           <strong>🔐 Config :</strong> déjà intégrée ✓<br>
-          <span style="color:var(--muted);font-size:11px">Il vous reste juste à choisir un code de synchronisation personnel.</span>
+          <span style="font-size:11px">Il vous reste juste à choisir un code de synchronisation personnel.</span>
         </div>
 
         <div class="field">
-          <label>Code de synchronisation (inventez un code perso)</label>
+          <label>Code de synchronisation</label>
           <input type="text" id="fbSyncId" placeholder="keryan-2026" maxlength="40">
-          <div style="font-size:11px;color:var(--muted);margin-top:5px">Même code = mêmes données sur tous vos appareils. Choisissez quelque chose d'unique et mémorisable.</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:5px">Même code = mêmes données sur tous vos appareils.</div>
         </div>
 
         <button class="btn btn-primary" id="fbConnect" style="width:100%;justify-content:center;height:46px;font-size:14px">🔌 Se connecter au cloud</button>
-
-        <div class="fb-info" style="margin-top:14px">
-          <strong>💡 Première utilisation ?</strong><br>
-          1. Vérifiez dans la console Firebase que <b>Firestore</b> et <b>Storage</b> sont activés.<br>
-          2. Règles de test : <code>allow read, write: if true;</code><br>
-          3. Entrez un code de sync et cliquez sur <b>Se connecter</b>.
-        </div>
       </div>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" data-close>Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- SÉLECTION DE FICHIERS -->
+<div class="overlay" id="fbSelectOverlay">
+  <div class="modal xl">
+    <div class="modal-head">
+      <h2>🎯 Choisir les fichiers à envoyer</h2>
+      <button class="x" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="sel-summary">
+        <span><span id="selCount">0</span> fichier(s) sélectionné(s) · <span id="selSize">0 o</span></span>
+        <div class="sel-actions">
+          <button id="selAll">Tout</button>
+          <button id="selNone">Rien</button>
+          <button id="selNew">Seulement les nouveaux</button>
+        </div>
+      </div>
+      <div class="tree" id="fbTree"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close>Annuler</button>
+      <button class="btn btn-success" id="fbSendSelected" disabled>⚡ Envoyer la sélection</button>
     </div>
   </div>
 </div>
@@ -592,13 +670,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 <script>
 'use strict';
 /* ============================================================
-   KERYAN DRIVE — v7 (Firebase préconfiguré, sync manuelle)
+   KERYAN DRIVE — v8 (upload parallèle + sélection granulaire)
    ============================================================ */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 
-/* -------- FIREBASE CONFIG (préconfigurée) -------- */
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyDVWb2b1pH5aPDNZmC4pMDABdjxn7s1l1g",
   authDomain: "imprimante-9382b.firebaseapp.com",
@@ -608,6 +685,9 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "1088858811310",
   appId: "1:1088858811310:web:96e0b588dce4eb1310b63f"
 };
+
+const UPLOAD_CONCURRENCY = 5; // 5 uploads en parallèle
+const DOWNLOAD_CONCURRENCY = 6;
 
 function fmtSize(b){
   if(b == null) return '—';
@@ -630,6 +710,13 @@ function fmtTime(ts){
   if(diff < 60000) return "à l'instant";
   if(diff < 3600000) return `il y a ${Math.floor(diff/60000)} min`;
   return new Date(ts).toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+}
+function fmtEta(ms){
+  if(!ms || ms < 0 || !isFinite(ms)) return '—';
+  const s = Math.round(ms/1000);
+  if(s < 60) return `≈ ${s}s`;
+  const m = Math.floor(s/60), r = s%60;
+  return `≈ ${m}m${r.toString().padStart(2,'0')}`;
 }
 function ext(n){ const i = n.lastIndexOf('.'); return i >= 0 ? n.slice(i+1).toLowerCase() : ''; }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -666,8 +753,30 @@ function toast(msg, kind=''){
 }
 function busy(on){ $('#busy').classList.toggle('show', on); }
 
+/* ---------- Parallel executor ---------- */
+async function parallelLimit(tasks, limit, onProgress){
+  const results = new Array(tasks.length);
+  let idx = 0, completed = 0;
+  async function worker(){
+    while(idx < tasks.length){
+      const myIdx = idx++;
+      try{
+        results[myIdx] = await tasks[myIdx]();
+      }catch(e){
+        results[myIdx] = { __error: e };
+      }
+      completed++;
+      onProgress?.(completed, tasks.length);
+    }
+  }
+  const workers = [];
+  for(let i = 0; i < Math.min(limit, tasks.length); i++) workers.push(worker());
+  await Promise.all(workers);
+  return results;
+}
+
 /* ========== DB ========== */
-const DB_NAME = 'KeryanDriveV7', DB_VER = 1;
+const DB_NAME = 'KeryanDriveV8', DB_VER = 1;
 let db = null;
 function openDB(){
   return new Promise((res, rej) => {
@@ -715,19 +824,12 @@ RÈGLES DE RÉPONSE :
 2. Utilise du markdown (titres, listes, tableaux, code).
 3. Sois concis mais complet.
 
-GÉNÉRATION DE FICHIERS (comme Claude Artifacts) :
+GÉNÉRATION DE FICHIERS :
 - Quand tu produis du code, place-le dans un bloc avec le langage précis.
-- Commence chaque bloc par un commentaire indiquant le nom : \`# filename: mon_fichier.py\` (ou \`// filename:\`, \`<!-- filename:\`…).
-- Chaque fichier dans son propre bloc. Code complet et autonome.
-
-ANALYSE DE FICHIERS / IMAGES :
-- Si une image est jointe, décris-la en détail puis réponds.
-- Si des extraits de cours sont fournis, base ta réponse dessus.
-
-EXPLICATIONS :
-- Notion : définition → exemple simple → exemple complexe → piège classique.
-- Exercice : méthode → application → résultat.`,
-  attachments:[]
+- Commence chaque bloc par un commentaire indiquant le nom : \`# filename: mon_fichier.py\`.
+- Chaque fichier dans son propre bloc. Code complet et autonome.`,
+  attachments:[],
+  fbSelection:new Set()
 };
 
 const DEFAULT_SUBJECTS = [
@@ -758,7 +860,6 @@ async function loadAll(){
   state.files = (await DB.all('files')).sort((a,b) => b.date - a.date);
 }
 
-/* ========== NAV ========== */
 function getCurrentSubject(){ return state.current === 'all' || state.current === 'fav' ? null : state.subjects.find(s => s.id === state.current); }
 function getCurrentFolder(){ return state.currentFolder ? state.folders.find(f => f.id === state.currentFolder) : null; }
 function getVisibleItems(){
@@ -1069,7 +1170,7 @@ async function exportZip(){
   try{
     const zip = new JSZip();
     const meta = {
-      app:'Keryan Drive', version:7, exportedAt:Date.now(),
+      app:'Keryan Drive', version:8, exportedAt:Date.now(),
       subjects: state.subjects, folders: state.folders,
       files: state.files.map(f => ({
         id:f.id, name:f.name, type:f.type, size:f.size,
@@ -1406,7 +1507,7 @@ function enhanceCodeBlocks(container){
   });
 }
 
-/* ========== AI MODELS ========== */
+/* ========== AI ========== */
 const TEXT_MODELS = [
   { id:'openai',       name:'GPT-4o mini',       tag:'general',   icon:'🧠', vision:true },
   { id:'openai-fast',  name:'OpenAI Fast',       tag:'fast',      icon:'⚡', vision:false },
@@ -1440,7 +1541,6 @@ function buildModelSelect(el, currentValue){
 }
 function getModelName(id){ return TEXT_MODELS.find(m => m.id === id)?.name || id; }
 
-/* ========== AI STREAM ========== */
 async function* streamChat(messages, model, opts = {}){
   const body = {
     model, messages, stream:true, private:true, referrer:'keryan-drive',
@@ -1659,8 +1759,6 @@ async function runDirectChat(fullText, displayText, images = []){
   meta.textContent = `— ${modelName}`;
   bub.appendChild(meta);
   attachAssistantActions(el, bub, full);
-  state.chat.push({ role:'user', content: displayText });
-  state.chat.push({ role:'assistant', content: full });
 }
 async function runOrchestrator(fullText, displayText){
   const chat = $('#chat');
@@ -1726,8 +1824,6 @@ async function runOrchestrator(fullText, displayText){
   meta.textContent = `— orchestrateur (${plan.tasks.length})`;
   wrap.querySelector('.bub').appendChild(meta);
   attachAssistantActions(wrap, wrap.querySelector('.bub'), finalText);
-  state.chat.push({ role:'user', content: displayText });
-  state.chat.push({ role:'assistant', content: finalText });
   toast('✅ Réponse orchestrée', 'ok');
 }
 function attachAssistantActions(wrapEl, bubEl, fullText){
@@ -1828,13 +1924,13 @@ function renderSuggestions(){
 }
 
 /* ============================================================
-   FIREBASE — v7 (config préconfigurée, sync 100% MANUELLE)
+   FIREBASE — v8 (parallèle + sélectif)
    ============================================================ */
 const FB = {
   app: null, db: null, storage: null, fs: null, st: null,
   connected: false, syncId: null,
+  cloudFilesIndex: null, // cache des fichiers du cloud { id: {size, updatedAt} }
 
-  // Charge le syncId mémorisé + auto-connecte
   loadFromStorage(){
     try{
       const sid = localStorage.getItem('kd_fb_sync');
@@ -1842,7 +1938,7 @@ const FB = {
         this.syncId = sid;
         setTimeout(() => this.connect(sid, true), 500);
       }
-    }catch(e){ console.warn('FB load', e); }
+    }catch(e){ console.warn(e); }
   },
 
   async connect(syncId, silent = false){
@@ -1858,22 +1954,17 @@ const FB = {
       this.fs = fs; this.st = st;
       this.syncId = syncId;
       this.connected = true;
-
       localStorage.setItem('kd_fb_sync', syncId);
-
-      // Test de lecture Firestore
-      const testCol = fs.collection(this.db, 'keryan_drive', syncId, 'meta');
-      await fs.getDocs(testCol).catch(err => {
+      await fs.getDocs(fs.collection(this.db, 'keryan_drive', syncId, 'meta')).catch(err => {
         if(err.code === 'permission-denied') throw new Error('Permission refusée — vérifiez les règles Firestore');
       });
-
       setFbStatus('on', `Connecté — sync « ${syncId} »`);
       updateFbUI();
       if(!silent) toast('☁️ Connecté à Firebase', 'ok');
     }catch(e){
       console.error('FB connect', e);
       this.connected = false;
-      setFbStatus('err', e.message || 'Erreur de connexion');
+      setFbStatus('err', e.message || 'Erreur');
       throw e;
     }
   },
@@ -1881,6 +1972,7 @@ const FB = {
   async disconnect(silent = false){
     this.connected = false;
     this.app = null; this.db = null; this.storage = null; this.fs = null; this.st = null;
+    this.cloudFilesIndex = null;
     if(!silent){
       localStorage.removeItem('kd_fb_sync');
       this.syncId = null;
@@ -1890,129 +1982,268 @@ const FB = {
     }
   },
 
-  _ref(collectionName){ return this.fs.collection(this.db, 'keryan_drive', this.syncId, collectionName); },
+  _ref(col){ return this.fs.collection(this.db, 'keryan_drive', this.syncId, col); },
   _storageRef(fileId){ return this.st.ref(this.storage, `keryan_drive/${this.syncId}/files/${fileId}`); },
 
+  // Charge l'index des fichiers du cloud (id → {size, updatedAt})
+  async loadCloudIndex(){
+    const snap = await this.fs.getDocs(this._ref('files'));
+    const idx = {};
+    snap.forEach(d => {
+      const data = d.data();
+      idx[data.id] = { size: data.size, updatedAt: data.updatedAt || data.date || 0 };
+    });
+    this.cloudFilesIndex = idx;
+    return idx;
+  },
+
+  // -------- Push complet (rapide, parallèle, saute les fichiers inchangés) --------
   async push(){
     if(!this.connected) throw new Error('Non connecté');
-    setFbStatus('syncing', 'Envoi vers le cloud…');
-    showFbProgress(true);
+    setFbStatus('syncing', 'Préparation…');
+    showProgress(true, 'Envoi vers le cloud');
     try{
-      const { doc, setDoc, getDocs, writeBatch } = this.fs;
+      const startTime = Date.now();
+      const { doc, getDocs, writeBatch } = this.fs;
 
-      // 1. Nettoyage Firestore
-      setFbProgress(5, 'Nettoyage du cloud…');
-      for(const col of ['subjects','folders','files']){
-        const snap = await getDocs(this._ref(col));
-        const batch = writeBatch(this.db);
-        snap.forEach(d => batch.delete(d.ref));
-        await batch.commit();
-      }
-      // Nettoyage Storage
-      try{
-        const listRef = this.st.ref(this.storage, `keryan_drive/${this.syncId}/files`);
-        const res = await this.st.listAll(listRef);
-        for(const item of res.items){ await this.st.deleteObject(item); }
-      }catch(e){ console.warn('storage cleanup', e); }
+      // 1. Charger l'index cloud
+      setProgress(0, 0, 1, 'Analyse du cloud…', null);
+      let cloudIdx = {};
+      try{ cloudIdx = await this.loadCloudIndex(); }catch(e){ console.warn(e); }
 
-      // 2. Envoi des métadonnées
-      const total = state.subjects.length + state.folders.length + state.files.length;
-      let done = 0;
-      const step = (msg) => { done++; setFbProgress(10 + Math.round((done/Math.max(total,1))*50), msg); };
+      // 2. Décider quels fichiers uploader
+      const filesToUpload = state.files.filter(f => {
+        const c = cloudIdx[f.id];
+        if(!c) return true;                       // nouveau
+        if(c.size !== f.size) return true;        // taille différente
+        if((c.updatedAt||0) < (f.updatedAt||0)) return true; // plus récent en local
+        return false;                             // identique → skip
+      });
 
-      setFbProgress(10, 'Métadonnées…');
+      const skipped = state.files.length - filesToUpload.length;
+      if(skipped > 0) toast(`⏩ ${skipped} fichier(s) déjà à jour, ignoré(s)`, 'info');
+
+      // 3. Métadonnées Firestore (batch rapide)
+      setProgress(0, 0, 1, 'Envoi des métadonnées…', null);
+      const metadataTotal = state.subjects.length + state.folders.length + state.files.length;
+      let metaDone = 0;
       let batch = writeBatch(this.db); let ops = 0;
       const flush = async () => { if(ops){ await batch.commit(); batch = writeBatch(this.db); ops = 0; } };
-      for(const s of state.subjects){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; if(ops>=400) await flush(); step('Matières…'); }
-      for(const f of state.folders){ batch.set(doc(this._ref('folders'), f.id), f); ops++; if(ops>=400) await flush(); step('Dossiers…'); }
-      for(const f of state.files){ const meta = {...f}; delete meta.data; batch.set(doc(this._ref('files'), f.id), meta); ops++; if(ops>=400) await flush(); step('Fichiers…'); }
+      for(const s of state.subjects){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; metaDone++; if(ops>=400) await flush(); }
+      for(const f of state.folders){ batch.set(doc(this._ref('folders'), f.id), f); ops++; metaDone++; if(ops>=400) await flush(); }
+      for(const f of state.files){ const meta = {...f}; delete meta.data; batch.set(doc(this._ref('files'), f.id), meta); ops++; metaDone++; if(ops>=400) await flush(); }
       await flush();
 
-      // 3. Envoi des blobs
-      const totalFiles = state.files.length;
-      let up = 0;
-      for(const f of state.files){
-        try{
-          const rec = await DB.get('blobs', f.id);
-          if(rec && rec.blob){
-            await this.st.uploadBytes(this._storageRef(f.id), rec.blob, { contentType: f.type || 'application/octet-stream' });
+      // 4. Upload parallèle des blobs
+      const totalUpload = filesToUpload.length;
+      if(totalUpload === 0){
+        setProgress(1, 1, 1, 'Rien à envoyer', 0);
+      } else {
+        showProgress(true, `Envoi de ${totalUpload} fichier(s)`);
+        renderFileList(filesToUpload.map(f => ({ id: f.id, name: f.name, size: f.size, status: 'wait' })));
+
+        let uploadedCount = 0;
+        let uploadedBytes = 0;
+        const totalBytes = filesToUpload.reduce((a, f) => a + (f.size||0), 0);
+        const etaTracker = { start: startTime, lastBytes: 0, lastTime: startTime };
+
+        const tasks = filesToUpload.map(f => async () => {
+          updateFileRow(f.id, 'up');
+          try{
+            const rec = await DB.get('blobs', f.id);
+            if(rec && rec.blob){
+              await this.st.uploadBytes(this._storageRef(f.id), rec.blob, { contentType: f.type || 'application/octet-stream' });
+            }
+            updateFileRow(f.id, 'done');
+            uploadedCount++;
+            uploadedBytes += f.size || 0;
+            // ETA
+            const now = Date.now();
+            const dt = now - etaTracker.lastTime;
+            if(dt > 500){
+              const db_ = uploadedBytes - etaTracker.lastBytes;
+              const speed = db_ / (dt/1000); // bytes/s
+              const remaining = totalBytes - uploadedBytes;
+              const eta = speed > 0 ? (remaining / speed) * 1000 : 0;
+              etaTracker.lastBytes = uploadedBytes;
+              etaTracker.lastTime = now;
+              setProgress(uploadedCount, totalUpload, 2, `Envoi ${uploadedCount}/${totalUpload}`, eta);
+            } else {
+              setProgress(uploadedCount, totalUpload, 2, `Envoi ${uploadedCount}/${totalUpload}`, null);
+            }
+          }catch(e){
+            console.warn('upload fail', f.name, e);
+            updateFileRow(f.id, 'err');
+            uploadedCount++;
+            setProgress(uploadedCount, totalUpload, 2, `Envoi ${uploadedCount}/${totalUpload}`, null);
           }
-        }catch(e){ console.warn('upload fail', f.name, e); }
-        up++;
-        setFbProgress(60 + Math.round((up/Math.max(totalFiles,1))*40), `Upload ${up}/${totalFiles}…`);
+        });
+
+        await parallelLimit(tasks, UPLOAD_CONCURRENCY);
       }
 
-      await setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now() });
+      // 5. Marquer la sync
+      await this.fs.setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now() });
       localStorage.setItem('kd_fb_lastSync', String(Date.now()));
-      setFbProgress(100, 'Terminé !');
+
+      const duration = ((Date.now() - startTime)/1000).toFixed(1);
+      finishProgress(`✅ Terminé en ${duration}s (${filesToUpload.length} envoyés, ${skipped} ignorés)`);
       setFbStatus('on', `Dernière synchro : à l'instant`);
-      toast('☁️ Envoyé au cloud', 'ok');
+      toast(`⚡ Envoi terminé en ${duration}s`, 'ok');
       updateFbUI();
-      setTimeout(() => showFbProgress(false), 900);
     }catch(e){
       console.error('push', e);
       setFbStatus('err', 'Erreur : ' + e.message);
-      showFbProgress(false);
+      finishProgress('❌ Échec : ' + e.message);
       throw e;
     }
   },
 
+  // -------- Push sélectif (uniquement les IDs donnés) --------
+  async pushSelected(selectedIds){
+    if(!this.connected) throw new Error('Non connecté');
+    if(!selectedIds.size){ toast('Aucun fichier sélectionné', 'warn'); return; }
+    setFbStatus('syncing', `Envoi de ${selectedIds.size} fichier(s)…`);
+    showProgress(true, `Envoi de ${selectedIds.size} fichier(s)`);
+    try{
+      const startTime = Date.now();
+      const { doc, writeBatch } = this.fs;
+
+      const filesToUpload = state.files.filter(f => selectedIds.has(f.id));
+      const totalBytes = filesToUpload.reduce((a, f) => a + (f.size||0), 0);
+
+      // Métadonnées Firestore (uniquement les fichiers sélectionnés + leurs matières/dossiers parents)
+      const subjectIds = new Set(filesToUpload.map(f => f.subjectId));
+      const folderIds = new Set(filesToUpload.map(f => f.folderId).filter(Boolean));
+      let batch = writeBatch(this.db); let ops = 0;
+      const flush = async () => { if(ops){ await batch.commit(); batch = writeBatch(this.db); ops = 0; } };
+      for(const s of state.subjects){
+        if(subjectIds.has(s.id)){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; }
+      }
+      for(const f of state.folders){
+        if(folderIds.has(f.id) || subjectIds.has(f.subjectId)){ batch.set(doc(this._ref('folders'), f.id), f); ops++; }
+      }
+      for(const f of filesToUpload){
+        const meta = {...f}; delete meta.data;
+        batch.set(doc(this._ref('files'), f.id), meta); ops++;
+        if(ops >= 400) await flush();
+      }
+      await flush();
+
+      // Upload blobs (parallèle)
+      renderFileList(filesToUpload.map(f => ({ id: f.id, name: f.name, size: f.size, status: 'wait' })));
+      let done = 0, bytes = 0;
+      let lastTime = startTime, lastBytes = 0;
+      const tasks = filesToUpload.map(f => async () => {
+        updateFileRow(f.id, 'up');
+        try{
+          const rec = await DB.get('blobs', f.id);
+          if(rec && rec.blob) await this.st.uploadBytes(this._storageRef(f.id), rec.blob, { contentType: f.type || 'application/octet-stream' });
+          updateFileRow(f.id, 'done');
+        }catch(e){
+          console.warn(e);
+          updateFileRow(f.id, 'err');
+        }
+        done++; bytes += f.size || 0;
+        const now = Date.now();
+        let eta = null;
+        if(now - lastTime > 500){
+          const speed = (bytes - lastBytes) / ((now - lastTime)/1000);
+          if(speed > 0) eta = ((totalBytes - bytes) / speed) * 1000;
+          lastTime = now; lastBytes = bytes;
+        }
+        setProgress(done, filesToUpload.length, 2, `Envoi ${done}/${filesToUpload.length}`, eta);
+      });
+      await parallelLimit(tasks, UPLOAD_CONCURRENCY);
+
+      await this.fs.setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now() });
+      localStorage.setItem('kd_fb_lastSync', String(Date.now()));
+
+      const duration = ((Date.now() - startTime)/1000).toFixed(1);
+      finishProgress(`✅ ${filesToUpload.length} fichier(s) en ${duration}s`);
+      setFbStatus('on', `Dernière synchro : à l'instant`);
+      toast(`⚡ Envoi terminé en ${duration}s`, 'ok');
+      updateFbUI();
+    }catch(e){
+      console.error('pushSelected', e);
+      setFbStatus('err', 'Erreur : ' + e.message);
+      finishProgress('❌ Échec : ' + e.message);
+      throw e;
+    }
+  },
+
+  // -------- Pull complet (parallèle) --------
   async pull(){
     if(!this.connected) throw new Error('Non connecté');
     setFbStatus('syncing', 'Réception…');
-    showFbProgress(true);
+    showProgress(true, 'Réception depuis le cloud');
     try{
-      setFbProgress(5, 'Lecture des métadonnées…');
+      const startTime = Date.now();
+      setProgress(0, 0, 3, 'Lecture des métadonnées…', null);
       const [sS, fS, fiS] = await Promise.all([
         this.fs.getDocs(this._ref('subjects')),
         this.fs.getDocs(this._ref('folders')),
         this.fs.getDocs(this._ref('files'))
       ]);
 
-      setFbProgress(15, 'Nettoyage local…');
+      setProgress(0, 0, 3, 'Nettoyage local…', null);
       await DB.clear('subjects'); await DB.clear('folders'); await DB.clear('files'); await DB.clear('blobs');
 
-      setFbProgress(30, 'Import des métadonnées…');
       for(const d of sS.docs) await DB.put('subjects', d.data());
       for(const d of fS.docs) await DB.put('folders', d.data());
       for(const d of fiS.docs) await DB.put('files', d.data());
 
-      const total = fiS.size;
-      let dl = 0;
-      setFbProgress(50, `Téléchargement 0/${total}…`);
-      for(const d of fiS.docs){
-        const meta = d.data();
+      const cloudFiles = fiS.docs.map(d => d.data());
+      const total = cloudFiles.length;
+      const totalBytes = cloudFiles.reduce((a, f) => a + (f.size||0), 0);
+      renderFileList(cloudFiles.map(f => ({ id: f.id, name: f.name, size: f.size, status: 'wait' })));
+
+      let dl = 0, bytes = 0;
+      let lastTime = startTime, lastBytes = 0;
+      const tasks = cloudFiles.map(meta => async () => {
+        updateFileRow(meta.id, 'up');
         try{
           const ref = this._storageRef(meta.id);
           const url = await this.st.getDownloadURL(ref);
           const res = await fetch(url);
           if(res.ok) await DB.put('blobs', { id: meta.id, blob: await res.blob() });
-        }catch(e){ console.warn('dl fail', meta.name, e); }
-        dl++;
-        setFbProgress(50 + Math.round((dl/Math.max(total,1))*45), `Téléchargement ${dl}/${total}…`);
-      }
+          updateFileRow(meta.id, 'done');
+        }catch(e){ console.warn('dl fail', meta.name, e); updateFileRow(meta.id, 'err'); }
+        dl++; bytes += meta.size || 0;
+        const now = Date.now();
+        let eta = null;
+        if(now - lastTime > 500){
+          const speed = (bytes - lastBytes) / ((now - lastTime)/1000);
+          if(speed > 0) eta = ((totalBytes - bytes) / speed) * 1000;
+          lastTime = now; lastBytes = bytes;
+        }
+        setProgress(dl, total, 2, `Réception ${dl}/${total}`, eta);
+      });
+      await parallelLimit(tasks, DOWNLOAD_CONCURRENCY);
 
       await loadAll(); renderAll(); updateStorage();
       localStorage.setItem('kd_fb_lastSync', String(Date.now()));
-      setFbProgress(100, 'Terminé !');
+      const duration = ((Date.now() - startTime)/1000).toFixed(1);
+      finishProgress(`✅ Reçu en ${duration}s (${total} fichiers)`);
       setFbStatus('on', `Dernière synchro : à l'instant`);
-      toast('☁️ Reçu du cloud', 'ok');
+      toast(`⚡ Réception terminée en ${duration}s`, 'ok');
       updateFbUI();
-      setTimeout(() => showFbProgress(false), 900);
     }catch(e){
       console.error('pull', e);
       setFbStatus('err', 'Erreur : ' + e.message);
-      showFbProgress(false);
+      finishProgress('❌ Échec : ' + e.message);
       throw e;
     }
   },
 
+  // -------- Merge --------
   async merge(){
     if(!this.connected) throw new Error('Non connecté');
     setFbStatus('syncing', 'Fusion…');
-    showFbProgress(true);
+    showProgress(true, 'Fusion intelligente');
     try{
-      setFbProgress(10, 'Analyse des données cloud…');
+      const startTime = Date.now();
+      setProgress(0, 0, 3, 'Analyse…', null);
       const [sS, fS, fiS] = await Promise.all([
         this.fs.getDocs(this._ref('subjects')),
         this.fs.getDocs(this._ref('folders')),
@@ -2027,47 +2258,53 @@ const FB = {
       const localFileMap = Object.fromEntries(state.files.map(f => [f.id, f]));
 
       let addSub = 0, addFol = 0, addFile = 0, updFile = 0;
-
       for(const s of cloudSubs){ if(!localSubIds.has(s.id)){ await DB.put('subjects', s); addSub++; } }
       for(const f of cloudFols){ if(!localFolIds.has(f.id)){ await DB.put('folders', f); addFol++; } }
+      const filesToDownload = [];
       for(const cf of cloudFiles){
         const lf = localFileMap[cf.id];
-        if(!lf){ await DB.put('files', cf); addFile++; }
-        else if((cf.updatedAt||0) > (lf.updatedAt||0)){ await DB.put('files', cf); updFile++; }
+        if(!lf){ await DB.put('files', cf); addFile++; filesToDownload.push(cf); }
+        else if((cf.updatedAt||0) > (lf.updatedAt||0)){ await DB.put('files', cf); updFile++; filesToDownload.push(cf); }
       }
 
-      setFbProgress(40, 'Téléchargement des blobs manquants…');
-      let dl = 0;
-      for(const cf of cloudFiles){
-        const local = await DB.get('blobs', cf.id);
-        if(local){ dl++; continue; }
-        try{
-          const ref = this._storageRef(cf.id);
-          const url = await this.st.getDownloadURL(ref);
-          const res = await fetch(url);
-          if(res.ok) await DB.put('blobs', { id: cf.id, blob: await res.blob() });
-        }catch(e){ console.warn('merge dl', cf.name, e); }
-        dl++;
-        setFbProgress(40 + Math.round((dl/Math.max(cloudFiles.length,1))*55), `Téléchargement ${dl}/${cloudFiles.length}…`);
+      if(filesToDownload.length === 0){
+        finishProgress('✅ Rien à télécharger');
+        setFbStatus('on', `Fusion OK — +${addSub} mat., +${addFol} dos., +${addFile} fich.`);
+      } else {
+        renderFileList(filesToDownload.map(f => ({ id: f.id, name: f.name, size: f.size, status: 'wait' })));
+        let dl = 0;
+        const tasks = filesToDownload.map(meta => async () => {
+          updateFileRow(meta.id, 'up');
+          try{
+            const ref = this._storageRef(meta.id);
+            const url = await this.st.getDownloadURL(ref);
+            const res = await fetch(url);
+            if(res.ok) await DB.put('blobs', { id: meta.id, blob: await res.blob() });
+            updateFileRow(meta.id, 'done');
+          }catch(e){ console.warn(e); updateFileRow(meta.id, 'err'); }
+          dl++;
+          setProgress(dl, filesToDownload.length, 2, `Réception ${dl}/${filesToDownload.length}`, null);
+        });
+        await parallelLimit(tasks, DOWNLOAD_CONCURRENCY);
+        const duration = ((Date.now() - startTime)/1000).toFixed(1);
+        finishProgress(`✅ Fusion en ${duration}s`);
+        toast(`🔀 Fusion : +${addFile} nouveaux, ${updFile} MAJ`, 'ok');
       }
 
       await loadAll(); renderAll(); updateStorage();
       localStorage.setItem('kd_fb_lastSync', String(Date.now()));
-      setFbProgress(100, 'Terminé !');
-      setFbStatus('on', `Fusion OK — +${addSub} mat., +${addFol} dos., +${addFile} fich., ${updFile} MAJ`);
-      toast(`🔀 Fusion : +${addFile} fichier(s), ${updFile} MAJ`, 'ok');
+      setFbStatus('on', `Fusion OK — +${addSub} mat., +${addFol} dos., +${addFile} fich.`);
       updateFbUI();
-      setTimeout(() => showFbProgress(false), 1200);
     }catch(e){
       console.error('merge', e);
       setFbStatus('err', 'Erreur : ' + e.message);
-      showFbProgress(false);
+      finishProgress('❌ Échec : ' + e.message);
       throw e;
     }
   }
 };
 
-/* ---------- UI helpers Firebase ---------- */
+/* ---------- UI Progress ---------- */
 function setFbStatus(kind, text){
   const box = $('#fbStatus'), txt = $('#fbStatusTxt');
   if(!box) return;
@@ -2082,28 +2319,229 @@ function setFbStatus(kind, text){
   else if(kind === 'err'){ dot.style.background = 'var(--danger)'; label.textContent = 'Erreur cloud'; }
   else { label.textContent = 'Local uniquement'; }
 }
-function showFbProgress(show){
+function showProgress(show, title){
   const w = $('#fbProgressWrap');
   if(!w) return;
   w.hidden = !show;
-  if(!show) setFbProgress(0, 'Préparation…');
+  if(show){
+    $('#fbProgTitle').textContent = title || 'En cours…';
+    $('#fbProgBar').style.width = '0%';
+    $('#fbProgBarWrap').classList.remove('fast');
+    $('#fbProgList').innerHTML = '';
+    $('#fbProgEta').textContent = '—';
+    $('#fbProgStat').textContent = '0 / 0';
+    $('#fbProgLbl').textContent = 'Préparation…';
+    // Force faster animation for fast uploads
+    setTimeout(() => $('#fbProgBarWrap').classList.add('fast'), 100);
+  }
 }
-function setFbProgress(pct, label){
-  const bar = $('#fbProgressBar'), lbl = $('#fbProgressLbl'), pctEl = $('#fbProgressPct');
-  if(!bar) return;
-  bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
-  if(lbl) lbl.textContent = label || '';
-  if(pctEl) pctEl.textContent = Math.round(pct) + '%';
+function setProgress(done, total, phase, label, etaMs){
+  const pct = total > 0 ? Math.round((done / total) * 100) : (phase >= 3 ? 100 : 0);
+  $('#fbProgBar').style.width = pct + '%';
+  $('#fbProgStat').textContent = `${done} / ${total}`;
+  $('#fbProgLbl').textContent = label;
+  $('#fbProgEta').textContent = etaMs ? fmtEta(etaMs) : (done === total && total > 0 ? '✅' : '—');
 }
+function finishProgress(msg){
+  $('#fbProgBar').style.width = '100%';
+  $('#fbProgLbl').textContent = msg;
+  $('#fbProgEta').textContent = '✅';
+  setTimeout(() => { $('#fbProgressWrap').hidden = true; }, 1500);
+}
+function renderFileList(items){
+  const box = $('#fbProgList');
+  box.innerHTML = items.map(it => `
+    <div class="file-row" data-id="${it.id}">
+      <span class="fi">${fileIcon(it.name)}</span>
+      <span class="fn">${escapeHtml(it.name)}</span>
+      <span class="fs">${fmtSize(it.size)}</span>
+      <span class="st wait" data-status>⏳</span>
+    </div>`).join('');
+}
+function updateFileRow(id, status){
+  const row = $(`#fbProgList .file-row[data-id="${id}"] [data-status]`);
+  if(!row) return;
+  row.classList.remove('done','up','err','wait');
+  row.classList.add(status);
+  row.textContent = status === 'done' ? '✅' : status === 'up' ? '⬆️' : status === 'err' ? '⚠️' : '⏳';
+}
+
 function updateFbUI(){
   const c = FB.connected;
   $('#fbConnectedPanel').hidden = !c;
   $('#fbSetupPanel').hidden = c;
   $('#fbSyncIdDisplay').textContent = FB.syncId || '—';
   $('#fbProjectDisplay').textContent = FIREBASE_CONFIG.projectId;
+  $('#fbConcurrencyInfo').textContent = '×' + UPLOAD_CONCURRENCY;
   const last = parseInt(localStorage.getItem('kd_fb_lastSync') || '0', 10);
   $('#fbLastSync').textContent = last ? fmtTime(last) : 'jamais';
   if(FB.syncId) $('#fbSyncId').value = FB.syncId;
+}
+
+/* ============================================================
+   SÉLECTION DE FICHIERS
+   ============================================================ */
+function openFbSelection(){
+  if(!FB.connected) return toast('Connectez-vous d\'abord', 'err');
+  state.fbSelection = new Set();
+  renderTree();
+  updateSelSummary();
+  $('#fbSelectOverlay').classList.add('show');
+}
+
+function renderTree(){
+  const tree = $('#fbTree'); tree.innerHTML = '';
+  const expanded = state._treeExpanded || (state._treeExpanded = new Set());
+
+  state.subjects.forEach(subj => {
+    const subjFiles = state.files.filter(f => f.subjectId === subj.id);
+    if(!subjFiles.length && !state.folders.some(f => f.subjectId === subj.id)) return;
+
+    const isExpanded = expanded.has('s:'+subj.id);
+    const subjNode = document.createElement('div');
+    subjNode.className = 'tree-node lvl-0';
+    subjNode.innerHTML = `
+      <span class="arrow ${isExpanded?'open':''}">▶</span>
+      <span class="ic">${subj.icon}</span>
+      <span class="lb">${escapeHtml(subj.name)}</span>
+      <span class="sz">${subjFiles.length} fichier(s)</span>
+      <div class="chk" data-chk="subj:${subj.id}"></div>`;
+    subjNode.querySelector('.arrow').onclick = (e) => {
+      e.stopPropagation();
+      if(expanded.has('s:'+subj.id)) expanded.delete('s:'+subj.id); else expanded.add('s:'+subj.id);
+      renderTree();
+    };
+    subjNode.querySelector('.lb').onclick = (e) => {
+      e.stopPropagation();
+      if(expanded.has('s:'+subj.id)) expanded.delete('s:'+subj.id); else expanded.add('s:'+subj.id);
+      renderTree();
+    };
+    const chkSubj = subjNode.querySelector('.chk');
+    chkSubj.onclick = (e) => { e.stopPropagation(); toggleAllSubj(subj.id); };
+    tree.appendChild(subjNode);
+
+    if(isExpanded){
+      // Dossiers de premier niveau
+      const rootFolders = state.folders.filter(f => f.subjectId === subj.id && !f.parentId);
+      // Fichiers sans dossier
+      const rootFiles = state.files.filter(f => f.subjectId === subj.id && !f.folderId);
+      rootFiles.forEach(f => tree.appendChild(mkFileNode(f, 1)));
+      rootFolders.forEach(folder => renderFolderNode(tree, folder, 1, expanded));
+
+      // Rafraîchit l'état de la checkbox sujet
+      updateSubjCheckbox(subj.id);
+    }
+  });
+
+  // Refresh tous les états de checkbox
+  refreshAllCheckboxes();
+}
+
+function renderFolderNode(parent, folder, level, expanded){
+  const folderFiles = state.files.filter(f => f.folderId === folder.id);
+  const subFolders = state.folders.filter(f => f.parentId === folder.id);
+  const isExpanded = expanded.has('f:'+folder.id);
+
+  const node = document.createElement('div');
+  node.className = 'tree-node lvl-' + Math.min(level, 2);
+  node.innerHTML = `
+    <span class="arrow ${isExpanded?'open':''}">▶</span>
+    <span class="ic">${folder.icon || '📁'}</span>
+    <span class="lb">${escapeHtml(folder.name)}</span>
+    <span class="sz">${folderFiles.length + subFolders.length} élément(s)</span>
+    <div class="chk" data-chk="folder:${folder.id}"></div>`;
+  node.querySelector('.arrow').onclick = (e) => {
+    e.stopPropagation();
+    if(expanded.has('f:'+folder.id)) expanded.delete('f:'+folder.id); else expanded.add('f:'+folder.id);
+    renderTree();
+  };
+  node.querySelector('.lb').onclick = (e) => {
+    e.stopPropagation();
+    if(expanded.has('f:'+folder.id)) expanded.delete('f:'+folder.id); else expanded.add('f:'+folder.id);
+    renderTree();
+  };
+  const chk = node.querySelector('.chk');
+  chk.onclick = (e) => { e.stopPropagation(); toggleAllFolder(folder.id); };
+  parent.appendChild(node);
+
+  if(isExpanded){
+    folderFiles.forEach(f => parent.appendChild(mkFileNode(f, Math.min(level+1, 2))));
+    subFolders.forEach(sf => renderFolderNode(parent, sf, Math.min(level+1, 2), expanded));
+  }
+}
+
+function mkFileNode(file, level){
+  const node = document.createElement('div');
+  node.className = 'tree-node lvl-' + level;
+  const isSel = state.fbSelection.has(file.id);
+  node.innerHTML = `
+    <span class="arrow" style="visibility:hidden">▶</span>
+    <span class="ic">${fileIcon(file.name, file.type)}</span>
+    <span class="lb">${escapeHtml(file.name)}</span>
+    <span class="sz">${fmtSize(file.size)}</span>
+    <div class="chk ${isSel?'on':''}" data-chk="file:${file.id}"></div>`;
+  const toggle = () => {
+    if(state.fbSelection.has(file.id)) state.fbSelection.delete(file.id);
+    else state.fbSelection.add(file.id);
+    renderTree(); updateSelSummary();
+  };
+  node.onclick = toggle;
+  return node;
+}
+
+function toggleAllSubj(subjId){
+  const files = state.files.filter(f => f.subjectId === subjId);
+  const allSel = files.every(f => state.fbSelection.has(f.id));
+  files.forEach(f => { if(allSel) state.fbSelection.delete(f.id); else state.fbSelection.add(f.id); });
+  renderTree(); updateSelSummary();
+}
+function toggleAllFolder(folderId){
+  const ids = new Set();
+  const collect = fid => {
+    state.files.filter(f => f.folderId === fid).forEach(f => ids.add(f.id));
+    state.folders.filter(f => f.parentId === fid).forEach(sf => collect(sf.id));
+  };
+  collect(folderId);
+  const allSel = [...ids].every(id => state.fbSelection.has(id));
+  ids.forEach(id => { if(allSel) state.fbSelection.delete(id); else state.fbSelection.add(id); });
+  renderTree(); updateSelSummary();
+}
+function updateSubjCheckbox(subjId){
+  const files = state.files.filter(f => f.subjectId === subjId);
+  const chk = $(`[data-chk="subj:${subjId}"]`);
+  if(!chk) return;
+  const selCount = files.filter(f => state.fbSelection.has(f.id)).length;
+  chk.classList.remove('on', 'mid');
+  if(selCount === files.length && files.length > 0) chk.classList.add('on');
+  else if(selCount > 0) chk.classList.add('mid');
+}
+function refreshAllCheckboxes(){
+  // Sujets
+  state.subjects.forEach(s => updateSubjCheckbox(s.id));
+  // Dossiers
+  state.folders.forEach(folder => {
+    const ids = new Set();
+    const collect = fid => {
+      state.files.filter(f => f.folderId === fid).forEach(f => ids.add(f.id));
+      state.folders.filter(f => f.parentId === fid).forEach(sf => collect(sf.id));
+    };
+    collect(folder.id);
+    const chk = $(`[data-chk="folder:${folder.id}"]`);
+    if(!chk) return;
+    const selCount = [...ids].filter(id => state.fbSelection.has(id)).length;
+    chk.classList.remove('on', 'mid');
+    if(selCount === ids.size && ids.size > 0) chk.classList.add('on');
+    else if(selCount > 0) chk.classList.add('mid');
+  });
+}
+function updateSelSummary(){
+  const ids = [...state.fbSelection];
+  const files = state.files.filter(f => state.fbSelection.has(f.id));
+  const size = files.reduce((a, f) => a + (f.size||0), 0);
+  $('#selCount').textContent = ids.length;
+  $('#selSize').textContent = fmtSize(size);
+  $('#fbSendSelected').disabled = ids.length === 0;
+  $('#fbSendSelected').textContent = ids.length ? `⚡ Envoyer la sélection (${ids.length})` : '⚡ Envoyer la sélection';
 }
 
 /* ============================================================
@@ -2238,10 +2676,7 @@ function bindEvents(){
   $('#zipInput').onchange = e => { const f = e.target.files[0]; if(f) importZip(f); e.target.value = ''; };
 
   // Firebase
-  const openFB = () => {
-    updateFbUI();
-    $('#fbOverlay').classList.add('show');
-  };
+  const openFB = () => { updateFbUI(); $('#fbOverlay').classList.add('show'); };
   $('#firebaseBtn').onclick = openFB;
   $('#firebaseBtn2').onclick = openFB;
 
@@ -2253,35 +2688,58 @@ function bindEvents(){
       busy(true);
       await FB.connect(sid);
       busy(false);
-    }catch(e){
-      busy(false);
-      console.error(e);
-      toast('Erreur : ' + e.message, 'err');
-    }
+    }catch(e){ busy(false); console.error(e); toast('Erreur : ' + e.message, 'err'); }
   };
   $('#fbPush').onclick = async () => {
-    if(!confirm('⚠️ Envoyer toutes vos données locales vers le cloud ?\n\nLes données du cloud pour ce code seront REMPLACÉES.')) return;
+    if(!confirm('⚡ Envoyer TOUTES vos données locales vers le cloud ?\n\nLes fichiers déjà à jour seront ignorés automatiquement.')) return;
     busy(true);
-    try{ await FB.push(); }
-    catch(e){ console.error(e); }
+    try{ await FB.push(); }catch(e){ console.error(e); }
+    busy(false);
+  };
+  $('#fbPushSelect').onclick = () => {
+    $('#fbOverlay').classList.remove('show');
+    openFbSelection();
+  };
+  $('#fbSendSelected').onclick = async () => {
+    const ids = new Set(state.fbSelection);
+    if(!ids.size) return;
+    $('#fbSelectOverlay').classList.remove('show');
+    $('#fbOverlay').classList.add('show');
+    busy(true);
+    try{ await FB.pushSelected(ids); }catch(e){ console.error(e); }
     busy(false);
   };
   $('#fbPull').onclick = async () => {
-    if(!confirm('⚠️ Remplacer vos données locales par celles du cloud ?\n\nVos fichiers locaux non synchronisés seront PERDUS.')) return;
+    if(!confirm('⬇️ Remplacer vos données locales par celles du cloud ?\n\nVos fichiers locaux non synchronisés seront PERDUS.')) return;
     busy(true);
-    try{ await FB.pull(); }
-    catch(e){ console.error(e); }
+    try{ await FB.pull(); }catch(e){ console.error(e); }
     busy(false);
   };
   $('#fbMerge').onclick = async () => {
     busy(true);
-    try{ await FB.merge(); }
-    catch(e){ console.error(e); }
+    try{ await FB.merge(); }catch(e){ console.error(e); }
     busy(false);
   };
   $('#fbDisconnect').onclick = () => {
     if(!confirm('Déconnecter du cloud ?\nVos données locales seront conservées.')) return;
     FB.disconnect();
+  };
+
+  // Selection helpers
+  $('#selAll').onclick = () => { state.files.forEach(f => state.fbSelection.add(f.id)); renderTree(); updateSelSummary(); };
+  $('#selNone').onclick = () => { state.fbSelection.clear(); renderTree(); updateSelSummary(); };
+  $('#selNew').onclick = async () => {
+    toast('Analyse du cloud…', 'info');
+    try{
+      const idx = await FB.loadCloudIndex();
+      state.fbSelection.clear();
+      state.files.forEach(f => {
+        const c = idx[f.id];
+        if(!c || c.size !== f.size || (c.updatedAt||0) < (f.updatedAt||0)) state.fbSelection.add(f.id);
+      });
+      renderTree(); updateSelSummary();
+      toast(`${state.fbSelection.size} fichier(s) à synchroniser`, 'ok');
+    }catch(e){ toast('Erreur : ' + e.message, 'err'); }
   };
 
   // Resize
@@ -2296,7 +2754,6 @@ function bindEvents(){
   });
 }
 
-/* ========== WELCOME ========== */
 function setGreeting(){
   const h = new Date().getHours();
   let g = 'Bonjour';
@@ -2311,14 +2768,8 @@ function welcomeMessage(){
     bub.innerHTML = `
       <p>Bonjour <strong>Keryan</strong> 👋</p>
       <p>Assistant propulsé par <strong>Pollinations.ai</strong>.</p>
-      <p>Je peux :</p>
-      <ul>
-        <li>🖼️ <strong>Analyser une image</strong></li>
-        <li>💻 <strong>Générer des fichiers</strong> (bouton 💾 Drive)</li>
-        <li>📎 <strong>Résumer tes cours</strong></li>
-        <li>🧠 <strong>Orchestrateur</strong> pour les demandes complexes</li>
-      </ul>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">☁️ Cloud <strong>imprimante-9382b</strong> prêt — cliquez sur ☁️ pour activer la synchronisation manuelle.</p>`;
+      <p>Cloud <strong>imprimante-9382b</strong> prêt — cliquez sur ☁️ pour synchroniser.</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">⚡ <strong>Upload parallèle ×5</strong> · 🎯 <strong>Sélection granulaire</strong> · 📊 <strong>Barre de progression détaillée</strong></p>`;
   }, 500);
 }
 
@@ -2348,10 +2799,9 @@ function welcomeMessage(){
     welcomeMessage();
     updateFbUI();
 
-    // Charge le syncId mémorisé et auto-connecte
     FB.loadFromStorage();
 
-    console.log('%c🚀 Keryan Drive v7 — Firebase imprimante-9382b', 'color:#2563eb;font-weight:bold');
+    console.log('%c🚀 Keryan Drive v8 — upload parallèle ×' + UPLOAD_CONCURRENCY, 'color:#2563eb;font-weight:bold');
   }catch(e){
     console.error(e);
     document.body.innerHTML = `<div style="padding:40px;font-family:sans-serif"><h2>Erreur</h2><p>${e.message}</p></div>`;
