@@ -81,7 +81,6 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .tool-btn{aspect-ratio:1;border-radius:10px;display:grid;place-items:center;background:var(--panel-2);font-size:15px;color:var(--muted);transition:.18s;position:relative}
 .tool-btn:hover{background:var(--primary-soft);color:var(--primary-2)}
 .tool-btn.on{color:var(--success);background:var(--success-soft)}
-.tool-btn .badge-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--panel)}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
 .topbar{height:var(--topbar-h);flex:0 0 var(--topbar-h);display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--line);z-index:20}
 .menu-btn{display:none;width:40px;height:40px;border-radius:10px;align-items:center;justify-content:center;font-size:18px;color:var(--text-2);flex:0 0 40px;transition:.15s}
@@ -93,8 +92,6 @@ input,textarea,select{font-family:inherit;font-size:14px;color:inherit;-webkit-a
 .spacer{flex:1;min-width:0}
 .icon-btn{width:40px;height:40px;flex:0 0 40px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;color:var(--text-2);transition:.15s;position:relative}
 .icon-btn:hover{background:var(--panel-2)}
-.icon-btn.on{background:var(--primary-soft);color:var(--primary-2)}
-.icon-btn .badge-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--panel)}
 .btn{height:40px;padding:0 16px;border-radius:11px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px;transition:.18s;white-space:nowrap;border:1px solid transparent}
 .btn-primary{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(30,64,175,.28)}
 .btn-primary:hover{background:var(--primary-2)}
@@ -139,7 +136,6 @@ html.dark .card .thumb{background:linear-gradient(135deg,var(--panel-2),rgba(255
 .card.folder .thumb{background:linear-gradient(135deg,var(--accent-soft),var(--accent-2))}
 .card .thumb img{width:100%;height:100%;object-fit:cover}
 .card .thumb .badge{position:absolute;bottom:6px;right:6px;font-size:9px;font-weight:800;letter-spacing:.5px;background:rgba(15,23,42,.85);color:#fff;padding:2px 7px;border-radius:5px;text-transform:uppercase}
-.card .sync-badge{position:absolute;top:6px;left:6px;font-size:10px;background:var(--panel);padding:2px 6px;border-radius:6px;box-shadow:var(--shadow);border:1px solid var(--line)}
 .card .nm{font-size:13px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word;color:var(--text)}
 .card .meta{font-size:10.5px;color:var(--muted);display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:auto}
 .card .meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.4}
@@ -258,7 +254,7 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .modal{background:var(--panel);border-radius:18px;width:100%;max-width:520px;max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:rise .26s cubic-bezier(.2,.9,.3,1.1)}
 @keyframes rise{from{opacity:0;transform:translateY(20px) scale(.97)}}
 .modal.wide{max-width:min(1100px,96vw);height:min(88vh,800px)}
-.modal.lg{max-width:640px}
+.modal.lg{max-width:600px}
 .modal-head{padding:16px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line);flex:0 0 auto}
 .modal-head h2{font-size:15px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .modal-head .x{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:15px;color:var(--muted);transition:.15s;flex:0 0 auto}
@@ -287,8 +283,6 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .viewer-body pre{width:100%;height:100%;margin:0;padding:20px;overflow:auto;background:#0f172a;color:#e2e8f0;font-size:13px;line-height:1.6;font-family:'Consolas','Monaco',monospace;white-space:pre-wrap;word-break:break-word}
 .viewer-body .fallback{text-align:center;padding:40px;color:var(--muted)}
 .viewer-body .fallback .em{font-size:52px;display:block;margin-bottom:12px}
-
-/* FIREBASE UI */
 .fb-status{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--panel-2);margin-bottom:14px;font-size:12.5px;color:var(--muted)}
 .fb-status .dot{width:10px;height:10px;border-radius:50%;background:var(--muted-2);flex:0 0 10px;transition:.2s}
 .fb-status.on .dot{background:var(--success);box-shadow:0 0 0 4px var(--success-soft)}
@@ -298,23 +292,13 @@ details[open] .plan-summary::after{transform:rotate(90deg)}
 .fb-status.syncing{color:var(--accent);background:var(--accent-soft)}
 .fb-status.err{color:var(--danger);background:var(--danger-soft)}
 .fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.fb-step{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px;font-size:12px;line-height:1.7}
-.fb-step .num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:800;margin-right:6px}
-.fb-step strong{color:var(--text);display:inline}
-.fb-step code{background:rgba(30,64,175,.1);padding:1px 6px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11px;color:var(--primary);font-weight:700}
 .fb-progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:12px}
 .fb-progress div{height:100%;background:linear-gradient(90deg,var(--primary-2),var(--accent-2));border-radius:6px;transition:width .3s;width:0}
 .fb-progress-label{font-size:11px;color:var(--muted);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
-.fb-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:var(--panel-2);border-radius:10px;margin-bottom:10px;border:1px solid var(--line)}
-.fb-toggle-row .lbl{font-size:12.5px;font-weight:600;color:var(--text-2)}
-.fb-toggle-row .sub{font-size:11px;color:var(--muted);margin-top:2px}
-.switch{position:relative;width:42px;height:24px;border-radius:12px;background:var(--line-2);cursor:pointer;transition:.2s;flex-shrink:0}
-.switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
-.switch.on{background:var(--primary-2)}
-.switch.on::after{left:21px}
+.fb-info{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:12px;font-size:12px;line-height:1.7;color:var(--muted)}
+.fb-info strong{color:var(--text-2)}
+.fb-info code{background:rgba(30,64,175,.1);padding:1px 6px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11px;color:var(--primary);font-weight:700}
 .info-box{font-size:12px;color:var(--muted);line-height:1.7;background:var(--panel-2);padding:12px 14px;border-radius:11px;border:1px solid var(--line)}
-.info-box strong{color:var(--text-2)}
-.info-box code{background:rgba(30,64,175,.1);padding:1px 5px;border-radius:4px;font-family:'Consolas','Monaco',monospace;font-size:11.5px}
 .toasts{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;z-index:400;align-items:center;pointer-events:none;padding:0 16px;max-width:100%}
 .toast{background:var(--panel);color:var(--text);padding:11px 16px;border-radius:11px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);border:1px solid var(--line);animation:toastIn .25s cubic-bezier(.2,.9,.3,1.2);display:flex;align-items:center;gap:9px;max-width:100%}
 .toast.ok{background:var(--success);color:#fff;border-color:transparent}
@@ -525,7 +509,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
-<!-- ========== MODAL FIREBASE (refait) ========== -->
+<!-- ========== MODAL FIREBASE (sync manuelle) ========== -->
 <div class="overlay" id="fbOverlay">
   <div class="modal lg">
     <div class="modal-head">
@@ -535,7 +519,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <div class="modal-body">
       <div class="fb-status" id="fbStatus">
         <span class="dot"></span>
-        <span id="fbStatusTxt">Non connecté — vos données restent locales</span>
+        <span id="fbStatusTxt">Non connecté</span>
       </div>
 
       <div id="fbProgressWrap" hidden>
@@ -543,84 +527,54 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <div class="fb-progress"><div id="fbProgressBar"></div></div>
       </div>
 
-      <!-- Connecté : panneau de contrôle -->
+      <!-- Connecté : 3 boutons manuels -->
       <div id="fbConnectedPanel" hidden>
-        <div class="fb-toggle-row">
-          <div>
-            <div class="lbl">Synchronisation automatique</div>
-            <div class="sub">Envoie les changements au cloud en arrière-plan</div>
-          </div>
-          <div class="switch" id="fbAutoSync"></div>
-        </div>
-
-        <div class="fb-toggle-row">
-          <div>
-            <div class="lbl">Écoute temps réel</div>
-            <div class="sub">Reçoit les modifications des autres appareils en direct</div>
-          </div>
-          <div class="switch on" id="fbRealtime"></div>
-        </div>
-
-        <div class="info-box" style="margin-bottom:12px">
+        <div class="fb-info">
           <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
             <span><strong>Sync :</strong> <code id="fbSyncIdDisplay">—</code></span>
             <span><strong>Dernière :</strong> <span id="fbLastSync">jamais</span></span>
           </div>
           <div style="margin-top:6px"><strong>Projet :</strong> <span id="fbProjectDisplay">—</span></div>
+          <div style="margin-top:6px;color:var(--muted);font-size:11px">⚙️ Synchronisation <strong>manuelle</strong> : cliquez sur un des boutons ci-dessous pour agir.</div>
         </div>
 
-        <div class="fb-grid">
-          <button class="btn btn-success" id="fbPush" style="justify-content:center">⬆ Envoyer</button>
-          <button class="btn btn-primary" id="fbPull" style="justify-content:center">⬇ Recevoir</button>
-          <button class="btn btn-ghost" id="fbMerge" style="justify-content:center;grid-column:1/-1">🔀 Fusion intelligente</button>
-          <button class="btn btn-danger" id="fbDisconnect" style="justify-content:center;grid-column:1/-1">🚪 Déconnecter</button>
+        <div class="fb-grid" style="grid-template-columns:1fr">
+          <button class="btn btn-success" id="fbPush" style="justify-content:center;height:46px;font-size:13.5px">⬆️ Envoyer tout vers le cloud</button>
+          <button class="btn btn-primary" id="fbPull" style="justify-content:center;height:46px;font-size:13.5px">⬇️ Recevoir tout depuis le cloud</button>
+          <button class="btn btn-ghost" id="fbMerge" style="justify-content:center;height:46px;font-size:13.5px">🔀 Fusion intelligente (local + cloud)</button>
         </div>
+
+        <div class="fb-info" style="margin-top:12px">
+          <strong>⬆ Envoyer</strong> remplace les données du cloud par vos données locales.<br>
+          <strong>⬇ Recevoir</strong> remplace vos données locales par celles du cloud.<br>
+          <strong>🔀 Fusion</strong> garde le meilleur des deux (la version la plus récente de chaque fichier), sans rien perdre.
+        </div>
+
+        <button class="btn btn-danger" id="fbDisconnect" style="width:100%;justify-content:center;margin-top:12px">🚪 Se déconnecter</button>
       </div>
 
-      <!-- Non connecté : assistant de configuration -->
+      <!-- Non connecté : juste le code de sync -->
       <div id="fbSetupPanel">
-        <div class="fb-step">
-          <span class="num">1</span>
-          <strong>Créez un projet Firebase</strong> sur
-          <a href="https://console.firebase.google.com" target="_blank" rel="noopener" style="color:var(--primary-2);font-weight:700">console.firebase.google.com</a>
-        </div>
-
-        <div class="fb-step">
-          <span class="num">2</span>
-          <strong>Activez Firestore</strong> et <strong>Storage</strong> dans le menu de gauche.<br>
-          <span style="color:var(--muted);font-size:11.5px">Storage permet d'envoyer des fichiers volumineux (sans la limite 1 Mo de Firestore).</span>
-        </div>
-
-        <div class="fb-step">
-          <span class="num">3</span>
-          <strong>Règles de test</strong> (à affiner plus tard) :<br>
-          <code>allow read, write: if true;</code> — à coller dans Firestore → Règles <b>et</b> Storage → Règles.
-        </div>
-
-        <div class="fb-step">
-          <span class="num">4</span>
-          <strong>Ajoutez une app Web</strong> (icône <code>&lt;/&gt;</code>) dans les paramètres du projet, puis copiez le bloc <code>firebaseConfig</code> ci-dessous.
-        </div>
-
-        <div class="field">
-          <label>Configuration Firebase (collez le bloc JS)</label>
-          <textarea id="fbConfig" rows="7" placeholder='const firebaseConfig = {
-  apiKey: "AIzaSy…",
-  authDomain: "mon-projet.firebaseapp.com",
-  projectId: "mon-projet",
-  storageBucket: "mon-projet.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234:web:abcd"
-};'></textarea>
+        <div class="fb-info">
+          <strong>📦 Projet :</strong> <code>imprimante-9382b</code><br>
+          <strong>🔐 Config :</strong> déjà intégrée ✓<br>
+          <span style="color:var(--muted);font-size:11px">Il vous reste juste à choisir un code de synchronisation personnel.</span>
         </div>
 
         <div class="field">
           <label>Code de synchronisation (inventez un code perso)</label>
           <input type="text" id="fbSyncId" placeholder="keryan-2026" maxlength="40">
-          <div style="font-size:11px;color:var(--muted);margin-top:5px">Même code = mêmes données sur tous vos appareils. Choisissez quelque chose d'unique.</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:5px">Même code = mêmes données sur tous vos appareils. Choisissez quelque chose d'unique et mémorisable.</div>
         </div>
 
         <button class="btn btn-primary" id="fbConnect" style="width:100%;justify-content:center;height:46px;font-size:14px">🔌 Se connecter au cloud</button>
+
+        <div class="fb-info" style="margin-top:14px">
+          <strong>💡 Première utilisation ?</strong><br>
+          1. Vérifiez dans la console Firebase que <b>Firestore</b> et <b>Storage</b> sont activés.<br>
+          2. Règles de test : <code>allow read, write: if true;</code><br>
+          3. Entrez un code de sync et cliquez sur <b>Se connecter</b>.
+        </div>
       </div>
     </div>
     <div class="modal-foot">
@@ -638,11 +592,22 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 <script>
 'use strict';
 /* ============================================================
-   KERYAN DRIVE — v6 (Firebase robuste)
+   KERYAN DRIVE — v7 (Firebase préconfiguré, sync manuelle)
    ============================================================ */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+
+/* -------- FIREBASE CONFIG (préconfigurée) -------- */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDVWb2b1pH5aPDNZmC4pMDABdjxn7s1l1g",
+  authDomain: "imprimante-9382b.firebaseapp.com",
+  databaseURL: "https://imprimante-9382b-default-rtdb.firebaseio.com",
+  projectId: "imprimante-9382b",
+  storageBucket: "imprimante-9382b.firebasestorage.app",
+  messagingSenderId: "1088858811310",
+  appId: "1:1088858811310:web:96e0b588dce4eb1310b63f"
+};
 
 function fmtSize(b){
   if(b == null) return '—';
@@ -661,11 +626,10 @@ function fmtDate(ts){
 }
 function fmtTime(ts){
   if(!ts) return 'jamais';
-  const d = new Date(ts);
   const diff = Date.now() - ts;
   if(diff < 60000) return "à l'instant";
   if(diff < 3600000) return `il y a ${Math.floor(diff/60000)} min`;
-  return d.toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  return new Date(ts).toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
 }
 function ext(n){ const i = n.lastIndexOf('.'); return i >= 0 ? n.slice(i+1).toLowerCase() : ''; }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -703,7 +667,7 @@ function toast(msg, kind=''){
 function busy(on){ $('#busy').classList.toggle('show', on); }
 
 /* ========== DB ========== */
-const DB_NAME = 'KeryanDriveV6', DB_VER = 1;
+const DB_NAME = 'KeryanDriveV7', DB_VER = 1;
 let db = null;
 function openDB(){
   return new Promise((res, rej) => {
@@ -814,7 +778,6 @@ function countFilesInFolder(folderId){
 }
 function countFilesInSubject(sid){ return state.files.filter(f => f.subjectId === sid).length; }
 
-/* ========== RENDER SIDEBAR ========== */
 function renderSubjects(){
   const nav = $('#subjectsNav'); nav.innerHTML = '';
   const mk = (id, icon, name, count, color, del) => {
@@ -841,7 +804,6 @@ function renderSubjects(){
         await DB.del('subjects', id);
         if(state.current === id){ state.current = 'all'; state.currentFolder = null; }
         await loadAll(); renderAll(); updateStorage();
-        FB.onLocalChange('delete-subject', id);
         toast('Matière supprimée', 'ok');
       });
     }
@@ -865,7 +827,6 @@ function renderBreadcrumb(){
     bc.appendChild(b);
   };
   const sep = () => { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; bc.appendChild(s); };
-
   add('🏠 Racine', () => { state.current = 'all'; state.currentFolder = null; renderAll(); }, state.current === 'all' && !state.currentFolder);
   if(state.current === 'fav'){ sep(); add('⭐ Favoris', null, true); }
   else if(state.current !== 'all'){
@@ -915,7 +876,6 @@ function renderFiles(){
     if(subj) title = `${subj.icon} ${escapeHtml(subj.name)}`;
   }
   $('#crumbTitle').innerHTML = title;
-
   const canCreateFolder = state.current !== 'all' && state.current !== 'fav';
   $('#newFolderBtn').hidden = !canCreateFolder;
 
@@ -951,7 +911,6 @@ function renderFiles(){
       if(!confirm(`Supprimer « ${f.name} » et tout son contenu ?`)) return;
       await deleteFolderRecursive(f.id);
       await loadAll(); renderAll(); updateStorage();
-      FB.onLocalChange('delete-folder', f.id);
       toast('Dossier supprimé', 'ok');
     });
     card.querySelector('.mv').addEventListener('click', e => { e.stopPropagation(); openMoveFolder(f.id); });
@@ -991,7 +950,6 @@ function renderFiles(){
       e.stopPropagation();
       const nf = await DB.get('files', f.id); nf.fav = !nf.fav;
       await DB.put('files', nf); await loadAll(); renderAll();
-      FB.onLocalChange('update-file', nf);
     });
     card.querySelector('.dl').addEventListener('click', e => { e.stopPropagation(); downloadFile(f.id); });
     card.querySelector('.sh').addEventListener('click', e => { e.stopPropagation(); shareFile(f.id); });
@@ -1057,7 +1015,6 @@ async function importFiles(fileList){
       const meta = { id, name:file.name, type:file.type||'', size:file.size, date:Date.now(), subjectId, folderId, fav:false, updatedAt:Date.now() };
       await DB.put('files', meta);
       n++;
-      FB.onLocalChange('add-file', meta);
     }catch(err){ console.error(err); toast('Erreur : '+file.name, 'err'); }
   }
   await loadAll(); renderAll(); updateStorage();
@@ -1074,14 +1031,11 @@ async function addFileToDrive(name, blobOrText, mime){
   const meta = { id, name, type: mime||blob.type||'application/octet-stream', size: blob.size, date: Date.now(), subjectId, folderId, fav:false, updatedAt:Date.now() };
   await DB.put('files', meta);
   await loadAll(); renderAll(); updateStorage();
-  FB.onLocalChange('add-file', meta);
   toast(`💾 ${name} enregistré`, 'ok');
 }
 async function deleteFile(id){
-  const f = state.files.find(x => x.id === id);
   await DB.del('files', id); await DB.del('blobs', id);
   await loadAll(); renderAll(); updateStorage();
-  FB.onLocalChange('delete-file', id, f);
   toast('Fichier supprimé', 'ok');
 }
 async function downloadFile(id){
@@ -1115,7 +1069,7 @@ async function exportZip(){
   try{
     const zip = new JSZip();
     const meta = {
-      app:'Keryan Drive', version:6, exportedAt:Date.now(),
+      app:'Keryan Drive', version:7, exportedAt:Date.now(),
       subjects: state.subjects, folders: state.folders,
       files: state.files.map(f => ({
         id:f.id, name:f.name, type:f.type, size:f.size,
@@ -1145,7 +1099,6 @@ async function importZip(file){
     const metaFile = zip.file('metadata.json');
     if(!metaFile) throw new Error('metadata.json introuvable');
     const meta = JSON.parse(await metaFile.async('string'));
-
     const existing = await DB.all('subjects');
     const nameToId = {};
     existing.forEach(s => nameToId[s.name.toLowerCase()] = s.id);
@@ -1242,7 +1195,6 @@ function openMove(fileId){
       f.subjectId = s.id; f.folderId = null; f.updatedAt = Date.now();
       await DB.put('files', f);
       await loadAll(); renderAll();
-      FB.onLocalChange('update-file', f);
       $('#moveOverlay').classList.remove('show');
       toast('Déplacé vers '+s.name, 'ok');
     }));
@@ -1252,7 +1204,6 @@ function openMove(fileId){
         f.subjectId = folder.subjectId; f.folderId = folder.id; f.updatedAt = Date.now();
         await DB.put('files', f);
         await loadAll(); renderAll();
-        FB.onLocalChange('update-file', f);
         $('#moveOverlay').classList.remove('show');
         toast('Déplacé vers '+folder.name, 'ok');
       }));
@@ -1284,7 +1235,6 @@ function openMoveFolder(folderId){
     f.parentId = null; f.updatedAt = Date.now();
     await DB.put('folders', f);
     await loadAll(); renderAll();
-    FB.onLocalChange('update-folder', f);
     $('#moveOverlay').classList.remove('show');
     toast('Déplacé', 'ok');
   }));
@@ -1296,7 +1246,6 @@ function openMoveFolder(folderId){
         fd.parentId = f.id; fd.updatedAt = Date.now();
         await DB.put('folders', fd);
         await loadAll(); renderAll();
-        FB.onLocalChange('update-folder', fd);
         $('#moveOverlay').classList.remove('show');
         toast('Déplacé', 'ok');
       }));
@@ -1339,7 +1288,6 @@ async function createSubject(){
   await loadAll();
   state.current = subj.id; state.currentFolder = null;
   renderAll();
-  FB.onLocalChange('add-subject', subj);
   $('#subjectOverlay').classList.remove('show');
   $('#subjName').value = '';
   toast('Matière créée', 'ok');
@@ -1367,7 +1315,6 @@ async function createFolder(){
   };
   await DB.put('folders', folder);
   await loadAll(); renderAll();
-  FB.onLocalChange('add-folder', folder);
   $('#folderOverlay').classList.remove('show');
   $('#folderName').value = '';
   toast('Dossier créé', 'ok');
@@ -1493,7 +1440,7 @@ function buildModelSelect(el, currentValue){
 }
 function getModelName(id){ return TEXT_MODELS.find(m => m.id === id)?.name || id; }
 
-/* ========== AI ========== */
+/* ========== AI STREAM ========== */
 async function* streamChat(messages, model, opts = {}){
   const body = {
     model, messages, stream:true, private:true, referrer:'keryan-drive',
@@ -1881,64 +1828,47 @@ function renderSuggestions(){
 }
 
 /* ============================================================
-   FIREBASE — v6 (Firestore + Storage + temps réel + auto-sync)
+   FIREBASE — v7 (config préconfigurée, sync 100% MANUELLE)
    ============================================================ */
 const FB = {
   app: null, db: null, storage: null, fs: null, st: null,
-  connected: false, config: null, syncId: null,
-  autoSync: false, realtime: true,
-  unsubscribes: [],
-  pendingOps: [],
-  syncTimer: null,
-  lastSyncAt: 0,
+  connected: false, syncId: null,
 
-  // ---------- init depuis localStorage ----------
+  // Charge le syncId mémorisé + auto-connecte
   loadFromStorage(){
     try{
-      const cfgRaw = localStorage.getItem('kd_fb_config');
       const sid = localStorage.getItem('kd_fb_sync');
-      const auto = localStorage.getItem('kd_fb_auto') === '1';
-      const rt = localStorage.getItem('kd_fb_rt') !== '0';
-      this.autoSync = auto;
-      this.realtime = rt;
-      if(cfgRaw && sid){
-        this.config = JSON.parse(cfgRaw);
+      if(sid){
         this.syncId = sid;
-        setTimeout(() => this.connect(this.config, sid, true), 500);
+        setTimeout(() => this.connect(sid, true), 500);
       }
     }catch(e){ console.warn('FB load', e); }
   },
 
-  // ---------- connexion ----------
-  async connect(config, syncId, silent = false){
-    // Nettoyage éventuel
+  async connect(syncId, silent = false){
     await this.disconnect(true);
     setFbStatus('syncing', 'Connexion à Firebase…');
     try{
       const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
       const fs = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
       const st = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js');
-      this.app = initializeApp(config, 'kd-'+Date.now());
+      this.app = initializeApp(FIREBASE_CONFIG, 'kd-'+Date.now());
       this.db = fs.getFirestore(this.app);
       this.storage = st.getStorage(this.app);
       this.fs = fs; this.st = st;
-      this.config = config; this.syncId = syncId;
+      this.syncId = syncId;
       this.connected = true;
 
-      localStorage.setItem('kd_fb_config', JSON.stringify(config));
       localStorage.setItem('kd_fb_sync', syncId);
 
-      // Vérification accès Firestore
+      // Test de lecture Firestore
       const testCol = fs.collection(this.db, 'keryan_drive', syncId, 'meta');
       await fs.getDocs(testCol).catch(err => {
-        if(err.code === 'permission-denied') throw new Error('Permission refusée — vérifiez les règles Firestore (allow read, write: if true)');
-        // On tolère les autres erreurs (collection vide = OK)
+        if(err.code === 'permission-denied') throw new Error('Permission refusée — vérifiez les règles Firestore');
       });
 
       setFbStatus('on', `Connecté — sync « ${syncId} »`);
       updateFbUI();
-      if(this.realtime) this.startRealtime();
-
       if(!silent) toast('☁️ Connecté à Firebase', 'ok');
     }catch(e){
       console.error('FB connect', e);
@@ -1948,37 +1878,29 @@ const FB = {
     }
   },
 
-  // ---------- déconnexion ----------
   async disconnect(silent = false){
-    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
-    this.unsubscribes = [];
-    if(this.syncTimer){ clearTimeout(this.syncTimer); this.syncTimer = null; }
     this.connected = false;
     this.app = null; this.db = null; this.storage = null; this.fs = null; this.st = null;
     if(!silent){
-      localStorage.removeItem('kd_fb_config');
       localStorage.removeItem('kd_fb_sync');
-      this.config = null; this.syncId = null;
-      setFbStatus('', 'Non connecté — vos données restent locales');
+      this.syncId = null;
+      setFbStatus('', 'Non connecté');
       updateFbUI();
       toast('Déconnecté', 'info');
     }
   },
 
-  // ---------- helpers Firestore ----------
   _ref(collectionName){ return this.fs.collection(this.db, 'keryan_drive', this.syncId, collectionName); },
-  _doc(collectionName, id){ return this.fs.doc(this.db, 'keryan_drive', this.syncId, collectionName, id); },
   _storageRef(fileId){ return this.st.ref(this.storage, `keryan_drive/${this.syncId}/files/${fileId}`); },
 
-  // ---------- push complet ----------
-  async push(progressCb){
+  async push(){
     if(!this.connected) throw new Error('Non connecté');
     setFbStatus('syncing', 'Envoi vers le cloud…');
     showFbProgress(true);
     try{
-      const { doc, setDoc, getDocs, writeBatch, deleteDoc } = this.fs;
+      const { doc, setDoc, getDocs, writeBatch } = this.fs;
 
-      // 1. Nettoyer les anciennes données Firestore
+      // 1. Nettoyage Firestore
       setFbProgress(5, 'Nettoyage du cloud…');
       for(const col of ['subjects','folders','files']){
         const snap = await getDocs(this._ref(col));
@@ -1986,60 +1908,42 @@ const FB = {
         snap.forEach(d => batch.delete(d.ref));
         await batch.commit();
       }
-      // Supprimer les anciens blobs Storage (via listing)
+      // Nettoyage Storage
       try{
         const listRef = this.st.ref(this.storage, `keryan_drive/${this.syncId}/files`);
         const res = await this.st.listAll(listRef);
         for(const item of res.items){ await this.st.deleteObject(item); }
       }catch(e){ console.warn('storage cleanup', e); }
 
-      // 2. Envoyer sujets + dossiers + metadata fichiers (Firestore)
-      const totalItems = state.subjects.length + state.folders.length + state.files.length;
+      // 2. Envoi des métadonnées
+      const total = state.subjects.length + state.folders.length + state.files.length;
       let done = 0;
-      const updateProgress = (msg) => {
-        done++;
-        const pct = 10 + Math.round((done/totalItems) * 50);
-        setFbProgress(pct, msg);
-      };
+      const step = (msg) => { done++; setFbProgress(10 + Math.round((done/Math.max(total,1))*50), msg); };
 
-      setFbProgress(10, 'Envoi des métadonnées…');
+      setFbProgress(10, 'Métadonnées…');
       let batch = writeBatch(this.db); let ops = 0;
       const flush = async () => { if(ops){ await batch.commit(); batch = writeBatch(this.db); ops = 0; } };
-
-      for(const s of state.subjects){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; if(ops>=400) await flush(); updateProgress('Matières…'); }
-      for(const f of state.folders){ batch.set(doc(this._ref('folders'), f.id), f); ops++; if(ops>=400) await flush(); updateProgress('Dossiers…'); }
-      for(const f of state.files){
-        // On stocke la metadata sans les données binaires
-        const meta = { ...f };
-        delete meta.data;
-        batch.set(doc(this._ref('files'), f.id), meta);
-        ops++; if(ops>=400) await flush();
-        updateProgress('Fichiers…');
-      }
+      for(const s of state.subjects){ batch.set(doc(this._ref('subjects'), s.id), s); ops++; if(ops>=400) await flush(); step('Matières…'); }
+      for(const f of state.folders){ batch.set(doc(this._ref('folders'), f.id), f); ops++; if(ops>=400) await flush(); step('Dossiers…'); }
+      for(const f of state.files){ const meta = {...f}; delete meta.data; batch.set(doc(this._ref('files'), f.id), meta); ops++; if(ops>=400) await flush(); step('Fichiers…'); }
       await flush();
 
-      // 3. Envoyer les blobs dans Storage
+      // 3. Envoi des blobs
       const totalFiles = state.files.length;
-      let uploaded = 0;
+      let up = 0;
       for(const f of state.files){
         try{
           const rec = await DB.get('blobs', f.id);
-          if(!rec || !rec.blob){ uploaded++; continue; }
-          const ref = this._storageRef(f.id);
-          await this.st.uploadBytes(ref, rec.blob, { contentType: f.type || 'application/octet-stream' });
-        }catch(e){
-          console.warn('upload fail', f.name, e);
-        }
-        uploaded++;
-        const pct = 60 + Math.round((uploaded/Math.max(totalFiles,1)) * 40);
-        setFbProgress(pct, `Upload ${uploaded}/${totalFiles}…`);
+          if(rec && rec.blob){
+            await this.st.uploadBytes(this._storageRef(f.id), rec.blob, { contentType: f.type || 'application/octet-stream' });
+          }
+        }catch(e){ console.warn('upload fail', f.name, e); }
+        up++;
+        setFbProgress(60 + Math.round((up/Math.max(totalFiles,1))*40), `Upload ${up}/${totalFiles}…`);
       }
 
-      // 4. Marquer la date de sync
-      await setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now(), by: 'push' });
-
-      this.lastSyncAt = Date.now();
-      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      await setDoc(doc(this._ref('meta'), 'info'), { lastSync: Date.now() });
+      localStorage.setItem('kd_fb_lastSync', String(Date.now()));
       setFbProgress(100, 'Terminé !');
       setFbStatus('on', `Dernière synchro : à l'instant`);
       toast('☁️ Envoyé au cloud', 'ok');
@@ -2047,60 +1951,49 @@ const FB = {
       setTimeout(() => showFbProgress(false), 900);
     }catch(e){
       console.error('push', e);
-      setFbStatus('err', 'Erreur d\'envoi : ' + e.message);
+      setFbStatus('err', 'Erreur : ' + e.message);
       showFbProgress(false);
       throw e;
     }
   },
 
-  // ---------- pull complet ----------
-  async pull(progressCb){
+  async pull(){
     if(!this.connected) throw new Error('Non connecté');
-    setFbStatus('syncing', 'Réception depuis le cloud…');
+    setFbStatus('syncing', 'Réception…');
     showFbProgress(true);
     try{
       setFbProgress(5, 'Lecture des métadonnées…');
-      const [sSnap, foSnap, fiSnap] = await Promise.all([
+      const [sS, fS, fiS] = await Promise.all([
         this.fs.getDocs(this._ref('subjects')),
         this.fs.getDocs(this._ref('folders')),
         this.fs.getDocs(this._ref('files'))
       ]);
 
-      // Effacer local
       setFbProgress(15, 'Nettoyage local…');
       await DB.clear('subjects'); await DB.clear('folders'); await DB.clear('files'); await DB.clear('blobs');
 
-      // Réinsérer
       setFbProgress(30, 'Import des métadonnées…');
-      for(const d of sSnap.docs) await DB.put('subjects', d.data());
-      for(const d of foSnap.docs) await DB.put('folders', d.data());
-      for(const d of fiSnap.docs) await DB.put('files', d.data());
+      for(const d of sS.docs) await DB.put('subjects', d.data());
+      for(const d of fS.docs) await DB.put('folders', d.data());
+      for(const d of fiS.docs) await DB.put('files', d.data());
 
-      // Télécharger les blobs
-      const total = fiSnap.size;
+      const total = fiS.size;
       let dl = 0;
       setFbProgress(50, `Téléchargement 0/${total}…`);
-      for(const d of fiSnap.docs){
+      for(const d of fiS.docs){
         const meta = d.data();
         try{
           const ref = this._storageRef(meta.id);
           const url = await this.st.getDownloadURL(ref);
           const res = await fetch(url);
-          if(res.ok){
-            const blob = await res.blob();
-            await DB.put('blobs', { id: meta.id, blob });
-          }
-        }catch(e){
-          console.warn('download fail', meta.name, e);
-        }
+          if(res.ok) await DB.put('blobs', { id: meta.id, blob: await res.blob() });
+        }catch(e){ console.warn('dl fail', meta.name, e); }
         dl++;
-        const pct = 50 + Math.round((dl/Math.max(total,1)) * 45);
-        setFbProgress(pct, `Téléchargement ${dl}/${total}…`);
+        setFbProgress(50 + Math.round((dl/Math.max(total,1))*45), `Téléchargement ${dl}/${total}…`);
       }
 
       await loadAll(); renderAll(); updateStorage();
-      this.lastSyncAt = Date.now();
-      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      localStorage.setItem('kd_fb_lastSync', String(Date.now()));
       setFbProgress(100, 'Terminé !');
       setFbStatus('on', `Dernière synchro : à l'instant`);
       toast('☁️ Reçu du cloud', 'ok');
@@ -2108,64 +2001,46 @@ const FB = {
       setTimeout(() => showFbProgress(false), 900);
     }catch(e){
       console.error('pull', e);
-      setFbStatus('err', 'Erreur de réception : ' + e.message);
+      setFbStatus('err', 'Erreur : ' + e.message);
       showFbProgress(false);
       throw e;
     }
   },
 
-  // ---------- merge intelligent ----------
   async merge(){
     if(!this.connected) throw new Error('Non connecté');
-    setFbStatus('syncing', 'Fusion en cours…');
+    setFbStatus('syncing', 'Fusion…');
     showFbProgress(true);
     try{
       setFbProgress(10, 'Analyse des données cloud…');
-      const [sSnap, foSnap, fiSnap] = await Promise.all([
+      const [sS, fS, fiS] = await Promise.all([
         this.fs.getDocs(this._ref('subjects')),
         this.fs.getDocs(this._ref('folders')),
         this.fs.getDocs(this._ref('files'))
       ]);
-      const cloudSubs = sSnap.docs.map(d => d.data());
-      const cloudFols = foSnap.docs.map(d => d.data());
-      const cloudFiles = fiSnap.docs.map(d => d.data());
+      const cloudSubs = sS.docs.map(d => d.data());
+      const cloudFols = fS.docs.map(d => d.data());
+      const cloudFiles = fiS.docs.map(d => d.data());
 
       const localSubIds = new Set(state.subjects.map(s => s.id));
       const localFolIds = new Set(state.folders.map(f => f.id));
-      const localFileIds = new Set(state.files.map(f => f.id));
       const localFileMap = Object.fromEntries(state.files.map(f => [f.id, f]));
 
-      let addedSub = 0, addedFol = 0, addedFile = 0, updatedFile = 0;
+      let addSub = 0, addFol = 0, addFile = 0, updFile = 0;
 
-      // Sujets : ajouter ceux manquants localement
-      for(const s of cloudSubs){
-        if(!localSubIds.has(s.id)){ await DB.put('subjects', s); addedSub++; }
-      }
-      // Dossiers
-      for(const f of cloudFols){
-        if(!localFolIds.has(f.id)){ await DB.put('folders', f); addedFol++; }
-      }
-      // Fichiers : comparer par updatedAt
+      for(const s of cloudSubs){ if(!localSubIds.has(s.id)){ await DB.put('subjects', s); addSub++; } }
+      for(const f of cloudFols){ if(!localFolIds.has(f.id)){ await DB.put('folders', f); addFol++; } }
       for(const cf of cloudFiles){
-        if(!localFileIds.has(cf.id)){
-          await DB.put('files', cf);
-          addedFile++;
-        } else {
-          const lf = localFileMap[cf.id];
-          if((cf.updatedAt||0) > (lf.updatedAt||0)){
-            await DB.put('files', cf);
-            updatedFile++;
-          }
-        }
+        const lf = localFileMap[cf.id];
+        if(!lf){ await DB.put('files', cf); addFile++; }
+        else if((cf.updatedAt||0) > (lf.updatedAt||0)){ await DB.put('files', cf); updFile++; }
       }
 
-      // Télécharger les blobs manquants
       setFbProgress(40, 'Téléchargement des blobs manquants…');
-      const cloudFileIds = cloudFiles.map(f => f.id);
       let dl = 0;
       for(const cf of cloudFiles){
         const local = await DB.get('blobs', cf.id);
-        if(local) { dl++; continue; }
+        if(local){ dl++; continue; }
         try{
           const ref = this._storageRef(cf.id);
           const url = await this.st.getDownloadURL(ref);
@@ -2173,157 +2048,39 @@ const FB = {
           if(res.ok) await DB.put('blobs', { id: cf.id, blob: await res.blob() });
         }catch(e){ console.warn('merge dl', cf.name, e); }
         dl++;
-        const pct = 40 + Math.round((dl/Math.max(cloudFileIds.length,1)) * 55);
-        setFbProgress(pct, `Téléchargement ${dl}/${cloudFileIds.length}…`);
+        setFbProgress(40 + Math.round((dl/Math.max(cloudFiles.length,1))*55), `Téléchargement ${dl}/${cloudFiles.length}…`);
       }
 
       await loadAll(); renderAll(); updateStorage();
-      this.lastSyncAt = Date.now();
-      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
+      localStorage.setItem('kd_fb_lastSync', String(Date.now()));
       setFbProgress(100, 'Terminé !');
-      setFbStatus('on', `Fusion OK — +${addedSub} mat., +${addedFol} dos., +${addedFile} fich., ${updatedFile} mis à jour`);
-      toast(`🔀 Fusion : +${addedFile} fichier(s)`, 'ok');
+      setFbStatus('on', `Fusion OK — +${addSub} mat., +${addFol} dos., +${addFile} fich., ${updFile} MAJ`);
+      toast(`🔀 Fusion : +${addFile} fichier(s), ${updFile} MAJ`, 'ok');
       updateFbUI();
       setTimeout(() => showFbProgress(false), 1200);
     }catch(e){
       console.error('merge', e);
-      setFbStatus('err', 'Erreur fusion : ' + e.message);
+      setFbStatus('err', 'Erreur : ' + e.message);
       showFbProgress(false);
       throw e;
     }
-  },
-
-  // ---------- temps réel ----------
-  startRealtime(){
-    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
-    this.unsubscribes = [];
-    if(!this.realtime) return;
-
-    const onSnap = (snap, collectionName) => {
-      let changed = false;
-      snap.docChanges().forEach(async change => {
-        if(change.type === 'removed') return; // on ignore les suppressions distantes pour éviter les pertes
-        const data = change.doc.data();
-        try{
-          if(collectionName === 'files'){
-            const local = await DB.get('files', data.id);
-            if(!local || (data.updatedAt||0) > (local.updatedAt||0)){
-              await DB.put('files', data);
-              changed = true;
-            }
-          } else if(collectionName === 'folders'){
-            const local = await DB.get('folders', data.id);
-            if(!local || (data.updatedAt||0) > (local.updatedAt||0)){
-              await DB.put('folders', data);
-              changed = true;
-            }
-          } else if(collectionName === 'subjects'){
-            const local = await DB.get('subjects', data.id);
-            if(!local){ await DB.put('subjects', data); changed = true; }
-          }
-        }catch(e){ console.warn('rt', e); }
-      });
-      if(changed){
-        loadAll().then(() => { renderAll(); updateStorage(); });
-      }
-    };
-
-    try{
-      this.unsubscribes.push(this.fs.onSnapshot(this._ref('subjects'), s => onSnap(s, 'subjects')));
-      this.unsubscribes.push(this.fs.onSnapshot(this._ref('folders'), s => onSnap(s, 'folders')));
-      this.unsubscribes.push(this.fs.onSnapshot(this._ref('files'), s => onSnap(s, 'files')));
-    }catch(e){ console.warn('rt setup', e); }
-  },
-  stopRealtime(){
-    this.unsubscribes.forEach(u => { try{ u(); }catch(e){} });
-    this.unsubscribes = [];
-  },
-
-  // ---------- auto-sync : appelé sur chaque modif locale ----------
-  onLocalChange(type, idOrObj, extra){
-    if(!this.connected) return;
-    if(this.autoSync){
-      this.pendingOps.push({ type, idOrObj, extra, ts: Date.now() });
-      if(this.syncTimer) clearTimeout(this.syncTimer);
-      // Debounce 3 secondes
-      this.syncTimer = setTimeout(() => this.flushPending(), 3000);
-    }
-  },
-
-  async flushPending(){
-    if(!this.pendingOps.length) return;
-    const ops = [...this.pendingOps];
-    this.pendingOps = [];
-    this.syncTimer = null;
-    setFbStatus('syncing', `Auto-sync (${ops.length} op)…`);
-    try{
-      const { doc, setDoc, deleteDoc } = this.fs;
-      for(const op of ops){
-        try{
-          if(op.type === 'add-subject' || op.type === 'update-subject'){
-            await setDoc(doc(this._ref('subjects'), op.idOrObj.id), op.idOrObj);
-          } else if(op.type === 'delete-subject'){
-            await deleteDoc(doc(this._ref('subjects'), op.idOrObj));
-          } else if(op.type === 'add-folder' || op.type === 'update-folder'){
-            await setDoc(doc(this._ref('folders'), op.idOrObj.id), op.idOrObj);
-          } else if(op.type === 'delete-folder'){
-            await deleteDoc(doc(this._ref('folders'), op.idOrObj));
-          } else if(op.type === 'add-file' || op.type === 'update-file'){
-            const meta = { ...op.idOrObj };
-            delete meta.data;
-            await setDoc(doc(this._ref('files'), meta.id), meta);
-            const rec = await DB.get('blobs', meta.id);
-            if(rec && rec.blob){
-              const ref = this._storageRef(meta.id);
-              await this.st.uploadBytes(ref, rec.blob, { contentType: meta.type || 'application/octet-stream' });
-            }
-          } else if(op.type === 'delete-file'){
-            await deleteDoc(doc(this._ref('files'), op.idOrObj));
-            try{ await this.st.deleteObject(this._storageRef(op.idOrObj)); }catch(e){}
-          }
-        }catch(e){ console.warn('flush op', op.type, e); }
-      }
-      this.lastSyncAt = Date.now();
-      localStorage.setItem('kd_fb_lastSync', String(this.lastSyncAt));
-      setFbStatus('on', `Synchronisé (${fmtTime(this.lastSyncAt)})`);
-      updateFbUI();
-    }catch(e){
-      setFbStatus('err', 'Erreur auto-sync : ' + e.message);
-    }
-  },
-
-  // ---------- helpers UI ----------
-  setAutoSync(on){
-    this.autoSync = on;
-    localStorage.setItem('kd_fb_auto', on ? '1' : '0');
-    updateFbUI();
-    if(!on && this.syncTimer){ clearTimeout(this.syncTimer); this.syncTimer = null; this.pendingOps = []; }
-    if(on && this.pendingOps.length) this.flushPending();
-  },
-  setRealtime(on){
-    this.realtime = on;
-    localStorage.setItem('kd_fb_rt', on ? '1' : '0');
-    if(on && this.connected) this.startRealtime();
-    else this.stopRealtime();
-    updateFbUI();
   }
 };
 
 /* ---------- UI helpers Firebase ---------- */
 function setFbStatus(kind, text){
-  const box = $('#fbStatus');
-  const txt = $('#fbStatusTxt');
+  const box = $('#fbStatus'), txt = $('#fbStatusTxt');
   if(!box) return;
-  box.classList.remove('on', 'syncing', 'err');
+  box.classList.remove('on','syncing','err');
   if(kind) box.classList.add(kind);
   txt.textContent = text;
-  // Sidebar sync indicator
   const dot = $('#syncDot'), label = $('#syncLabel');
   dot.classList.remove('on', 'sync');
+  dot.style.background = '';
   if(kind === 'on'){ dot.classList.add('on'); label.textContent = 'Cloud connecté'; }
   else if(kind === 'syncing'){ dot.classList.add('sync'); label.textContent = 'Synchronisation…'; }
   else if(kind === 'err'){ dot.style.background = 'var(--danger)'; label.textContent = 'Erreur cloud'; }
-  else { dot.style.background = ''; label.textContent = 'Local uniquement'; }
+  else { label.textContent = 'Local uniquement'; }
 }
 function showFbProgress(show){
   const w = $('#fbProgressWrap');
@@ -2339,37 +2096,14 @@ function setFbProgress(pct, label){
   if(pctEl) pctEl.textContent = Math.round(pct) + '%';
 }
 function updateFbUI(){
-  const connected = FB.connected;
-  $('#fbConnectedPanel').hidden = !connected;
-  $('#fbSetupPanel').hidden = connected;
-  $('#fbAutoSync').classList.toggle('on', FB.autoSync);
-  $('#fbRealtime').classList.toggle('on', FB.realtime);
+  const c = FB.connected;
+  $('#fbConnectedPanel').hidden = !c;
+  $('#fbSetupPanel').hidden = c;
   $('#fbSyncIdDisplay').textContent = FB.syncId || '—';
-  $('#fbProjectDisplay').textContent = FB.config?.projectId || '—';
+  $('#fbProjectDisplay').textContent = FIREBASE_CONFIG.projectId;
   const last = parseInt(localStorage.getItem('kd_fb_lastSync') || '0', 10);
   $('#fbLastSync').textContent = last ? fmtTime(last) : 'jamais';
-}
-function parseFirebaseConfig(text){
-  // Accepte :
-  // 1. Un objet JS : const firebaseConfig = { apiKey: "...", ... };
-  // 2. Un JSON pur
-  // 3. Un copier-coller de la console
-  const cleaned = text.trim();
-  // Essaie JSON d'abord
-  try{ const j = JSON.parse(cleaned); if(j.apiKey) return j; }catch(e){}
-  // Sinon, extrait l'objet entre la première { et la dernière }
-  const s = cleaned.indexOf('{'), e = cleaned.lastIndexOf('}');
-  if(s < 0 || e < 0) throw new Error('Config invalide — collez le bloc firebaseConfig entier');
-  const obj = cleaned.slice(s, e + 1);
-  try{
-    // eslint-disable-next-line no-new-func
-    const parsed = Function('"use strict";return (' + obj + ')')();
-    if(!parsed.apiKey) throw new Error('apiKey manquant');
-    if(!parsed.projectId) throw new Error('projectId manquant');
-    return parsed;
-  }catch(e){
-    throw new Error('Impossible de lire la configuration : ' + e.message);
-  }
+  if(FB.syncId) $('#fbSyncId').value = FB.syncId;
 }
 
 /* ============================================================
@@ -2442,7 +2176,6 @@ function bindEvents(){
     e.target.value = '';
   };
 
-  // Réglages IA
   $('#aiSettingsBtn').onclick = () => {
     buildModelSelect($('#setModelSel'), state.model);
     buildModelSelect($('#setOrchModel'), state.orchModel);
@@ -2473,7 +2206,6 @@ function bindEvents(){
     toast('Réglages enregistrés', 'ok');
   };
 
-  // Matières + dossiers
   $('#addSubjectBtn').onclick = () => {
     $('#subjectOverlay').classList.add('show');
     setTimeout(() => $('#subjName').focus(), 200);
@@ -2497,7 +2229,6 @@ function bindEvents(){
   $('#viewerDl').onclick = () => currentViewerId && downloadFile(currentViewerId);
   $('#viewerSh').onclick = () => currentViewerId && shareFile(currentViewerId);
 
-  // ZIP
   const doExport = () => exportZip();
   const doImport = () => $('#zipInput').click();
   $('#exportZipBtn').onclick = doExport;
@@ -2508,8 +2239,6 @@ function bindEvents(){
 
   // Firebase
   const openFB = () => {
-    if(FB.config) $('#fbConfig').value = JSON.stringify(FB.config, null, 2);
-    if(FB.syncId) $('#fbSyncId').value = FB.syncId;
     updateFbUI();
     $('#fbOverlay').classList.add('show');
   };
@@ -2518,14 +2247,12 @@ function bindEvents(){
 
   $('#fbConnect').onclick = async () => {
     try{
-      const cfg = parseFirebaseConfig($('#fbConfig').value);
       const sid = $('#fbSyncId').value.trim();
       if(!sid) return toast('Donnez un code de synchronisation', 'err');
-      if(sid.length < 4) return toast('Le code de sync doit faire au moins 4 caractères', 'err');
+      if(sid.length < 4) return toast('Le code doit faire au moins 4 caractères', 'err');
       busy(true);
-      await FB.connect(cfg, sid);
+      await FB.connect(sid);
       busy(false);
-      updateFbUI();
     }catch(e){
       busy(false);
       console.error(e);
@@ -2533,14 +2260,14 @@ function bindEvents(){
     }
   };
   $('#fbPush').onclick = async () => {
-    if(!confirm('Envoyer toutes vos données locales vers le cloud ?\nLes données du cloud pour ce code seront remplacées.')) return;
+    if(!confirm('⚠️ Envoyer toutes vos données locales vers le cloud ?\n\nLes données du cloud pour ce code seront REMPLACÉES.')) return;
     busy(true);
     try{ await FB.push(); }
     catch(e){ console.error(e); }
     busy(false);
   };
   $('#fbPull').onclick = async () => {
-    if(!confirm('Remplacer vos données locales par celles du cloud ?')) return;
+    if(!confirm('⚠️ Remplacer vos données locales par celles du cloud ?\n\nVos fichiers locaux non synchronisés seront PERDUS.')) return;
     busy(true);
     try{ await FB.pull(); }
     catch(e){ console.error(e); }
@@ -2556,8 +2283,6 @@ function bindEvents(){
     if(!confirm('Déconnecter du cloud ?\nVos données locales seront conservées.')) return;
     FB.disconnect();
   };
-  $('#fbAutoSync').onclick = () => FB.setAutoSync(!FB.autoSync);
-  $('#fbRealtime').onclick = () => FB.setRealtime(!FB.realtime);
 
   // Resize
   let lastW = window.innerWidth;
@@ -2568,14 +2293,6 @@ function bindEvents(){
       if(!state.aiOpen) document.body.classList.remove('drawer-open');
     }
     lastW = w;
-  });
-
-  // Sauvegarde de la dernière sync pour éviter les fermetures de page pendant l'upload
-  window.addEventListener('beforeunload', e => {
-    if(FB.connected && FB.autoSync && FB.pendingOps.length){
-      e.preventDefault();
-      e.returnValue = '';
-    }
   });
 }
 
@@ -2593,15 +2310,15 @@ function welcomeMessage(){
     const { bub } = addMsg('ai', '');
     bub.innerHTML = `
       <p>Bonjour <strong>Keryan</strong> 👋</p>
-      <p>Assistant propulsé par <strong>Pollinations.ai</strong> — gratuit, sans clé.</p>
+      <p>Assistant propulsé par <strong>Pollinations.ai</strong>.</p>
       <p>Je peux :</p>
       <ul>
-        <li>🖼️ <strong>Analyser une image</strong> (bouton 🖼️ Image)</li>
-        <li>💻 <strong>Générer des fichiers</strong> — clique sur 💾 Drive</li>
-        <li>📎 <strong>Résumer tes cours</strong> (contexte auto)</li>
+        <li>🖼️ <strong>Analyser une image</strong></li>
+        <li>💻 <strong>Générer des fichiers</strong> (bouton 💾 Drive)</li>
+        <li>📎 <strong>Résumer tes cours</strong></li>
         <li>🧠 <strong>Orchestrateur</strong> pour les demandes complexes</li>
       </ul>
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">☁️ Bouton <strong>Cloud</strong> en haut (ou dans la barre latérale) pour synchroniser entre appareils.</p>`;
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">☁️ Cloud <strong>imprimante-9382b</strong> prêt — cliquez sur ☁️ pour activer la synchronisation manuelle.</p>`;
   }, 500);
 }
 
@@ -2631,10 +2348,10 @@ function welcomeMessage(){
     welcomeMessage();
     updateFbUI();
 
-    // Charger la config Firebase existante
+    // Charge le syncId mémorisé et auto-connecte
     FB.loadFromStorage();
 
-    console.log('%c🚀 Keryan Drive v6 + Firebase', 'color:#2563eb;font-weight:bold');
+    console.log('%c🚀 Keryan Drive v7 — Firebase imprimante-9382b', 'color:#2563eb;font-weight:bold');
   }catch(e){
     console.error(e);
     document.body.innerHTML = `<div style="padding:40px;font-family:sans-serif"><h2>Erreur</h2><p>${e.message}</p></div>`;
